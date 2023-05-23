@@ -11,7 +11,7 @@ import model.vo.Endereco;
 
 public class EnderecoDAO {
 	
-//	private int id;
+//	  private int id;
 //    private String rua;
 //    private String numero;
 //    private String bairro;
@@ -133,7 +133,7 @@ public class EnderecoDAO {
 	 */
 	private Endereco converterDeResultSetParaEntidade(ResultSet resultado) throws SQLException {
 		Endereco enderecoConsultado = new Endereco();
-		enderecoConsultado.setId(resultado.getInt("idEndereco"));
+		enderecoConsultado.setId(resultado.getInt("id"));
 		enderecoConsultado.setRua(resultado.getString("rua"));
 		enderecoConsultado.setNumero(resultado.getString("numero"));
 		enderecoConsultado.setBairro(resultado.getString("bairro"));
