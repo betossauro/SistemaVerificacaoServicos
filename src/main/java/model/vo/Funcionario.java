@@ -83,11 +83,11 @@ public class Funcionario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public TipoCargo getTipoServico() {
+    public TipoCargo getTipoCargo() {
         return tipoCargo;
     }
 
-    public void setTipoServico(TipoCargo tipoCargo) {
+    public void setTipoCargo(TipoCargo tipoCargo) {
         this.tipoCargo = tipoCargo;
     }
 

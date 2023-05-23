@@ -16,13 +16,13 @@ public enum TipoCargo {
         return valor;
     }
 
-    public static TipoCargo getTipoServicoPorValor(int valor) {
-        TipoCargo tipoServico = null;
+    public static TipoCargo getTipoCargoPorValor(int valor) {
+        TipoCargo tipoCargo = null;
         for (TipoCargo elemento : TipoCargo.values()) {
             if (elemento.getValor() == valor) {
-                tipoServico = elemento;
+                tipoCargo = elemento;
             }
         }
-        return tipoServico;
+        return tipoCargo;
     }
 }
