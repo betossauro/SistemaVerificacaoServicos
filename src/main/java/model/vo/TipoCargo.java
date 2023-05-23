@@ -1,6 +1,6 @@
 package model.vo;
 
-public enum TipoServico {
+public enum TipoCargo {
 
     FAXINA (1),
     ZELADORIA (2),
@@ -8,7 +8,7 @@ public enum TipoServico {
 
     private int valor;
 
-    private TipoServico(int valor) {
+    private TipoCargo(int valor) {
         this.valor = valor;
     }
 
@@ -16,9 +16,9 @@ public enum TipoServico {
         return valor;
     }
 
-    public static TipoServico getTipoServicoPorValor(int valor) {
-        TipoServico tipoServico = null;
-        for (TipoServico elemento : TipoServico.values()) {
+    public static TipoCargo getTipoServicoPorValor(int valor) {
+        TipoCargo tipoServico = null;
+        for (TipoCargo elemento : TipoCargo.values()) {
             if (elemento.getValor() == valor) {
                 tipoServico = elemento;
             }

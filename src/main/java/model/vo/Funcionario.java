@@ -11,9 +11,9 @@ public class Funcionario {
     private Date dtnascimento;
     private String ctps;
     private TipoUsuario tipoUsuario;
-    private TipoServico tipoServico;
+    private TipoCargo tipoCargo;
 
-    public Funcionario(int id, String nome, String cpf, String telefone, Date dtnascimento, String ctps, TipoUsuario tipoUsuario, TipoServico tipoServico) {
+    public Funcionario(int id, String nome, String cpf, String telefone, Date dtnascimento, String ctps, TipoUsuario tipoUsuario, TipoCargo tipoCargo) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -21,7 +21,7 @@ public class Funcionario {
         this.dtnascimento = dtnascimento;
         this.ctps = ctps;
         this.tipoUsuario = tipoUsuario;
-        this.tipoServico = tipoServico;
+        this.tipoCargo = tipoCargo;
     }
 
     public Funcionario() {
@@ -83,12 +83,12 @@ public class Funcionario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public TipoServico getTipoServico() {
-        return tipoServico;
+    public TipoCargo getTipoServico() {
+        return tipoCargo;
     }
 
-    public void setTipoServico(TipoServico tipoServico) {
-        this.tipoServico = tipoServico;
+    public void setTipoServico(TipoCargo tipoCargo) {
+        this.tipoCargo = tipoCargo;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class Funcionario {
                 ", dtnascimento=" + dtnascimento +
                 ", ctps='" + ctps + '\'' +
                 ", tipoUsuario=" + tipoUsuario +
-                ", tipoServico=" + tipoServico +
+                ", tipoCargo=" + tipoCargo +
                 '}';
     }
 }
