@@ -4,12 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.vo.Atividade;
-import model.vo.Ocorrencia;
 import model.vo.Prestacao;
 
 public class PrestacaoDAO {
