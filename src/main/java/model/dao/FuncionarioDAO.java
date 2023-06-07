@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,5 +163,29 @@ public class FuncionarioDAO {
 		funcionarioBuscado.setTipoUsuario(TipoUsuario.getTipoUsuarioPorValor(resultado.getInt("idtipousuario")));
 		funcionarioBuscado.setTipoCargo(TipoCargo.getTipoCargoPorValor(resultado.getInt("idtipocargo")));
 		return funcionarioBuscado;
+	}
+
+	public int contarFuncionariosQueTrabalhamNoEndereco(int id) {
+		int totalFuncionariosDoEnderecoBuscado = 0;
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT COUNT(ID) FROM FUNCIONARIO " + " WHERE ID = ? ";
+
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			query.setInt(1, id);
+			ResultSet resultado = query.executeQuery();
+
+			if (resultado.next()) {
+				totalFuncionariosDoEnderecoBuscado = resultado.getInt(1);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro contar os funcionarios que trabalham em um endereço. \n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+
+		return totalFuncionariosDoEnderecoBuscado;
 	}
 }
