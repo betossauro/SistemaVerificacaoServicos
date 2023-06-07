@@ -2,17 +2,17 @@ package model.bo;
 
 import java.util.List;
 
-import model.dao.SalaDAO;
-import model.vo.Sala;
+import model.dao.PrestacaoDAO;
+import model.vo.Prestacao;
 
-public class SalaBO {
-private SalaDAO dao = new SalaDAO();
+public class PrestacaoBO {
+private PrestacaoDAO dao = new PrestacaoDAO();
 	
-	public Sala inserir(Sala novoServico) {
+	public Prestacao inserir(Prestacao novoServico) {
 		return dao.inserir(novoServico);
 	}
 
-	public boolean atualizar(Sala servicoAlterado) {
+	public boolean atualizar(Prestacao servicoAlterado) {
 		return dao.atualizar(servicoAlterado);
 	}
 
@@ -28,11 +28,11 @@ private SalaDAO dao = new SalaDAO();
 	 * return dao.excluir(id); }
 	 */
 
-	public Sala consultarPorId(int id) {
+	public Prestacao consultarPorId(int id) {
 		return dao.consultarPorId(id);
 	}
 
-	public List<Sala> consultarTodos() {
+	public List<Prestacao> consultarTodos() {
 		return dao.consultarTodos();
 	}
 }
