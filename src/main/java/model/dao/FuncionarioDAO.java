@@ -15,7 +15,7 @@ public class FuncionarioDAO {
 
 	public Funcionario inserir(Funcionario novoFuncionario) {
 		Connection conexao = Banco.getConnection();
-		String sql = " INSERT INTO FUNCIONARIO (NOME, CPF, TELEFONE, DATANASCIMENTO, CTPS, MATRICULA, SENHA, DATTDESLIGAMENTO, IDTIPOCARGO, IDTIPOUSUARIO) "
+		String sql = " INSERT INTO FUNCIONARIO (NOME, CPF, TELEFONE, DATANASCIMENTO, CTPS, MATRICULA, SENHA, DATADESLIGAMENTO, IDTIPOCARGO, IDTIPOUSUARIO) "
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
 		PreparedStatement query = Banco.getPreparedStatementWithPk(conexao, sql);
 		try {
@@ -69,7 +69,7 @@ public class FuncionarioDAO {
 	public Funcionario consultarPorId(int id) {
 		Funcionario funcionarioBuscado = null;
 		Connection conexao = Banco.getConnection();
-		String sql = " SELECT * FROM CLIENTE " + " WHERE ID = ? ";
+		String sql = " SELECT * FROM FUNCIONARIO " + " WHERE ID = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			query.setInt(1, id);
@@ -78,7 +78,7 @@ public class FuncionarioDAO {
 				funcionarioBuscado = montarFuncionarioComResultadoDoBanco(resultado);
 			}
 		} catch (SQLException erro) {
-			System.out.println("Erro ao buscar cliente com id" + id + "\nCausa: " + erro.getMessage());
+			System.out.println("Erro ao buscar funcionário com id" + id + "\nCausa: " + erro.getMessage());
 		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
