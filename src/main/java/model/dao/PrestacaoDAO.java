@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.dto.PrestacaoDTO;
 import model.vo.Prestacao;
 
 public class PrestacaoDAO {
@@ -96,6 +97,39 @@ public class PrestacaoDAO {
 		}
 		return prestacoes;
 	}
+	
+	public List<PrestacaoDTO> consultarTodosDTO() {
+		List<PrestacaoDTO> prestacoesDTO = new ArrayList<PrestacaoDTO>();
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT f.nome as nomeFuncionario, tc.descricao as nomeCargo "
+				+ " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC  "
+				+ " WHERE P.idFuncionario = F.id"
+				+ " AND TC.id = F.IDTIPOCARGO "
+				+ "";
+		
+		//TODO Incluir filtros do seletor
+
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+			while (resultado.next()) {
+				PrestacaoDTO dto = new PrestacaoDTO();
+				
+				dto.setNomeFuncionario(resultado.getString("nomeFuncionario"));
+				dto.setNomeCargo(resultado.getString("nomeCargo"));
+				
+				prestacoesDTO.add(dto);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro ao buscar todas as prestações. \n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return prestacoesDTO;
+	}
+	
 
 	private Prestacao montarPrestacaoComResultadoDoBanco(ResultSet resultado) throws SQLException {
 		Prestacao prestacaoBuscada = new Prestacao();
