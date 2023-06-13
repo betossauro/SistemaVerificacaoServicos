@@ -3,7 +3,9 @@ package model.bo;
 import java.util.List;
 
 import model.dao.FuncionarioDAO;
+import model.dto.FuncionarioDTO;
 import model.exception.CampoInvalidoException;
+import model.gerador.GeradorPlanilhas;
 import model.vo.Funcionario;
 
 public class FuncionarioBO {
@@ -46,5 +48,10 @@ public class FuncionarioBO {
 
 	public List<Funcionario> consultarTodos() {
 		return dao.consultarTodos();
+	}
+
+	public String gerarPlanilhaFuncionarios(List<FuncionarioDTO> funcionarios, String caminho) {
+		GeradorPlanilhas gerador = new GeradorPlanilhas();
+		return gerador.geradorPlanilhaFuncionarios(funcionarios, caminho);
 	}
 }

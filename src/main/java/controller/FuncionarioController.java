@@ -3,20 +3,20 @@ package controller;
 import java.util.List;
 
 import model.bo.FuncionarioBO;
+import model.dto.FuncionarioDTO;
 import model.exception.CampoInvalidoException;
+import model.gerador.GeradorPlanilhas;
 import model.vo.Funcionario;
 
 public class FuncionarioController {
 	private FuncionarioBO bo = new FuncionarioBO();
 
-	public Funcionario inserir(Funcionario novoFuncionario)
-			throws CampoInvalidoException {
+	public Funcionario inserir(Funcionario novoFuncionario) throws CampoInvalidoException {
 		this.validarCamposObrigatorios(novoFuncionario);
 		return bo.inserir(novoFuncionario);
 	}
 
-	public boolean atualizar(Funcionario funcionarioAlterado)
-			throws CampoInvalidoException {
+	public boolean atualizar(Funcionario funcionarioAlterado) throws CampoInvalidoException {
 		this.validarCamposObrigatorios(funcionarioAlterado);
 		return bo.atualizar(funcionarioAlterado);
 	}
@@ -26,7 +26,7 @@ public class FuncionarioController {
 		if (f.getNome() == null || f.getNome().trim().length() < 2) {
 			mensagemValidacao += "Nome inválido! \n";
 		}
-			mensagemValidacao += validarCpf(f);
+		mensagemValidacao += validarCpf(f);
 
 		if (!mensagemValidacao.isEmpty()) {
 			throw new CampoInvalidoException(mensagemValidacao);
@@ -61,5 +61,15 @@ public class FuncionarioController {
 	public List<Funcionario> consultarTodos() {
 		return bo.consultarTodos();
 	}
-}
 
+	public String gerarPlanilhaFuncionarios(List<FuncionarioDTO> funcionarios, String caminho)
+			throws CampoInvalidoException {
+
+		if (funcionarios == null || caminho == null || caminho.trim().isEmpty()) {
+			throw new CampoInvalidoException("Preencha todos os campos");
+		}
+
+		GeradorPlanilhas gerador = new GeradorPlanilhas();
+		return gerador.geradorPlanilhaFuncionarios(funcionarios, caminho);
+	}
+}
