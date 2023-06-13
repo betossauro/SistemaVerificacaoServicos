@@ -69,12 +69,12 @@ public class PainelConsultaGerencia extends JPanel {
 			novaLinhaDaTabela[0] = f.getNome();
 			novaLinhaDaTabela[1] = f.getTipoCargo();
 			novaLinhaDaTabela[2] = f.getDataDesligamento();
-			novaLinhaDaTabela[3] = f.
-			novaLinhaDaTabela[4] = f.
-			novaLinhaDaTabela[5] = f.
-			novaLinhaDaTabela[6] = f.
-
-			model.addRow(novaLinhaDaTabela);
+//			novaLinhaDaTabela[3] = f.
+//			novaLinhaDaTabela[4] = f.
+//			novaLinhaDaTabela[5] = f.
+//			novaLinhaDaTabela[6] = f.
+//
+//			model.addRow(novaLinhaDaTabela);
 		}
 	}
 
