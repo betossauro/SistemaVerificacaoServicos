@@ -72,6 +72,7 @@ public class PainelConsultaGerencia extends JPanel {
 		// TODO
 		for (PrestacaoDTO p : prestacoes) {
 			Object[] novaLinhaDaTabela = new Object[7];
+
 			novaLinhaDaTabela[0] = p.getNomeFuncionario();
 			novaLinhaDaTabela[1] = p.getNomeCargo();
 			novaLinhaDaTabela[2] = p.getSala();
