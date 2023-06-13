@@ -7,13 +7,20 @@ import com.github.lgooddatepicker.components.DateTimePicker;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import controller.FuncionarioController;
+import controller.PrestacaoServicoController;
+import model.dto.FuncionarioDTO;
+import model.dto.PrestacaoDTO;
+import model.exception.CampoInvalidoException;
 import model.vo.Funcionario;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 
 import java.awt.Font;
 import java.util.ArrayList;
@@ -46,11 +53,12 @@ public class PainelConsultaFuncionario extends JPanel {
 	private DatePickerSettings dateSettings;
 	private JButton btnPegarData;
 
-	private ArrayList<Funcionario> funcionarios;
+	private ArrayList<FuncionarioDTO> funcionarios;
 	private String[] nomesColunas = { "Nome", "Cargo", "Data de desligamento" };
 	private JRadioButton rdbtnAtivos;
 	private JRadioButton rdbtnInativos;
 	private JLabel lblStatus;
+	private FuncionarioController controller;
 
 	private void limparTabelaConsulta() {
 		tblConsultaGerencia.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
@@ -62,10 +70,10 @@ public class PainelConsultaFuncionario extends JPanel {
 		// TODO
 		DefaultTableModel model = (DefaultTableModel) tblConsultaGerencia.getModel();
 
-		for (Funcionario f : funcionarios) {
+		for (FuncionarioDTO f : funcionarios) {
 			Object[] novaLinhaDaTabela = new Object[3];
 			novaLinhaDaTabela[0] = f.getNome();
-			novaLinhaDaTabela[1] = f.getTipoCargo();
+			novaLinhaDaTabela[1] = f.getCargo();
 			novaLinhaDaTabela[2] = f.getDataDesligamento();
 
 			model.addRow(novaLinhaDaTabela);
@@ -168,6 +176,24 @@ public class PainelConsultaFuncionario extends JPanel {
 		add(btnAvancar, "30, 30");
 
 		btnExportar = new JButton("Exportar Excel");
+		controller = new FuncionarioController();
+		btnExportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser janelaSelecaoDestinoArquivo = new JFileChooser();
+				janelaSelecaoDestinoArquivo.setDialogTitle("Selecione um destino para a planilha...");
+				int opcaoSelecionada = janelaSelecaoDestinoArquivo.showSaveDialog(null);
+				if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminhoEscolhido = janelaSelecaoDestinoArquivo.getSelectedFile().getAbsolutePath();
+					String resultado;
+					try {
+						resultado = controller.gerarPlanilhaFuncionarios(funcionarios, caminhoEscolhido);
+						JOptionPane.showMessageDialog(null, resultado);
+					} catch (CampoInvalidoException e1) {
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			}
+		});
 		btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(btnExportar, "18, 36, default, fill");
 

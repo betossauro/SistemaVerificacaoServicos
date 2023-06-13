@@ -16,6 +16,7 @@ private SalaDAO dao = new SalaDAO();
 		return dao.atualizar(servicoAlterado);
 	}
 
+	//REGRA 1: Exclusão lógica (UPDATE) (setando como indisponível para sempre)
 	/*
 	 * public boolean excluir(int id) throws CampoInvalidoException { FuncionarioDAO
 	 * funcionarioDAO = new FuncionarioDAO();
@@ -35,4 +36,6 @@ private SalaDAO dao = new SalaDAO();
 	public List<Sala> consultarTodos() {
 		return dao.consultarTodos();
 	}
+	
+	//REGRA 2: Quando registrada uma nova sala ela está automaticamente disponivel
 }
