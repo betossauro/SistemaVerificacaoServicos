@@ -15,6 +15,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 public class PainelCadastroUsuario extends JPanel {
+	private JTextField textField;
 
 	/**
 	 * Create the panel.
@@ -121,6 +122,10 @@ public class PainelCadastroUsuario extends JPanel {
 		
 		textField = new JTextField();
 		add(textField, "18, 10, 3, 1, fill, default");
+		textField.setColumns(10);
+		
+		textField = new JTextField();
+		add(textField, "18, 10, fill, default");
 		textField.setColumns(10);
 		
 		JLabel lblCPF = new JLabel("CPF:");
