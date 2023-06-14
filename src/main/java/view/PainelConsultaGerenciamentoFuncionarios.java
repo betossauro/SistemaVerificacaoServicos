@@ -93,6 +93,8 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(30dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(93dlu;default):grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),
@@ -173,22 +175,30 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		dateSettings.setAllowKeyboardEditing(false);
 		
 		lblPeriodoServico = new JLabel("Período de Serviço");
-		lblPeriodoServico.setFont(new Font("Tahoma", Font.BOLD, 14));
-		add(lblPeriodoServico, "16, 6, 3, 1");
+		lblPeriodoServico.setFont(new Font("Tahoma", Font.BOLD, 16));
+		add(lblPeriodoServico, "16, 6, 5, 1");
 		
 		lblDataInicial = new JLabel("De:");
 		lblDataInicial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblDataInicial, "16, 10");
 		
 		dataInicial = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
-		add(dataInicial, "18, 10, fill, fill");
+		dataInicial.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataInicial.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataInicial.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataInicial.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(dataInicial, "20, 10, fill, fill");
 		
 		lblDataFinal = new JLabel("Até:");
 		lblDataFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblDataFinal, "32, 10");
+		add(lblDataFinal, "34, 10");
 		
 		dataFinal = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
-		add(dataFinal, "34, 10, fill, fill");
+		dataFinal.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataFinal.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataFinal.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataFinal.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(dataFinal, "36, 10, fill, fill");
 		
 		lblSala = new JLabel("Sala:");
 		lblSala.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -196,37 +206,37 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		add(textField, "18, 14, fill, fill");
+		add(textField, "20, 14, fill, fill");
 		
 				btnFiltrar = new JButton("Filtrar");
-				btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				add(btnFiltrar, "34, 18, default, fill");
+				btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				add(btnFiltrar, "36, 18, default, fill");
 
 		tblConsultaGerencia = new JTable();
-		add(tblConsultaGerencia, "18, 24, 17, 1, fill, fill");
+		add(tblConsultaGerencia, "20, 24, 17, 1, fill, fill");
 
 		btnRetroceder = new JButton("<");
-		add(btnRetroceder, "22, 26");
+		add(btnRetroceder, "24, 26");
 
 		lblPagina = new JLabel("1/1");
 		lblPagina.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPagina, "24, 26, 5, 1");
+		add(lblPagina, "26, 26, 5, 1");
 
 		btnAvancar = new JButton(">");
-		add(btnAvancar, "30, 26");
+		add(btnAvancar, "32, 26");
 
 		btnExportar = new JButton("Exportar Excel");
-		btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(btnExportar, "18, 32, default, fill");
+		btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnExportar, "20, 32, default, fill");
 
 		btnEditar = new JButton("Editar");
-		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(btnEditar, "21, 32, 10, 1, default, fill");
+		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnEditar, "23, 32, 10, 1, default, fill");
 
 		btnVoltar = new JButton("Voltar");
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(btnVoltar, "34, 32, default, fill");
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnVoltar, "36, 32, default, fill");
 
 	}
 	
