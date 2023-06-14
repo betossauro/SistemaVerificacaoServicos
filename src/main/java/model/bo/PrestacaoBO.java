@@ -18,18 +18,6 @@ public class PrestacaoBO {
 		return dao.atualizar(servicoAlterado);
 	}
 
-	/*
-	 * public boolean excluir(int id) throws CampoInvalidoException { FuncionarioDAO
-	 * funcionarioDAO = new FuncionarioDAO();
-	 * 
-	 * if (funcionarioDAO.contarFuncionariosQueTrabalhamNoEndereco(id) > 0) { throw
-	 * new
-	 * CampoInvalidoException("Endereço não pode ser excluído, pois possui funcionário(s) associado(s)"
-	 * ); }
-	 * 
-	 * return dao.excluir(id); }
-	 */
-
 	public Prestacao consultarPorId(int id) {
 		return dao.consultarPorId(id);
 	}
@@ -47,4 +35,14 @@ public class PrestacaoBO {
 		GeradorPlanilhas gerador = new GeradorPlanilhas();
 		return gerador.geradorPlanilhaServicoVisuFuncionario(prestacoes, caminho);
 	}
+	
+	//REGRA 1: Caso o funcionário esqueça de registrar a hora de início, é possível 
+	//selecionar manualmente o dia e hora em que o serviço foi realizado.
+
+	//REGRA 2: O serviço só poderá ser registrado quando todos os campos forem 
+	//preenchidos com ao menos uma opção.
+
+	
+	//REGRA 3: O funcionário poderá registrar posteriormente o serviço apenas no 
+	//intervalo do mesmo dia em que este serviço foi realizado. 
 }
