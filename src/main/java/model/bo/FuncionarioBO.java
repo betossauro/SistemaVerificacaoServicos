@@ -54,4 +54,17 @@ public class FuncionarioBO {
 		GeradorPlanilhas gerador = new GeradorPlanilhas();
 		return gerador.geradorPlanilhaFuncionarios(funcionarios, caminho);
 	}
+	
+	//REGRA 1: Apenas a gerência pode cadastrar novos funcionários e visualizar os 
+	//serviços prestados por todos os funcionários.
+
+	//REGRA 2: Diante do login e senha do usuário o sistema vincula-o ao seu devido 
+	//cargo, dando acesso apenas às suas respectivas funcionalidades
+	
+	//REGRA 3: Apenas a gerência poderá excluir informações sobre funcionários (demissão).
+
+	//REGRA 4: Apenas a gerência poderá alterar/atualizar dados cadastrados dos funcionários.
+
+	//REGRA 5: No caso de demissão, o usuário sofrerá exclusão lógica, tendo seu cargo 
+	//alterado para inativo e perdendo todos os níveis de acesso ao sistema.
 }
