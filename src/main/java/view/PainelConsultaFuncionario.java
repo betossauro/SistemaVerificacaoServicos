@@ -234,25 +234,25 @@ public class PainelConsultaFuncionario extends JPanel {
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblPagina, "28, 30");
 		controller = new FuncionarioController();
-		
-				btnExportar = new JButton("Exportar Excel");
-				btnExportar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						JFileChooser janelaSelecaoDestinoArquivo = new JFileChooser();
-						janelaSelecaoDestinoArquivo.setDialogTitle("Selecione um destino para a planilha...");
-						int opcaoSelecionada = janelaSelecaoDestinoArquivo.showSaveDialog(null);
-						if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
-							String caminhoEscolhido = janelaSelecaoDestinoArquivo.getSelectedFile().getAbsolutePath();
-							String resultado;
-							try {
-								resultado = controller.gerarPlanilhaFuncionarios(funcionarios, caminhoEscolhido);
-								JOptionPane.showMessageDialog(null, resultado);
-							} catch (CampoInvalidoException e1) {
-								JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
-							}
-						}
+		btnExportar = new JButton("Exportar Excel");
+		btnExportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser janelaSelecaoDestinoArquivo = new JFileChooser();
+				janelaSelecaoDestinoArquivo.setDialogTitle("Selecione um destino para a planilha...");
+				int opcaoSelecionada = janelaSelecaoDestinoArquivo.showSaveDialog(null);
+				if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminhoEscolhido = janelaSelecaoDestinoArquivo.getSelectedFile().getAbsolutePath();
+					String resultado;
+					try {
+						resultado = controller.gerarPlanilhaFuncionarios(funcionarios, caminhoEscolhido);
+						JOptionPane.showMessageDialog(null, resultado);
+					} catch (CampoInvalidoException e1) {
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 					}
-				});
+				}
+
+			}
+		});
 				
 						btnAvancar = new JButton(">");
 						add(btnAvancar, "30, 30");

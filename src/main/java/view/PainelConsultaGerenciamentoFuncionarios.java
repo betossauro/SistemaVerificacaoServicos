@@ -243,7 +243,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 					String caminhoEscolhido = janelaSelecaoDestinoArquivo.getSelectedFile().getAbsolutePath();
 					String resultado;
 					try {
-						resultado = controller.gerarPlanilhaFuncionarios(funcionarios, caminhoEscolhido);
+						resultado = controller.gerarPlanilha(funcionarios, caminhoEscolhido);
 						JOptionPane.showMessageDialog(null, resultado);
 					} catch (CampoInvalidoException e1) {
 						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);

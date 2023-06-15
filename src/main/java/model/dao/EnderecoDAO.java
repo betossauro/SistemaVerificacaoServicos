@@ -51,7 +51,7 @@ public class EnderecoDAO {
 	public boolean atualizar(Endereco enderecoEditado) {
 		boolean atualizou = false;
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE ENDERECO " + " RUA = ?, NUMERO = ?, BAIRRO = ?, CEP = ?, CIDADE = ?, ESTADO = ? "
+		String sql = " UPDATE ENDERECO SET RUA = ?, NUMERO = ?, BAIRRO = ?, CEP = ?, CIDADE = ?, ESTADO = ? "
 				+ " WHERE ID = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {

@@ -13,15 +13,16 @@ public class SalaDAO {
 //	 	private int id;
 //	    private String numero;
 //	    private boolean disponivel;
+
 	
+	// TODO 
 	public Sala inserir(Sala novaSala) {
 		Connection conexao = Banco.getConnection();
-		String sql = " INSERT INTO SALA (NUMERO, DISPONIVEL)" + " VALUES (?,?)";
+		String sql = " INSERT INTO SALA (NUMERO, DISPONIVEL)" + " VALUES (?, TRUE)";
 		PreparedStatement query = Banco.getPreparedStatementWithPk(conexao, sql);
 
 		try {
 			query.setString(1, novaSala.getNumero());
-			query.setBoolean(2, novaSala.isDisponivel());
 			query.execute();
 
 			// Preencher o id gerado no banco no objeto
@@ -39,11 +40,11 @@ public class SalaDAO {
 		}
 		return novaSala;
 	}
+
 	public boolean atualizar(Sala salaEditada) {
 		boolean atualizou = false;
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE SALA " + " NUMERO = ?, DISPONIVEL = ? "
-				+ " WHERE ID = ? ";
+		String sql = " UPDATE SALA SET NUMERO = ?, DISPONIVEL = ? " + " WHERE ID = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			query.setString(1, salaEditada.getNumero());
@@ -64,7 +65,7 @@ public class SalaDAO {
 		}
 		return atualizou;
 	}
-	
+
 	public Sala consultarPorId(int id) {
 		Sala salaConsultada = null;
 		Connection conexao = Banco.getConnection();
@@ -126,18 +127,21 @@ public class SalaDAO {
 		return salaConsultada;
 	}
 
-	public boolean excluir(int id) {
+	public boolean excluir(Sala sala) {
 		boolean excluiu = false;
 		Connection conexao = Banco.getConnection();
-		String sql = " DELETE FROM SALA " + " WHERE ID = ? ";
+		String sql = " UPDATE SALA SET DISPONIVEL = ? " + " WHERE ID = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
-			query.setInt(1, id);
-			int quantidadeLinhasAtualizadas = query.executeUpdate();
-			excluiu = quantidadeLinhasAtualizadas > 0;
+			query.setBoolean(1, (Boolean) null);
+			query.setInt(2, sala.getId());
 
-		} catch (SQLException e) {
-			System.out.println("Erro ao excluir sala com id: " + id + "\n Causa" + e.getMessage());
+			int quantidadeLinhasAtualizadas = query.executeUpdate();
+			if (quantidadeLinhasAtualizadas > 0) {
+				excluiu = true;
+			}
+		} catch (SQLException excecao) {
+			System.out.println("\nErro ao excluir sala. " + "\n Causa: " + excecao.getMessage());
 		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);

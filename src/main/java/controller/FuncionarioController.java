@@ -62,8 +62,7 @@ public class FuncionarioController {
 		return bo.consultarTodos();
 	}
 
-	public String gerarPlanilhaFuncionarios(List<FuncionarioDTO> funcionarios, String caminho)
-			throws CampoInvalidoException {
+	public String gerarPlanilha(List<FuncionarioDTO> funcionarios, String caminho) throws CampoInvalidoException {
 
 		if (funcionarios == null || caminho == null || caminho.trim().isEmpty()) {
 			throw new CampoInvalidoException("Preencha todos os campos");

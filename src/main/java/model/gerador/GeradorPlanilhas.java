@@ -15,7 +15,7 @@ import model.dto.PrestacaoDTO;
 
 public class GeradorPlanilhas {
 
-	public String geradorPlanilhaServicosVisuGerente(List<PrestacaoDTO> prestacoes, String caminho) {
+	public String geradorPlanilhaServicos(List<PrestacaoDTO> prestacoes, String caminho) {
 		HSSFWorkbook planilha = new HSSFWorkbook();
 
 		// 1 - Cria uma aba na planilha
@@ -78,32 +78,6 @@ public class GeradorPlanilhas {
 		// 4- Ajusta o tamanho de todas as colunas conforme a largura do conteúdo
 		for (int i = 0; i < contadorLinhas; i++) {
 			abaPlanilha.autoSizeColumn(i);
-		}
-
-		return salvarNoDisco(planilha, caminho);
-	}
-
-	public String geradorPlanilhaServicoVisuFuncionario(List<PrestacaoDTO> prestacoes, String caminho) {
-		HSSFWorkbook planilha = new HSSFWorkbook();
-
-		// 1 - Cria uma aba na planilha
-		HSSFSheet abaPlanilha = planilha.createSheet("Serviços");
-
-		// 2- Cria o cabeçalho
-		HSSFRow linhaCabecalho = abaPlanilha.createRow(0);
-		linhaCabecalho.createCell(0).setCellValue("Sala");
-		linhaCabecalho.createCell(1).setCellValue("Data");
-		linhaCabecalho.createCell(2).setCellValue("Serviço Realizado");
-
-		// 3- Cria as linhas de resultado
-		int contadorLinhas = 1;
-		for (PrestacaoDTO p : prestacoes) {
-			HSSFRow novaLinha = abaPlanilha.createRow(contadorLinhas);
-			novaLinha.createCell(0).setCellValue(p.getSala());
-			novaLinha.createCell(1).setCellValue(p.getPeriodo());
-			novaLinha.createCell(2).setCellValue(p.getServico());
-
-			contadorLinhas++;
 		}
 
 		return salvarNoDisco(planilha, caminho);

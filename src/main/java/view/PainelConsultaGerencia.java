@@ -290,8 +290,8 @@ public class PainelConsultaGerencia extends JPanel {
 					String caminhoEscolhido = janelaSelecaoDestinoArquivo.getSelectedFile().getAbsolutePath();
 					String resultado;
 					try {
-						resultado = controller.gerarPlanilhaVisuGerente(prestacoes, caminhoEscolhido);
-								JOptionPane.showMessageDialog(null, resultado);
+						resultado = controller.gerarPlanilha(prestacoes, caminhoEscolhido);
+						JOptionPane.showMessageDialog(null, resultado);
 					} catch (CampoInvalidoException e1) {
 						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 					}
