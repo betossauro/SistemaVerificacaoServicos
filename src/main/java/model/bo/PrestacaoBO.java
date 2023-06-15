@@ -55,6 +55,10 @@ public class PrestacaoBO {
 	public List<Prestacao> consultarTodos() {
 		return dao.consultarTodos();
 	}
+	
+	public List<PrestacaoDTO> consultarTodosDTO() {
+		return dao.consultarTodosDTO();
+	}
 
 	public String gerarPlanilha(List<PrestacaoDTO> prestacoes, String caminho) {
 		GeradorPlanilhas gerador = new GeradorPlanilhas();

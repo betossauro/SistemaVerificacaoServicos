@@ -7,7 +7,7 @@ import com.github.lgooddatepicker.components.DateTimePicker;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
-import controller.PrestacaoServicoController;
+import controller.PrestacaoController;
 import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
 import model.vo.Funcionario;
@@ -59,7 +59,7 @@ public class PainelConsultaGerencia extends JPanel {
 	private ArrayList<PrestacaoDTO> prestacoes;
 	private String[] nomesColunas = { "Nome", "Cargo", "Sala", "Data de Serviço", "Serviço Realizado", "Ocorrência" };
 	private JButton btnRetroceder;
-	private PrestacaoServicoController controller;
+	private PrestacaoController controller;
 
 	private void limparTabelaConsulta() {
 		tblConsultaGerencia.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
@@ -220,7 +220,7 @@ public class PainelConsultaGerencia extends JPanel {
 		add(btnAvancar, "30, 36");
 
 		btnExportar = new JButton("Exportar Excel");
-		controller = new PrestacaoServicoController();
+		controller = new PrestacaoController();
 		btnExportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser janelaSelecaoDestinoArquivo = new JFileChooser();
