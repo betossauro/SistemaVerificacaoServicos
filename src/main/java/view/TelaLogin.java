@@ -197,7 +197,7 @@ public class TelaLogin {
 		pswSenha.setToolTipText("Insira sua senha");
 		frmMenuInicial.getContentPane().add(pswSenha, "22, 40, 5, 1, fill, fill");
 		
-		btnEntrar = new JButton("ENTRAR");
+		btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Obter o usuário autenticado dado a matricula e a senha
@@ -208,7 +208,7 @@ public class TelaLogin {
 				frmMenuInicial.dispose();
 			}
 		});
-		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		frmMenuInicial.getContentPane().add(btnEntrar, "24, 50, default, fill");
 	}
 
