@@ -20,7 +20,6 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import controller.FuncionarioController;
 import model.exception.CampoInvalidoException;
-import model.exception.TelefoneJaUtilizadoException;
 import model.vo.Funcionario;
 import model.vo.TipoCargo;
 import model.vo.TipoUsuario;
@@ -36,6 +35,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.awt.event.ActionEvent;
+import com.github.lgooddatepicker.components.DatePicker;
 
 public class PainelCadastroUsuario extends JPanel {
 	private JTextField textField;
@@ -45,7 +45,6 @@ public class PainelCadastroUsuario extends JPanel {
 	private JLabel lblTelefone;
 	private JFormattedTextField txtTelefone;
 	private JLabel lblDataNascimento;
-	private DateTimePicker dataNascimento;
 	private JLabel lblCTPS;
 	private JFormattedTextField txtCTPS;
 	private JLabel lblNivelAcesso;
@@ -69,44 +68,108 @@ public class PainelCadastroUsuario extends JPanel {
 	private MaskFormatter mascaraSenha;
 	private Funcionario funcionario;
 	private ButtonGroup grupoCargo;
+	private DatePicker dataNascimento;
 
 	/**
 	 * Create the panel.
 	 */
 	public PainelCadastroUsuario() {
-		setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(150dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, },
-				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;pref)"), FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, }));
+		setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(150dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
 
 		lblCadastroUsuario = new JLabel("Cadastro de Usuário");
 		lblCadastroUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -160,10 +223,8 @@ public class PainelCadastroUsuario extends JPanel {
 		lblDataNascimento = new JLabel("Data de Nascimento:");
 		lblDataNascimento.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblDataNascimento, "16, 22");
-
-		dataNascimento = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
-		dataNascimento.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataNascimento.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		dataNascimento = new DatePicker();
 		add(dataNascimento, "20, 22, 5, 1, fill, fill");
 
 		lblCTPS = new JLabel("CTPS:");
@@ -265,7 +326,7 @@ public class PainelCadastroUsuario extends JPanel {
 					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				LocalDate dataSelecionada = dataNascimento.getDatePicker().getDate();
+				LocalDate dataSelecionada = dataNascimento.getDate();
 				funcionario.setDataDesligamento(dataSelecionada);
 				try {
 					String ctpsSemMascara = (String) mascaraCtps.stringToValue(txtCTPS.getText());

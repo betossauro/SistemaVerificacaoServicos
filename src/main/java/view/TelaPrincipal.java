@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import model.vo.Funcionario;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -20,27 +23,14 @@ public class TelaPrincipal {
 	private JMenuItem mntmConsultarFuncionario;
 	private JMenu mnGerenciar;
 	private JMenuItem mntmGerenciarFuncionarios;
+	private Funcionario usuarioAutenticado;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaPrincipal window = new TelaPrincipal();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public TelaPrincipal() {
+	public TelaPrincipal(Funcionario usuarioAutenticado) {
+		this.usuarioAutenticado = usuarioAutenticado;
 		initialize();
 	}
 
@@ -84,13 +74,17 @@ public class TelaPrincipal {
 		
 		mnGerenciar = new JMenu("Gerenciar");
 		menuBar.add(mnGerenciar);
-		
+		// Na hora de criar o painel, chamar o usuarioAutenticado em PainelRegistroServico
 		mntmGerenciarFuncionarios = new JMenuItem("Gerenciar Funcionários");
 		mntmGerenciarFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		mnGerenciar.add(mntmGerenciarFuncionarios);
+		
+		
+		//TODO
+		// Mostrar/esconder itens do menu conforme usuário autenticado
 	}
 
 }
