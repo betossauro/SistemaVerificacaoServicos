@@ -55,7 +55,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 	private JLabel lblDataFinal;
 	private DateTimePicker dataFinal;
 	private JLabel lblSala;
-	private JTextField textField;
+	private JTextField txtSala;
 	private FuncionarioController controller;
 
 	private void limparTabelaConsulta() {
@@ -100,19 +100,19 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(30dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(150dlu;default):grow"),
+				ColumnSpec.decode("max(150dlu;pref)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(125dlu;default)"),
+				ColumnSpec.decode("max(50dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.MIN_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -180,7 +180,6 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		lblPeriodoServico = new JLabel("Período de Serviço");
 		lblPeriodoServico.setFont(new Font("Tahoma", Font.BOLD, 16));
 		add(lblPeriodoServico, "16, 6, 3, 1");
-		
 
 		lblDataInicial = new JLabel("De:");
 		lblDataInicial.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -191,30 +190,29 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		dataInicial.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataInicial.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataInicial.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(dataInicial, "18, 10, 7, 1, fill, fill");
+		add(dataInicial, "18, 10, 5, 1, fill, fill");
 		lblDataFinal = new JLabel("Até:");
 		lblDataFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblDataFinal, "28, 10");
+		add(lblDataFinal, "30, 10");
 
 		dataFinal = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
 		dataFinal.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataFinal.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataFinal.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataFinal.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(dataFinal, "30, 10, 5, 1, fill, fill");
-		
+		add(dataFinal, "32, 10, 3, 1, fill, fill");
 
 		lblSala = new JLabel("Sala:");
 		lblSala.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblSala, "16, 14, left, default");
 
-		textField = new JTextField();
-		textField.setColumns(10);
-		add(textField, "18, 14, fill, fill");
-		
-				btnFiltrar = new JButton("Filtrar");
-				btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				add(btnFiltrar, "34, 18, default, fill");
+		txtSala = new JTextField();
+		txtSala.setColumns(10);
+		add(txtSala, "18, 14, fill, fill");
+
+		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnFiltrar, "34, 18, default, fill");
 
 		tblConsultaGerencia = new JTable();
 		add(tblConsultaGerencia, "18, 24, 17, 1, fill, fill");
@@ -254,7 +252,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 
 		btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnEditar, "26, 32, default, fill");
+		add(btnEditar, "24, 32, 5, 1, default, fill");
 
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));

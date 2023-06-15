@@ -104,23 +104,23 @@ public class PainelConsultaFuncionario extends JPanel {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(125dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(24dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(125dlu;default)"),
+				ColumnSpec.decode("max(150dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(125dlu;default)"),
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(150dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -149,9 +149,9 @@ public class PainelConsultaFuncionario extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -183,27 +183,29 @@ public class PainelConsultaFuncionario extends JPanel {
 
 		lblFuncionario = new JLabel("Filtrar Funcionário");
 		lblFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
-		add(lblFuncionario, "16, 6, 7, 1");
+		add(lblFuncionario, "16, 6, 5, 1");
 
 		lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblNome, "16, 10, left, default");
 
 		txtNome = new JTextField();
-		add(txtNome, "20, 10, 7, 1, fill, fill");
+		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(txtNome, "20, 10, 5, 1, fill, fill");
 		txtNome.setColumns(10);
 
 		// Configurações da parte de DATAS do componente
 		dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
-				
-						lblCargo = new JLabel("Cargo:");
-						lblCargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-						add(lblCargo, "30, 10, left, default");
 		
-				txtCargo = new JTextField();
-				add(txtCargo, "32, 10, 5, 1, fill, fill");
-				txtCargo.setColumns(10);
+				lblCargo = new JLabel("Cargo:");
+				lblCargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				add(lblCargo, "32, 10, left, default");
+
+		txtCargo = new JTextField();
+		txtCargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(txtCargo, "34, 10, 3, 1, fill, fill");
+		txtCargo.setColumns(10);
 
 		lblStatus = new JLabel("Status:");
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -212,19 +214,19 @@ public class PainelConsultaFuncionario extends JPanel {
 		rdbtnAtivos = new JRadioButton("Ativos");
 		rdbtnAtivos.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rdbtnAtivos.setHorizontalAlignment(SwingConstants.LEFT);
-		add(rdbtnAtivos, "20, 14, 3, 1");
+		add(rdbtnAtivos, "20, 14");
 
 		rdbtnInativos = new JRadioButton("Inativos");
 		rdbtnInativos.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rdbtnInativos.setHorizontalAlignment(SwingConstants.LEFT);
-		add(rdbtnInativos, "20, 16, 3, 1");
+		add(rdbtnInativos, "20, 16");
 		
 				btnFiltrar = new JButton("Filtrar");
 				btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				add(btnFiltrar, "36, 22, default, fill");
 
 		tblConsultaGerencia = new JTable();
-		add(tblConsultaGerencia, "20, 28, 17, 1, fill, fill");
+		add(tblConsultaGerencia, "20, 28, 19, 1, fill, fill");
 		
 				btnRetroceder = new JButton("<");
 				add(btnRetroceder, "26, 30");
@@ -244,7 +246,7 @@ public class PainelConsultaFuncionario extends JPanel {
 					String caminhoEscolhido = janelaSelecaoDestinoArquivo.getSelectedFile().getAbsolutePath();
 					String resultado;
 					try {
-						resultado = controller.gerarPlanilhaFuncionarios(funcionarios, caminhoEscolhido);
+						resultado = controller.gerarPlanilha(funcionarios, caminhoEscolhido);
 						JOptionPane.showMessageDialog(null, resultado);
 					} catch (CampoInvalidoException e1) {
 						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
@@ -253,15 +255,15 @@ public class PainelConsultaFuncionario extends JPanel {
 
 			}
 		});
-				
-						btnAvancar = new JButton(">");
-						add(btnAvancar, "30, 30");
-				btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				add(btnExportar, "20, 36, default, fill");
+		
+				btnAvancar = new JButton(">");
+				add(btnAvancar, "30, 30");
+		btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(btnExportar, "20, 36, default, fill");
 
 		btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnEditar, "28, 36, default, fill");
+		add(btnEditar, "26, 36, 5, 1, default, fill");
 		
 				btnVoltar = new JButton("Voltar");
 				btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
