@@ -108,7 +108,7 @@ public class PainelConsultaGerencia extends JPanel {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				ColumnSpec.decode("max(150dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -116,11 +116,15 @@ public class PainelConsultaGerencia extends JPanel {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.MIN_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(150dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -200,13 +204,13 @@ public class PainelConsultaGerencia extends JPanel {
 		txtNome = new JTextField();
 		add(txtNome, "20, 10, fill, fill");
 		txtNome.setColumns(10);
-
-		lblSala = new JLabel("Sala:");
-		lblSala.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblSala, "30, 10, left, default");
+		
+				lblSala = new JLabel("Sala:");
+				lblSala.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				add(lblSala, "32, 10, left, default");
 
 		txtSala = new JTextField();
-		add(txtSala, "32, 10, fill, fill");
+		add(txtSala, "34, 10, 3, 1, fill, fill");
 		txtSala.setColumns(10);
 
 		lblCargo = new JLabel("Cargo:");
@@ -239,17 +243,17 @@ public class PainelConsultaGerencia extends JPanel {
 			}
 		});
 		add(dataInicial, "20, 22, fill, fill");
-
-		lblDataFinal = new JLabel("Até:");
-		lblDataFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblDataFinal, "30, 22");
+		
+				lblDataFinal = new JLabel("Até:");
+				lblDataFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				add(lblDataFinal, "32, 22");
 
 		dataFinal = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
 		dataFinal.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataFinal.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataFinal.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataFinal.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(dataFinal, "32, 22, fill, fill");
+		add(dataFinal, "34, 22, 3, 1, fill, fill");
 
 		lblOcorrencia = new JLabel("Ocorrência:");
 		lblOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -261,19 +265,19 @@ public class PainelConsultaGerencia extends JPanel {
 
 		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnFiltrar, "32, 30, default, fill");
+		add(btnFiltrar, "36, 30, default, fill");
 
 		tblConsultaGerencia = new JTable();
-		add(tblConsultaGerencia, "20, 34, 13, 1, fill, fill");
+		add(tblConsultaGerencia, "20, 34, 17, 1, fill, fill");
 
 		btnRetroceder = new JButton("<");
 		btnRetroceder.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(btnRetroceder, "22, 36");
+		add(btnRetroceder, "26, 36");
 
 		lblPagina = new JLabel("1/1");
 		lblPagina.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPagina, "24, 36, 5, 1");
+		add(lblPagina, "28, 36");
 
 		btnAvancar = new JButton(">");
 		btnAvancar.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -303,7 +307,7 @@ public class PainelConsultaGerencia extends JPanel {
 
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnVoltar, "32, 42, default, fill");
+		add(btnVoltar, "36, 42, default, fill");
 
 	}
 
