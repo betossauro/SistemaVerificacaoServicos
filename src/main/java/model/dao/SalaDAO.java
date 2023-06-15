@@ -10,10 +10,6 @@ import java.util.List;
 import model.vo.Sala;
 
 public class SalaDAO {
-//	 	private int id;
-//	    private String numero;
-//	    private boolean disponivel;
-
 	
 	// TODO 
 	public Sala inserir(Sala novaSala) {

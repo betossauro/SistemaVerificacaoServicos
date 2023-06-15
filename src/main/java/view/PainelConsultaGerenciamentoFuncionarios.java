@@ -10,7 +10,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import controller.FuncionarioController;
-import controller.PrestacaoServicoController;
+import controller.PrestacaoController;
 import model.dto.FuncionarioDTO;
 import model.exception.CampoInvalidoException;
 import model.vo.Funcionario;
