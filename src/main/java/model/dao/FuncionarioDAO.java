@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.vo.Funcionario;
 import model.vo.TipoCargo;
 import model.vo.TipoUsuario;
+import model.vo.TipoUsuarioVO;
 
 public class FuncionarioDAO {
 
@@ -187,5 +189,28 @@ public class FuncionarioDAO {
 		}
 
 		return totalFuncionariosDoEnderecoBuscado;
+	}
+	
+	public ArrayList<TipoUsuario> consultarTipoUsuario() {
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet resultado = null;
+		ArrayList<TipoUsuario> listaTipoUsuario = new ArrayList<TipoUsuario>();
+		String query = "SELECT descricao FROM tipousuario";
+		try {
+			resultado = stmt.executeQuery(query);
+			while(resultado.next()){
+				TipoUsuario tipoUsuario = TipoUsuario.valueOf(resultado.getString(1));
+				listaTipoUsuario.add(tipoUsuario);
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar a query do método consultarTipoUsuarioDAO.");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return listaTipoUsuario;
 	}
 }
