@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.bo.FuncionarioBO;
@@ -7,6 +8,7 @@ import model.dto.FuncionarioDTO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
 import model.vo.Funcionario;
+import model.vo.TipoUsuario;
 
 public class FuncionarioController {
 	private FuncionarioBO bo = new FuncionarioBO();
@@ -59,6 +61,14 @@ public class FuncionarioController {
 
 	public List<Funcionario> consultarTodos() {
 		return bo.consultarTodos();
+	}
+
+	public int contarFuncionariosQueTrabalhamNoEndereco(int id) {
+		return bo.contarFuncionariosQueTrabalhamNoEndereco(id);
+	}
+
+	public ArrayList<TipoUsuario> consultarTipoUsuario() {
+		return bo.consultarTipoUsuario();
 	}
 
 	public String gerarPlanilha(List<FuncionarioDTO> funcionarios, String caminho) throws CampoInvalidoException {

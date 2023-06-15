@@ -1,5 +1,6 @@
 package model.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.FuncionarioDAO;
@@ -8,7 +9,7 @@ import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
 import model.vo.Funcionario;
 import model.vo.Prestacao;
-import model.vo.Sala;
+import model.vo.TipoUsuario;
 
 public class FuncionarioBO {
 	private FuncionarioDAO dao = new FuncionarioDAO();
@@ -50,24 +51,16 @@ public class FuncionarioBO {
 		return dao.consultarTodos();
 	}
 
+	public int contarFuncionariosQueTrabalhamNoEndereco(int id) {
+		return dao.contarFuncionariosQueTrabalhamNoEndereco(id);
+	}
+
+	public ArrayList<TipoUsuario> consultarTipoUsuario() {
+		return dao.consultarTipoUsuario();
+	}
+
 	public String gerarPlanilha(List<FuncionarioDTO> funcionarios, String caminho) {
 		GeradorPlanilhas gerador = new GeradorPlanilhas();
 		return gerador.geradorPlanilhaFuncionarios(funcionarios, caminho);
 	}
-
-	// REGRA 1: Apenas a gerência pode cadastrar novos funcionários e visualizar os
-	// serviços prestados por todos os funcionários.
-
-	// REGRA 2: Diante do login e senha do usuário o sistema vincula-o ao seu devido
-	// cargo, dando acesso apenas às suas respectivas funcionalidades
-
-	// REGRA 3: Apenas a gerência poderá excluir informações sobre funcionários
-	// (demissão).
-
-	// REGRA 4: Apenas a gerência poderá alterar/atualizar dados cadastrados dos
-	// funcionários.
-
-	// REGRA 5: No caso de demissão, o usuário sofrerá exclusão lógica, tendo seu
-	// cargo
-	// alterado para inativo e perdendo todos os níveis de acesso ao sistema.
 }

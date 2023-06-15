@@ -9,10 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.vo.Funcionario;
-import model.vo.Sala;
 import model.vo.TipoCargo;
 import model.vo.TipoUsuario;
-import model.vo.TipoUsuarioVO;
 
 public class FuncionarioDAO {
 
