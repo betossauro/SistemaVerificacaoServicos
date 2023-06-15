@@ -57,151 +57,79 @@ public class TelaLogin {
 		frmMenuInicial.setBounds(100, 100, 1200, 1000);
 		frmMenuInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMenuInicial.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frmMenuInicial.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(119dlu;default):grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(139dlu;default):grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(139dlu;default):grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.UNRELATED_GAP_COLSPEC,},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(100dlu;default)"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(30dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.UNRELATED_GAP_ROWSPEC,}));
-		
+		frmMenuInicial.getContentPane().setLayout(new FormLayout(
+				new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(119dlu;default):grow"),
+						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(139dlu;default):grow"),
+						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(139dlu;default):grow"),
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, },
+				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(100dlu;default)"),
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						RowSpec.decode("max(25dlu;default)"), FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						RowSpec.decode("max(30dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, }));
+
 		icon = new JLabel("");
 		icon.setIcon(new ImageIcon(TelaLogin.class.getResource("/view/icons/logo2.png")));
 		frmMenuInicial.getContentPane().add(icon, "24, 19, center, default");
-		
+
 		lblMatricula = new JLabel("Matrícula");
 		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		frmMenuInicial.getContentPane().add(lblMatricula, "22, 32, 5, 1");
-		
+
 		txtMatricula = new JTextField();
 		txtMatricula.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtMatricula.setToolTipText("Insira sua matrícula");
 		frmMenuInicial.getContentPane().add(txtMatricula, "22, 34, 5, 1, fill, fill");
 		txtMatricula.setColumns(10);
-		
+
 		lblSenha = new JLabel("Senha");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		frmMenuInicial.getContentPane().add(lblSenha, "22, 38");
-		
+
 		pswSenha = new JPasswordField();
 		pswSenha.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		pswSenha.setToolTipText("Insira sua senha");
 		frmMenuInicial.getContentPane().add(pswSenha, "22, 40, 5, 1, fill, fill");
-		
+
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Obter o usuário autenticado dado a matricula e a senha
-				// if usuario != null 
+				// if usuario != null
 				// TelaPrincipal tela = new TelaPrincipal(usuarioAutenticado);
 				// tela.setVisible(true);
 				frmMenuInicial.setVisible(false);
