@@ -49,10 +49,9 @@ public class FuncionarioController {
 		return validacao;
 	}
 
-	/*
-	 * public boolean excluir(int id) throws CampoInvalidoException { return
-	 * bo.excluir(id); }
-	 */
+	public boolean excluir(Funcionario funcionario) throws CampoInvalidoException {
+		return bo.excluir(funcionario);
+	}
 
 	public Funcionario consultarPorId(int id) {
 		return bo.consultarPorId(id);

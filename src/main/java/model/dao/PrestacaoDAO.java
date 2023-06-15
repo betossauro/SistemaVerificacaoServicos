@@ -97,27 +97,33 @@ public class PrestacaoDAO {
 		}
 		return prestacoes;
 	}
-	
+
 	public List<PrestacaoDTO> consultarTodosDTO() {
 		List<PrestacaoDTO> prestacoesDTO = new ArrayList<PrestacaoDTO>();
 		Connection conexao = Banco.getConnection();
-		String sql = " SELECT f.nome as nomeFuncionario, tc.descricao as nomeCargo "
-				+ " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC  "
-				+ " WHERE P.idFuncionario = F.id"
-				+ " AND TC.id = F.IDTIPOCARGO "
-				+ "";
-		
-		//TODO Incluir filtros do seletor
+		String sql = "SELECT F.ID as idFuncionario, F.NOME as nomeFuncionario, TC.descricao as nomeCargo, "
+				+ " S.ID as idSala, S.NUMERO as numeroSala,P.DATAINICIO as dataInicio, P.DATAFIM as dataFim,"
+				+ " A.DESCRICAO as servico, O.DESCRICAO as ocorrencia"
+				+ "FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, OCORRENCIA O "
+				+ "WHERE P.idFuncionario = F.id AND TC.id = F.IDTIPOCARGO AND S.id = P.IDSALA;";
+
+		// TODO Incluir filtros do seletor
 
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			ResultSet resultado = query.executeQuery();
 			while (resultado.next()) {
 				PrestacaoDTO dto = new PrestacaoDTO();
-				
+				dto.setIdFuncionario(resultado.getString("idFuncionario"));
 				dto.setNomeFuncionario(resultado.getString("nomeFuncionario"));
 				dto.setNomeCargo(resultado.getString("nomeCargo"));
-				
+				dto.setIdSala(resultado.getString("idSala"));
+				dto.setNumeroSala(resultado.getString("numeroSala"));
+				dto.setDataInicio(resultado.getString("dataInicio"));
+				dto.setDataFim(resultado.getString("dataFim"));
+				dto.setServico(resultado.getString("servico"));
+				dto.setOcorrencia(resultado.getString("ocorrencia"));
+
 				prestacoesDTO.add(dto);
 			}
 
@@ -129,7 +135,6 @@ public class PrestacaoDAO {
 		}
 		return prestacoesDTO;
 	}
-	
 
 	private Prestacao montarPrestacaoComResultadoDoBanco(ResultSet resultado) throws SQLException {
 		Prestacao prestacaoBuscada = new Prestacao();
@@ -138,13 +143,13 @@ public class PrestacaoDAO {
 		prestacaoBuscada.setIdSala(resultado.getInt("idsala"));
 		prestacaoBuscada.setDataInicio(resultado.getTimestamp("datainicio").toLocalDateTime());
 		prestacaoBuscada.setDataFim(resultado.getTimestamp("datafim").toLocalDateTime());
-		
+
 		OcorrenciaDAO ocorrenciaDAO = new OcorrenciaDAO();
 		prestacaoBuscada.setListaOcorrencias(ocorrenciaDAO.consultarPorIdPrestacao(prestacaoBuscada.getId()));
-		
+
 		AtividadeDAO atividadeDAO = new AtividadeDAO();
 		prestacaoBuscada.setListaAtividades(atividadeDAO.consultarPorIdPrestacao(prestacaoBuscada.getId()));
 		return prestacaoBuscada;
 	}
-	
+
 }

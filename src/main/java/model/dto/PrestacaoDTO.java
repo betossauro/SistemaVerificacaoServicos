@@ -1,12 +1,23 @@
 package model.dto;
 
 public class PrestacaoDTO {
+	private String idFuncionario;
 	private String nomeFuncionario;
 	private String nomeCargo;
-	private String sala;
-	private String periodo;
+	private String idSala;
+	private String numeroSala;
+	private String dataInicio;
+	private String dataFim;
 	private String servico;
 	private String ocorrencia;
+
+	public String getIdFuncionario() {
+		return idFuncionario;
+	}
+
+	public void setIdFuncionario(String idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
 
 	public String getNomeFuncionario() {
 		return nomeFuncionario;
@@ -24,20 +35,20 @@ public class PrestacaoDTO {
 		this.nomeCargo = nomeCargo;
 	}
 
-	public String getSala() {
-		return sala;
+	public String getIdSala() {
+		return idSala;
 	}
 
-	public void setSala(String sala) {
-		this.sala = sala;
+	public void setIdSala(String idSala) {
+		this.idSala = idSala;
 	}
 
-	public String getPeriodo() {
-		return periodo;
+	public String getNumeroSala() {
+		return numeroSala;
 	}
 
-	public void setPeriodo(String periodo) {
-		this.periodo = periodo;
+	public void setNumeroSala(String numeroSala) {
+		this.numeroSala = numeroSala;
 	}
 
 	public String getServico() {
@@ -54,6 +65,22 @@ public class PrestacaoDTO {
 
 	public void setOcorrencia(String ocorrencia) {
 		this.ocorrencia = ocorrencia;
+	}
+
+	public String getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public String getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(String dataFim) {
+		this.dataFim = dataFim;
 	}
 
 }

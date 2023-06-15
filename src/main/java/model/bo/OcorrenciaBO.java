@@ -1,8 +1,30 @@
 package model.bo;
 
+import java.util.List;
+
+import model.dao.OcorrenciaDAO;
+import model.vo.Ocorrencia;
+
 public class OcorrenciaBO {
-//Se uma ocorrência for selecionada, o botão de registrar 
-//serviço ficará indisponível até que a ocorrência seja 
-//registrada clicando no botão "Registrar Ocorrência" 
-//(relacionado ao PainelRegistroServico)
+	private OcorrenciaDAO dao = new OcorrenciaDAO();
+
+	public Ocorrencia inserir(Ocorrencia novaOcorrencia) {
+		return dao.inserir(novaOcorrencia);
+	}
+
+	public boolean atualizar(Ocorrencia OcorrenciaAlterada) {
+		return dao.atualizar(OcorrenciaAlterada);
+	}
+
+	public Ocorrencia consultarPorId(int id) {
+		return dao.consultarPorId(id);
+	}
+
+	public List<Ocorrencia> consultarTodos() {
+		return dao.consultarTodos();
+	}
+
+	public List<Ocorrencia> consultarPorIdPrestacao(int idPrestacao) {
+		return dao.consultarPorIdPrestacao(idPrestacao);
+	}
 }
