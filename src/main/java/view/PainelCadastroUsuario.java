@@ -128,7 +128,7 @@ public class PainelCadastroUsuario extends JPanel {
 		lblCPF = new JLabel("CPF:");
 		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblCPF, "16, 14");
-		
+
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 			mascaraCpf.setValueContainsLiteralCharacters(false);
@@ -144,7 +144,7 @@ public class PainelCadastroUsuario extends JPanel {
 		lblTelefone = new JLabel("Telefone:");
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblTelefone, "16, 18");
-		
+
 		try {
 			mascaraTelefone = new MaskFormatter("(##)####-####");
 			mascaraTelefone.setValueContainsLiteralCharacters(false);
@@ -169,7 +169,7 @@ public class PainelCadastroUsuario extends JPanel {
 		lblCTPS = new JLabel("CTPS:");
 		lblCTPS.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblCTPS, "16, 26");
-		
+
 		try {
 			mascaraCtps = new MaskFormatter("####### ####");
 			mascaraCtps.setValueContainsLiteralCharacters(false);
@@ -185,7 +185,7 @@ public class PainelCadastroUsuario extends JPanel {
 		lblNivelAcesso = new JLabel("Nível de Acesso:");
 		lblNivelAcesso.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblNivelAcesso, "16, 30");
-		
+
 		grupoCargo = new ButtonGroup();
 
 		rdbtnGerencia = new JRadioButton("Gerência");
@@ -195,7 +195,7 @@ public class PainelCadastroUsuario extends JPanel {
 		rdbtnFuncionario = new JRadioButton("Funcionário");
 		rdbtnFuncionario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(rdbtnFuncionario, "22, 30, default, fill");
-		
+
 		grupoCargo.add(rdbtnGerencia);
 		grupoCargo.add(rdbtnFuncionario);
 
@@ -203,7 +203,6 @@ public class PainelCadastroUsuario extends JPanel {
 		lblCargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblCargo, "16, 34");
 
-		
 		cbCargo = new JComboBox(TipoCargo.values());
 		cbCargo.setSelectedIndex(-1);
 		cbCargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -212,7 +211,7 @@ public class PainelCadastroUsuario extends JPanel {
 		lblMatricula = new JLabel("Matrícula:");
 		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblMatricula, "16, 38");
-		
+
 		try {
 			mascaraMatricula = new MaskFormatter("######");
 			mascaraMatricula.setValueContainsLiteralCharacters(false);
@@ -221,7 +220,6 @@ public class PainelCadastroUsuario extends JPanel {
 			e.printStackTrace();
 		}
 
-
 		txtMatricula = new JFormattedTextField(mascaraMatricula);
 		txtMatricula.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(txtMatricula, "20, 38, 5, 1, fill, fill");
@@ -229,7 +227,7 @@ public class PainelCadastroUsuario extends JPanel {
 		lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblSenha, "16, 42");
-		
+
 		try {
 			mascaraSenha = new MaskFormatter("########");
 			mascaraSenha.setValueContainsLiteralCharacters(false);
@@ -264,7 +262,8 @@ public class PainelCadastroUsuario extends JPanel {
 					String telefoneSemMascara = (String) mascaraTelefone.stringToValue(txtTelefone.getText());
 					funcionario.setTelefone(telefoneSemMascara);
 				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 				LocalDate dataSelecionada = dataNascimento.getDatePicker().getDate();
 				funcionario.setDataDesligamento(dataSelecionada);
@@ -272,7 +271,8 @@ public class PainelCadastroUsuario extends JPanel {
 					String ctpsSemMascara = (String) mascaraCtps.stringToValue(txtCTPS.getText());
 					funcionario.setCtps(ctpsSemMascara);
 				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 				if (rdbtnGerencia.isSelected()) {
 					funcionario.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
@@ -284,7 +284,8 @@ public class PainelCadastroUsuario extends JPanel {
 					String matriculaSemMascara = (String) mascaraMatricula.stringToValue(txtMatricula.getText());
 					funcionario.setMatricula(matriculaSemMascara);
 				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 				try {
 					String senhaSemMascara = (String) mascaraSenha.stringToValue(txtSenha.getText());
@@ -295,7 +296,7 @@ public class PainelCadastroUsuario extends JPanel {
 				if (chkInativo.isSelected()) {
 					funcionario.setDataDesligamento(LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault()));
 				}
-				
+
 				FuncionarioController controller = new FuncionarioController();
 				try {
 					controller.inserir(funcionario);
