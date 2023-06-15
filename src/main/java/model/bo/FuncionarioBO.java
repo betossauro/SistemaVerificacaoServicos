@@ -7,6 +7,8 @@ import model.dto.FuncionarioDTO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
 import model.vo.Funcionario;
+import model.vo.Prestacao;
+import model.vo.Sala;
 
 public class FuncionarioBO {
 	private FuncionarioDAO dao = new FuncionarioDAO();
@@ -28,19 +30,17 @@ public class FuncionarioBO {
 		return dao.atualizar(funcionarioAlterado);
 	}
 
-	/*
-	 * REGRA: O funcionario só poderá ser excluído caso a dataFim da Prestacao de
-	 * seus serviços estiver setada.
-	 * 
-	 * public boolean excluir(int id) throws CException { List<Telefone>
-	 * telefonesDoCliente = dao.consultarPorId(id).getTelefones();
-	 * 
-	 * if (telefonesDoCliente != null && !telefonesDoCliente.isEmpty()) { throw new
-	 * ClienteComTelefoneException("Cliente possui telefone(s) associado(s) e não pode ser excluído"
-	 * ); }
-	 * 
-	 * return dao.excluir(id); }
-	 */
+	// TODO Perguntar se faz sentido
+	// REGRA: O funcionario só poderá ser excluído caso a dataFim da Prestacao de
+	// seus serviços estiver setada.
+	public boolean excluir(Funcionario funcionario) throws CampoInvalidoException {
+		Prestacao prestacao = new Prestacao();
+		if (prestacao.getDataFim() == null) {
+			throw new CampoInvalidoException(
+					"Funcionario não pode ser excluído, pois possui uma atividade em andamento");
+		}
+		return dao.excluir(funcionario);
+	}
 
 	public Funcionario consultarPorId(int id) {
 		return dao.consultarPorId(id);

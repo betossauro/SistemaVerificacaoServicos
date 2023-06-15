@@ -127,6 +127,9 @@ public class PainelRegistroServico extends JPanel {
 		JLabel lblOcorrencia = new JLabel("Ocorrências:");
 		lblOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblOcorrencia, "16, 42");
+		//Se uma ocorrência for selecionada, o botão de registrar serviço ficará 
+		//indisponível até que a ocorrência seja registrada clicando no botão 
+		//"Registrar Ocorrência" (relacionado ao PainelRegistroServico)
 
 		JComboBox cbOcorrencia = new JComboBox();
 		cbOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 12));

@@ -36,8 +36,8 @@ public class GeradorPlanilhas {
 			HSSFRow novaLinha = abaPlanilha.createRow(contadorLinhas);
 			novaLinha.createCell(0).setCellValue(p.getNomeFuncionario());
 			novaLinha.createCell(1).setCellValue(p.getNomeCargo());
-			novaLinha.createCell(2).setCellValue(p.getSala());
-			novaLinha.createCell(3).setCellValue(p.getPeriodo());
+			novaLinha.createCell(2).setCellValue(p.getNumeroSala());
+			novaLinha.createCell(3).setCellValue(p.getDataInicio() + p.getDataFim());
 			novaLinha.createCell(4).setCellValue(p.getServico());
 			novaLinha.createCell(5).setCellValue(p.getOcorrencia());
 

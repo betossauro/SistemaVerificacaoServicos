@@ -13,36 +13,36 @@ public class PrestacaoBO {
 
 	// REGRA 2: O serviço só poderá ser registrado quando todos os campos forem
 	// preenchidos com ao menos uma opção.
-	public Prestacao inserir(Prestacao novaPrestacao) throws CampoInvalidoException {
-//		validarCamposObrigatorios(novaPrestacao);
-		return dao.inserir(novaPrestacao);
-	}
+	// public Prestacao inserir(Prestacao novaPrestacao) throws
+	// CampoInvalidoException {
+	// validarCamposObrigatorios(novaPrestacao);
+	// return dao.inserir(novaPrestacao);
+	// }
 
-	// TODO Pode chamar de DTO?
-//	private void validarCamposObrigatorios(Prestacao novaPrestacao) {
+	// TODO SOCORROOOO!!!! Como transformar LocalDate em String?
+//	private void validarCamposObrigatorios(Prestacao novaPrestacao) throws CampoInvalidoException {
 //		String mensagemValidacao = "";
 //
-//		mensagemValidacao += validarString(novaPrestacao.getIdFuncionario(), "idfuncionario");
-//		mensagemValidacao += validarString(novaPrestacao.getIdSala(), "idsala");
+//		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdFuncionario()), "idfuncionario");
+//		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdSala()), "idsala");
 //		mensagemValidacao += validarString(novaPrestacao.getDataInicio(), "datainicio");
 //		mensagemValidacao += validarString(novaPrestacao.getDataFim(), "datafim");
-//		mensagemValidacao += validarString();
 //
 //		if (!mensagemValidacao.isEmpty()) {
 //			throw new CampoInvalidoException(mensagemValidacao);
 //		}
 //	}
-
-	// TODO
-	private String validarString(String texto, String nomeCampo) {
-		boolean valido = (texto != null) && !texto.trim().isEmpty();
-
-		if (valido) {
-			return "";
-		} else {
-			return "- " + nomeCampo + "\n";
-		}
-	}
+//
+//	// TODO
+//	private String validarString(String texto, String nomeCampo) {
+//		boolean valido = (texto != null) && !texto.trim().isEmpty();
+//
+//		if (valido) {
+//			return "";
+//		} else {
+//			return "- " + nomeCampo + "\n";
+//		}
+//	}
 
 	public boolean atualizar(Prestacao servicoAlterado) {
 		return dao.atualizar(servicoAlterado);

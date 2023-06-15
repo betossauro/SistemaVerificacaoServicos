@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.vo.Funcionario;
+import model.vo.Sala;
 import model.vo.TipoCargo;
 import model.vo.TipoUsuario;
 import model.vo.TipoUsuarioVO;
@@ -131,26 +132,28 @@ public class FuncionarioDAO {
 	}
 
 	// TODO exclusão lógica
-//    public boolean excluir(int id) {
-//        Connection conexao = Banco.getConnection();
-//        String sql = " DELETE FROM FUNCIONARIO WHERE ID = " + id;
-//        Statement query = Banco.getStatement(conexao);
-//        int quantidadeLinhasAfetadas = 0;
-//        try {
-//            quantidadeLinhasAfetadas = query.executeUpdate(sql);
-//        } catch (SQLException e) {
-//            System.out.println("Erro ao excluir funcionário.");
-//            System.out.println("Erro: " + e.getMessage());
-//        }
-//        boolean excluiu = quantidadeLinhasAfetadas > 0;
-//
-////        if (excluiu) {
-////            TelefoneDAO telefoneDAO = new TelefoneDAO();
-////            telefoneDAO.desativarTelefones(id);
-////        }
-//        return excluiu;
-//    }
+	public boolean excluir(Funcionario funcionario) {
+		boolean excluiu = false;
+		Connection conexao = Banco.getConnection();
+		String sql = " UPDATE FUNCIONARIO SET DATADESLIGAMENTO = ? " + " WHERE ID = ? ";
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			query.setDate(1,  java.sql.Date.valueOf(funcionario.getDataDesligamento()));
+			query.setInt(2, funcionario.getId());
 
+			int quantidadeLinhasAtualizadas = query.executeUpdate();
+			if (quantidadeLinhasAtualizadas > 0) {
+				excluiu = true;
+			}
+		} catch (SQLException excecao) {
+			System.out.println("\nErro ao excluir funcionario. " + "\n Causa: " + excecao.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return excluiu;
+	}
+	
 	private Funcionario montarFuncionarioComResultadoDoBanco(ResultSet resultado) throws SQLException {
 		Funcionario funcionarioBuscado = new Funcionario();
 		funcionarioBuscado.setId(resultado.getInt("id"));

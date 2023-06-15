@@ -75,8 +75,8 @@ public class PainelConsultaGerencia extends JPanel {
 
 			novaLinhaDaTabela[0] = p.getNomeFuncionario();
 			novaLinhaDaTabela[1] = p.getNomeCargo();
-			novaLinhaDaTabela[2] = p.getSala();
-			novaLinhaDaTabela[3] = p.getPeriodo();
+			novaLinhaDaTabela[2] = p.getNumeroSala();
+			novaLinhaDaTabela[3] = p.getDataInicio() + p.getDataFim();
 			novaLinhaDaTabela[4] = p.getServico();
 			novaLinhaDaTabela[5] = p.getOcorrencia();
 
