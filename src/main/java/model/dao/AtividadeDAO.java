@@ -31,11 +31,10 @@ public class AtividadeDAO {
 		}
 		return novaAtividade;
 	}
-	
+
 	public boolean atualizar(Atividade atividadeAlterada) {
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE ATIVIDADE SET DESCRICAO = ?, IDPRESTACAO = ? "
-				+ " WHERE ID = ?";
+		String sql = " UPDATE ATIVIDADE SET DESCRICAO = ?, IDPRESTACAO = ? " + " WHERE ID = ?";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		int registrosAlterados = 0;
 		try {
@@ -62,7 +61,7 @@ public class AtividadeDAO {
 				atividadeBuscada = montarAtividadeComResultadoDoBanco(resultado);
 			}
 		} catch (SQLException erro) {
-			System.out.println("Erro ao buscar cliente com id" + id + "\nCausa: " + erro.getMessage());
+			System.out.println("Erro ao buscar atividade com id" + id + "\nCausa: " + erro.getMessage());
 		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
@@ -84,7 +83,7 @@ public class AtividadeDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println("Erro ao buscar todos os clientes. \n Causa:" + e.getMessage());
+			System.out.println("Erro ao buscar todas as atidades. \n Causa:" + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
@@ -95,7 +94,8 @@ public class AtividadeDAO {
 	public List<Atividade> consultarPorIdPrestacao(int idPrestacao) {
 		Connection conexao = Banco.getConnection();
 		List<Atividade> atividades = new ArrayList<Atividade>();
-		String sql = " SELECT A.* FROM ATIVIDADE A, PRESTACAO_ATIVIDADE PA WHERE IDPRESTACAO = " + idPrestacao + " AND A.ID = PA.IDATIVIDADE ";
+		String sql = " SELECT A.* FROM ATIVIDADE A, PRESTACAO_ATIVIDADE PA WHERE IDPRESTACAO = " + idPrestacao
+				+ " AND A.ID = PA.IDATIVIDADE ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			ResultSet resultado = query.executeQuery();
@@ -110,6 +110,27 @@ public class AtividadeDAO {
 			Banco.closeConnection(conexao);
 		}
 		return atividades;
+	}
+
+	public boolean excluir(Atividade atividade) {
+		boolean excluiu = false;
+		Connection conexao = Banco.getConnection();
+		String sql = " DELETE ATIVIDADE" + " WHERE ID = ? ";
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			query.setInt(1, atividade.getId());
+
+			int quantidadeLinhasAtualizadas = query.executeUpdate();
+			if (quantidadeLinhasAtualizadas > 0) {
+				excluiu = true;
+			}
+		} catch (SQLException excecao) {
+			System.out.println("\nErro ao excluir atividade. " + "\n Causa: " + excecao.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return excluiu;
 	}
 
 	private Atividade montarAtividadeComResultadoDoBanco(ResultSet resultado) throws SQLException {

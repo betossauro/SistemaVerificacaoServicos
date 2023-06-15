@@ -1,9 +1,37 @@
 package model.bo;
 
-public class AtividadeBO {
-	//REGRA 1: O usuário precisa selecionar pelo menos uma atividade 
-	//(relacionado ao PainelRegistroServico)
+import java.util.List;
 
-	//REGRA 2: No registro de atividade os campos disponíveis em “Serviço Realizado” 
-	//será alterado dado o cargo do usuário. 
+import model.dao.AtividadeDAO;
+import model.exception.CampoInvalidoException;
+import model.vo.Atividade;
+
+public class AtividadeBO {
+	AtividadeDAO dao = new AtividadeDAO();
+
+	// REGRA 1: O usuário precisa selecionar pelo menos uma atividade
+	// (relacionado ao PainelRegistroServico)
+	public Atividade inserir(Atividade novaSala) throws CampoInvalidoException {
+		return dao.inserir(novaSala);
+	}
+
+	public boolean atualizar(Atividade atividadeAlterada) {
+		return dao.atualizar(atividadeAlterada);
+	}
+
+	public boolean excluir(Atividade atividade) throws CampoInvalidoException {
+		return dao.excluir(atividade);
+	}
+
+	public Atividade consultarPorId(int id) {
+		return dao.consultarPorId(id);
+	}
+
+	public List<Atividade> consultarTodos() {
+		return dao.consultarTodos();
+	}
+
+	public List<Atividade> consultarPorIdPrestacao(int idPrestacao) {
+		return dao.consultarPorIdPrestacao(idPrestacao);
+	}
 }

@@ -34,7 +34,6 @@ public class SalaDAO {
 		} catch (SQLException e) {
 			System.out.println("\nErro ao inserir sala. \nCausa: " + e.getMessage());
 		} finally {
-			// Fechar a conexão
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
 		}

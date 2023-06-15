@@ -1,7 +1,5 @@
 package model.vo;
 
-import java.util.Date;
-
 public class Endereco {
 
     private int id;
