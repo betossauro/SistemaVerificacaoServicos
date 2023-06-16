@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.dto.PrestacaoDTO;
+import model.seletor.PrestacaoSeletor;
 import model.vo.Prestacao;
 
 public class PrestacaoDAO {
@@ -98,7 +99,7 @@ public class PrestacaoDAO {
 		return prestacoes;
 	}
 
-	public List<PrestacaoDTO> consultarTodosDTO() {
+	public List<PrestacaoDTO> consultarDTO(PrestacaoSeletor seletor) {
 		List<PrestacaoDTO> prestacoesDTO = new ArrayList<PrestacaoDTO>();
 		Connection conexao = Banco.getConnection();
 		String sql = "SELECT F.ID as idFuncionario, F.NOME as nomeFuncionario, TC.descricao as nomeCargo, "
@@ -108,7 +109,9 @@ public class PrestacaoDAO {
 				+ "WHERE P.idFuncionario = F.id AND TC.id = F.IDTIPOCARGO AND S.id = P.IDSALA;";
 
 		// TODO Incluir filtros do seletor
-
+		if (seletor.temFiltros()) {
+			// sql += ...
+		}
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			ResultSet resultado = query.executeQuery();
@@ -150,6 +153,14 @@ public class PrestacaoDAO {
 		AtividadeDAO atividadeDAO = new AtividadeDAO();
 		prestacaoBuscada.setListaAtividades(atividadeDAO.consultarPorIdPrestacao(prestacaoBuscada.getId()));
 		return prestacaoBuscada;
+	}
+
+	public boolean funcionarioTemPrestacaoPendente(int idFuncionario) {
+		// "SELECT * FROM PRESTACAO WHERE IDFUNCIONARIO = " + idFuncionario + "AND
+		// DATAFIM IS NULL";
+		// CONTAR QUANTAS PRESTAÇÕES TEM PENDENTE DADO O IDFUNCIONARIO (tipo o de
+		// verificar se CPF já foi utilizado)
+		return false;
 	}
 
 }

@@ -20,7 +20,6 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import controller.FuncionarioController;
 import model.exception.CampoInvalidoException;
-import model.exception.TelefoneJaUtilizadoException;
 import model.vo.Funcionario;
 import model.vo.TipoCargo;
 import model.vo.TipoUsuario;

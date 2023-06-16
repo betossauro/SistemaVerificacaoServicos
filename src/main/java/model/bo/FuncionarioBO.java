@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.FuncionarioDAO;
-import model.dto.FuncionarioDTO;
+import model.dao.PrestacaoDAO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
+import model.seletor.FuncionarioSeletor;
 import model.vo.Funcionario;
-import model.vo.Prestacao;
 import model.vo.TipoUsuario;
 
 public class FuncionarioBO {
@@ -32,11 +32,9 @@ public class FuncionarioBO {
 	}
 
 	// TODO Perguntar se faz sentido
-	// REGRA: O funcionario só poderá ser excluído caso a dataFim da Prestacao de
-	// seus serviços estiver setada.
 	public boolean excluir(Funcionario funcionario) throws CampoInvalidoException {
-		Prestacao prestacao = new Prestacao();
-		if (prestacao.getDataFim() == null) {
+		PrestacaoDAO prestacaoDAO = new PrestacaoDAO();
+		if (prestacaoDAO.funcionarioTemPrestacaoPendente(funcionario.getId())) {
 			throw new CampoInvalidoException(
 					"Funcionario não pode ser excluído, pois possui uma atividade em andamento");
 		}
@@ -59,8 +57,17 @@ public class FuncionarioBO {
 		return dao.consultarTipoUsuario();
 	}
 
-	public String gerarPlanilha(List<FuncionarioDTO> funcionarios, String caminho) {
+	public String gerarPlanilha(List<Funcionario> funcionarios, String caminho) {
 		GeradorPlanilhas gerador = new GeradorPlanilhas();
 		return gerador.geradorPlanilhaFuncionarios(funcionarios, caminho);
 	}
+
+	public int contarTotalRegistrosComFiltros(FuncionarioSeletor seletor) {
+		return dao.contarTotalRegistrosComFiltros(seletor);
+	}
+
+	public List<Funcionario> consultarComFiltros(FuncionarioSeletor seletor) {
+		return dao.consultarComFiltros(seletor);
+	}
+
 }
