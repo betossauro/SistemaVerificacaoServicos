@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.bo.FuncionarioBO;
-import model.dto.FuncionarioDTO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
+import model.seletor.FuncionarioSeletor;
 import model.vo.Funcionario;
 import model.vo.TipoUsuario;
 
@@ -71,7 +71,11 @@ public class FuncionarioController {
 		return bo.consultarTipoUsuario();
 	}
 
-	public String gerarPlanilha(List<FuncionarioDTO> funcionarios, String caminho) throws CampoInvalidoException {
+	public int contarTotalRegistrosComFiltros(FuncionarioSeletor seletor) {
+		return bo.contarTotalRegistrosComFiltros(seletor);
+	}
+	
+	public String gerarPlanilha(List<Funcionario> funcionarios, String caminho) throws CampoInvalidoException {
 
 		if (funcionarios == null || caminho == null || caminho.trim().isEmpty()) {
 			throw new CampoInvalidoException("Preencha todos os campos");
@@ -79,5 +83,9 @@ public class FuncionarioController {
 
 		GeradorPlanilhas gerador = new GeradorPlanilhas();
 		return gerador.geradorPlanilhaFuncionarios(funcionarios, caminho);
+	}
+
+	public List<Funcionario> consultarComFiltros(FuncionarioSeletor seletor) {
+		return bo.consultarComFiltros(seletor);
 	}
 }

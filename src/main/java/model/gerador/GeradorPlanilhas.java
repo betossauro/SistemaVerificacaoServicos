@@ -10,8 +10,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import model.dto.FuncionarioDTO;
 import model.dto.PrestacaoDTO;
+import model.vo.Funcionario;
 
 public class GeradorPlanilhas {
 
@@ -52,7 +52,7 @@ public class GeradorPlanilhas {
 		return salvarNoDisco(planilha, caminho);
 	}
 
-	public String geradorPlanilhaFuncionarios(List<FuncionarioDTO> funcionarios, String caminho) {
+	public String geradorPlanilhaFuncionarios(List<Funcionario> funcionarios, String caminho) {
 		HSSFWorkbook planilha = new HSSFWorkbook();
 
 		// 1 - Cria uma aba na planilha
@@ -66,10 +66,10 @@ public class GeradorPlanilhas {
 
 		// 3- Cria as linhas de resultado
 		int contadorLinhas = 1;
-		for (FuncionarioDTO f : funcionarios) {
+		for (Funcionario f : funcionarios) {
 			HSSFRow novaLinha = abaPlanilha.createRow(contadorLinhas);
 			novaLinha.createCell(0).setCellValue(f.getNome());
-			novaLinha.createCell(1).setCellValue(f.getCargo());
+			novaLinha.createCell(1).setCellValue(f.getTipoCargo().name());
 			novaLinha.createCell(2).setCellValue(f.getDataDesligamento());
 
 			contadorLinhas++;

@@ -6,6 +6,7 @@ import model.bo.PrestacaoBO;
 import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
+import model.seletor.PrestacaoSeletor;
 import model.vo.Prestacao;
 
 public class PrestacaoController {
@@ -27,8 +28,8 @@ public class PrestacaoController {
 		return bo.consultarTodos();
 	}
 
-	public List<PrestacaoDTO> consultarTodosDTO() {
-		return bo.consultarTodosDTO();
+	public List<PrestacaoDTO> consultarDTO(PrestacaoSeletor seletor) {
+		return bo.consultarDTO(seletor);
 	}
 
 	public String gerarPlanilha(List<PrestacaoDTO> prestacoes, String caminho) throws CampoInvalidoException {
