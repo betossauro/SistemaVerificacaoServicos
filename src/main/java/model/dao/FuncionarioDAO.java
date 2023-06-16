@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.seletor.FuncionarioSeletor;
 import model.vo.Funcionario;
 import model.vo.TipoCargo;
 import model.vo.TipoUsuario;
@@ -136,7 +137,7 @@ public class FuncionarioDAO {
 		String sql = " UPDATE FUNCIONARIO SET DATADESLIGAMENTO = ? " + " WHERE ID = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
-			query.setDate(1,  java.sql.Date.valueOf(funcionario.getDataDesligamento()));
+			query.setDate(1, java.sql.Date.valueOf(funcionario.getDataDesligamento()));
 			query.setInt(2, funcionario.getId());
 
 			int quantidadeLinhasAtualizadas = query.executeUpdate();
@@ -151,7 +152,7 @@ public class FuncionarioDAO {
 		}
 		return excluiu;
 	}
-	
+
 	private Funcionario montarFuncionarioComResultadoDoBanco(ResultSet resultado) throws SQLException {
 		Funcionario funcionarioBuscado = new Funcionario();
 		funcionarioBuscado.setId(resultado.getInt("id"));
@@ -191,7 +192,7 @@ public class FuncionarioDAO {
 
 		return totalFuncionariosDoEnderecoBuscado;
 	}
-	
+
 	public ArrayList<TipoUsuario> consultarTipoUsuario() {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
@@ -200,7 +201,7 @@ public class FuncionarioDAO {
 		String query = "SELECT descricao FROM tipousuario";
 		try {
 			resultado = stmt.executeQuery(query);
-			while(resultado.next()){
+			while (resultado.next()) {
 				TipoUsuario tipoUsuario = TipoUsuario.valueOf(resultado.getString(1));
 				listaTipoUsuario.add(tipoUsuario);
 			}
@@ -213,5 +214,100 @@ public class FuncionarioDAO {
 			Banco.closeConnection(conn);
 		}
 		return listaTipoUsuario;
+	}
+
+	public int contarTotalRegistrosComFiltros(FuncionarioSeletor seletor) {
+		int total = 0;
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT COUNT(*) FROM FUNCIONARIO ";
+
+		if (seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+
+			if (resultado.next()) {
+				total = resultado.getInt(1);
+			}
+		} catch (Exception e) {
+			System.out.println("Erro contar o total de funcionarios" + "\n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+
+		return total;
+	}
+
+	public List<Funcionario> consultarComFiltros(FuncionarioSeletor seletor) {
+		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
+		Connection conexao = Banco.getConnection();
+		String sql = " select * from funcionario ";
+
+		if (seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+
+		if (seletor.temPaginacao()) {
+			sql += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+		}
+
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+
+			while (resultado.next()) {
+				Funcionario funcionarioBuscado = montarFuncionarioComResultadoDoBanco(resultado);
+				funcionarios.add(funcionarioBuscado);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro ao buscar todos os funcionarios. \n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+
+		return funcionarios;
+	}
+
+	private String preencherFiltros(String sql, FuncionarioSeletor seletor) {
+		boolean primeiro = true;
+		if (seletor.getNome() != null && !seletor.getNome().trim().isEmpty()) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+
+			sql += " nome LIKE '%" + seletor.getNome() + "%'";
+			primeiro = false;
+		}
+
+		if (seletor.getTipoCargo() != null) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			// TODO não sei como fazer com o tipoCargo no banco e aq tbm, olhar no
+			// FuncionarioSeletor
+			sql += " TipoCargo LIKE '%" + seletor.getTipoCargo() + "%'";
+			primeiro = false;
+		}
+		if (seletor.getDataDesligamento() != null) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " DATADESLIGAMENTO LIKE '%" + seletor.getDataDesligamento() + "%' ";
+			primeiro = false;
+		}
+
+		return sql;
 	}
 }

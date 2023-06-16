@@ -1,18 +1,14 @@
 package view;
 
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-
 import com.jgoodies.forms.layout.FormLayout;
 import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.github.lgooddatepicker.components.DateTimePicker;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import controller.FuncionarioController;
-import controller.PrestacaoController;
-import model.dto.FuncionarioDTO;
 import model.exception.CampoInvalidoException;
+import model.seletor.FuncionarioSeletor;
 import model.vo.Funcionario;
 
 import com.jgoodies.forms.layout.FormSpecs;
@@ -29,49 +25,55 @@ import java.util.ArrayList;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import com.github.lgooddatepicker.components.TimePickerSettings;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JRadioButton;
 
 public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
+
+	private JTextField txtNome;
+	private JTextField txtCargo;
 	private JTable tblConsultaGerencia;
 	private JButton btnVoltar;
 	private JButton btnExportar;
 	private JButton btnFiltrar;
+	private JLabel lblCargo;
+	private JLabel lblNome;
+	private JLabel lblFuncionario;
 	private JButton btnAvancar;
 	private JButton btnRetroceder;
+	private JButton btnEditar;
 	private JLabel lblPagina;
+
+	// Atributos para a PAGINAÇÃO
+	private final int TAMANHO_PAGINA = 5;
+	private int paginaAtual = 1;
+	private int totalPaginas = 0;
+	private FuncionarioSeletor seletor = new FuncionarioSeletor();
 
 	// FONTE: https://github.com/LGoodDatePicker/LGoodDatePicker
 	private DatePickerSettings dateSettings;
 	private JButton btnPegarData;
 
-	private ArrayList<FuncionarioDTO> funcionarios;
+	private ArrayList<Funcionario> funcionarios;
 	private String[] nomesColunas = { "Nome", "Cargo", "Data de desligamento" };
-	private JButton btnEditar;
-	private JLabel lblPeriodoServico;
-	private JLabel lblDataInicial;
-	private DateTimePicker dataInicial;
-	private JLabel lblDataFinal;
-	private DateTimePicker dataFinal;
-	private JLabel lblSala;
-	private JTextField txtSala;
+	private JRadioButton rdbtnAtivos;
+	private JRadioButton rdbtnInativos;
+	private JLabel lblStatus;
 	private FuncionarioController controller;
 
 	private void limparTabelaConsulta() {
 		tblConsultaGerencia.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
 	}
 
-	private void atualizarTabelaConsulta() {
+	private void atualizarTabelaFuncionarios() {
 		this.limparTabelaConsulta();
-
-		// TODO
 		DefaultTableModel model = (DefaultTableModel) tblConsultaGerencia.getModel();
 
-		for (FuncionarioDTO f : funcionarios) {
+		for (Funcionario f : funcionarios) {
 			Object[] novaLinhaDaTabela = new Object[3];
 			novaLinhaDaTabela[0] = f.getNome();
-			novaLinhaDaTabela[1] = f.getCargo();
+			novaLinhaDaTabela[1] = f.getTipoCargo().name();
 			novaLinhaDaTabela[2] = f.getDataDesligamento();
 
 			model.addRow(novaLinhaDaTabela);
@@ -87,12 +89,12 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(30dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(150dlu;pref)"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.MIN_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(150dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(50dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(150dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
@@ -104,79 +106,176 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
 						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("default:grow"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("default:grow"),
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, }));
+
+		lblFuncionario = new JLabel("Filtrar Funcionário");
+		lblFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
+		add(lblFuncionario, "16, 6, 5, 1");
+
+		lblNome = new JLabel("Nome:");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(lblNome, "16, 10, left, default");
+
+		txtNome = new JTextField();
+		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(txtNome, "20, 10, 5, 1, fill, fill");
+		txtNome.setColumns(10);
 
 		// Configurações da parte de DATAS do componente
 		dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
 
-		lblPeriodoServico = new JLabel("Período de Serviço");
-		lblPeriodoServico.setFont(new Font("Tahoma", Font.BOLD, 16));
-		add(lblPeriodoServico, "16, 6, 3, 1");
+		lblCargo = new JLabel("Cargo:");
+		lblCargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(lblCargo, "32, 10, left, default");
 
-		lblDataInicial = new JLabel("De:");
-		lblDataInicial.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblDataInicial, "16, 10");
+		txtCargo = new JTextField();
+		txtCargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(txtCargo, "34, 10, 3, 1, fill, fill");
+		txtCargo.setColumns(10);
 
-		dataInicial = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
-		dataInicial.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(dataInicial, "18, 10, 5, 1, fill, fill");
-		lblDataFinal = new JLabel("Até:");
-		lblDataFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblDataFinal, "30, 10");
+		lblStatus = new JLabel("Status:");
+		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(lblStatus, "16, 14");
 
-		dataFinal = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
-		dataFinal.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(dataFinal, "32, 10, 3, 1, fill, fill");
+		rdbtnAtivos = new JRadioButton("Ativos");
+		rdbtnAtivos.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rdbtnAtivos.setHorizontalAlignment(SwingConstants.LEFT);
+		add(rdbtnAtivos, "20, 14");
 
-		lblSala = new JLabel("Sala:");
-		lblSala.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblSala, "16, 14, left, default");
-
-		txtSala = new JTextField();
-		txtSala.setColumns(10);
-		add(txtSala, "18, 14, fill, fill");
+		rdbtnInativos = new JRadioButton("Inativos");
+		rdbtnInativos.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rdbtnInativos.setHorizontalAlignment(SwingConstants.LEFT);
+		add(rdbtnInativos, "20, 16");
 
 		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				buscarFuncionariosComFiltros();
+				atualizarTabelaFuncionarios();
 			}
 		});
 		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnFiltrar, "34, 18, default, fill");
+		add(btnFiltrar, "36, 22, default, fill");
 
 		tblConsultaGerencia = new JTable();
-		add(tblConsultaGerencia, "18, 24, 17, 1, fill, fill");
+		add(tblConsultaGerencia, "20, 28, 19, 1, fill, fill");
 
-		btnRetroceder = new JButton("<");
-		add(btnRetroceder, "24, 26");
-
-		lblPagina = new JLabel("1/1");
+		lblPagina = new JLabel("1 / " + totalPaginas);
 		lblPagina.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPagina, "26, 26");
+		add(lblPagina);
 
 		btnAvancar = new JButton(">");
-		add(btnAvancar, "28, 26");
+		btnAvancar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				paginaAtual++;
+				buscarFuncionariosComFiltros();
+				lblPagina.setText(paginaAtual + " / " + totalPaginas);
+				btnRetroceder.setEnabled(paginaAtual > 1);
+				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
+		add(btnAvancar, "30, 30");
+
+		btnRetroceder = new JButton("<");
+		btnRetroceder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paginaAtual--;
+				buscarFuncionariosComFiltros();
+				lblPagina.setText(paginaAtual + " / " + totalPaginas);
+				btnRetroceder.setEnabled(paginaAtual > 1);
+				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
+		add(btnRetroceder, "26, 30");
+
+		controller = new FuncionarioController();
+		btnExportar = new JButton("Exportar Excel");
+		btnExportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser janelaSelecaoDestinoArquivo = new JFileChooser();
+				janelaSelecaoDestinoArquivo.setDialogTitle("Selecione um destino para a planilha...");
+				int opcaoSelecionada = janelaSelecaoDestinoArquivo.showSaveDialog(null);
+				if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminhoEscolhido = janelaSelecaoDestinoArquivo.getSelectedFile().getAbsolutePath();
+					String resultado;
+					try {
+						resultado = controller.gerarPlanilha(funcionarios, caminhoEscolhido);
+						JOptionPane.showMessageDialog(null, resultado);
+					} catch (CampoInvalidoException e1) {
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+
+			}
+		});
+		btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(btnExportar, "20, 36, default, fill");
+
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnEditar, "26, 36, 5, 1, default, fill");
+
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnVoltar, "36, 36, default, fill");
+
+	}
+
+	protected void buscarFuncionariosComFiltros() {
+		seletor = new FuncionarioSeletor();
+		seletor.setLimite(TAMANHO_PAGINA);
+		seletor.setPagina(paginaAtual);
+		seletor.setNome(txtNome.getText());
+		seletor.setTipoCargo(txtCargo.getText());
+		// TODO Não sei como fazer com o filtro de data
+		// Inativos são aquiles que possuemm data de desligamento, se a data de
+		// desligamento é null então o cliente está ativo
+		//
+		// => seletor.setDataDesligamento();
+
+		funcionarios = (ArrayList<Funcionario>) controller.consultarComFiltros(seletor);
+		atualizarTabelaFuncionarios();
+		atualizarQuantidadePaginas();
+	}
+
+	private void atualizarQuantidadePaginas() {
+		// Cálculo do total de páginas (poderia ser feito no backend)
+		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
+
+		// QUOCIENTE da divisão inteira
+		totalPaginas = totalRegistros / TAMANHO_PAGINA;
+
+		// RESTO da divisão inteira
+		if (totalRegistros % TAMANHO_PAGINA > 0) {
+			totalPaginas++;
+		}
+		lblPagina.setText(paginaAtual + " / " + totalPaginas);
 
 		btnExportar = new JButton("Exportar Excel");
-		btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnExportar, "18, 32, default, fill");
-		controller = new FuncionarioController();
+		// TODO 
+//	btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//	add(btnExportar, "18, 32, default, fill");
+//	controller = new FuncionarioController();
 		btnExportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser janelaSelecaoDestinoArquivo = new JFileChooser();
@@ -194,23 +293,5 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 				}
 			}
 		});
-
-		btnEditar = new JButton("Editar");
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnEditar, "24, 32, 5, 1, default, fill");
-
-		btnVoltar = new JButton("Voltar");
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnVoltar, "34, 32, default, fill");
-
 	}
-
 }

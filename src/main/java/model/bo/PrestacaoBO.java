@@ -1,11 +1,13 @@
 package model.bo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import model.dao.PrestacaoDAO;
 import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
+import model.seletor.PrestacaoSeletor;
 import model.vo.Prestacao;
 
 public class PrestacaoBO {
@@ -13,36 +15,43 @@ public class PrestacaoBO {
 
 	// REGRA 2: O serviço só poderá ser registrado quando todos os campos forem
 	// preenchidos com ao menos uma opção.
-	// public Prestacao inserir(Prestacao novaPrestacao) throws
-	// CampoInvalidoException {
-	// validarCamposObrigatorios(novaPrestacao);
-	// return dao.inserir(novaPrestacao);
-	// }
+	public Prestacao inserir(Prestacao novaPrestacao) throws CampoInvalidoException {
+		validarCamposObrigatorios(novaPrestacao);
+		return dao.inserir(novaPrestacao);
+	}
 
-	// TODO SOCORROOOO!!!! Como transformar LocalDate em String?
-//	private void validarCamposObrigatorios(Prestacao novaPrestacao) throws CampoInvalidoException {
-//		String mensagemValidacao = "";
-//
-//		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdFuncionario()), "idfuncionario");
-//		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdSala()), "idsala");
-//		mensagemValidacao += validarString(novaPrestacao.getDataInicio(), "datainicio");
-//		mensagemValidacao += validarString(novaPrestacao.getDataFim(), "datafim");
-//
-//		if (!mensagemValidacao.isEmpty()) {
-//			throw new CampoInvalidoException(mensagemValidacao);
-//		}
-//	}
-//
-//	// TODO
-//	private String validarString(String texto, String nomeCampo) {
-//		boolean valido = (texto != null) && !texto.trim().isEmpty();
-//
-//		if (valido) {
-//			return "";
-//		} else {
-//			return "- " + nomeCampo + "\n";
-//		}
-//	}
+	private void validarCamposObrigatorios(Prestacao novaPrestacao) throws CampoInvalidoException {
+		String mensagemValidacao = "";
+
+		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdFuncionario()), "idfuncionario");
+		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdSala()), "idsala");
+		mensagemValidacao += validarData(novaPrestacao.getDataInicio(), "datainicio");
+		mensagemValidacao += validarData(novaPrestacao.getDataFim(), "datafim");
+
+		if (!mensagemValidacao.isEmpty()) {
+			throw new CampoInvalidoException(mensagemValidacao);
+		}
+	}
+
+	private String validarData(LocalDateTime data, String nomeCampo) {
+		boolean valido = (data != null);
+
+		if (valido) {
+			return "";
+		} else {
+			return "- " + nomeCampo + "\n";
+		}
+	}
+
+	private String validarString(String texto, String nomeCampo) {
+		boolean valido = (texto != null) && !texto.trim().isEmpty();
+
+		if (valido) {
+			return "";
+		} else {
+			return "- " + nomeCampo + "\n";
+		}
+	}
 
 	public boolean atualizar(Prestacao servicoAlterado) {
 		return dao.atualizar(servicoAlterado);
@@ -55,9 +64,9 @@ public class PrestacaoBO {
 	public List<Prestacao> consultarTodos() {
 		return dao.consultarTodos();
 	}
-	
-	public List<PrestacaoDTO> consultarTodosDTO() {
-		return dao.consultarTodosDTO();
+
+	public List<PrestacaoDTO> consultarDTO(PrestacaoSeletor seletor) {
+		return dao.consultarDTO(seletor);
 	}
 
 	public String gerarPlanilha(List<PrestacaoDTO> prestacoes, String caminho) {
