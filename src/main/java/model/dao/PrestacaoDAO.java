@@ -155,6 +155,7 @@ public class PrestacaoDAO {
 		return prestacaoBuscada;
 	}
 
+	//TODO
 	public boolean funcionarioTemPrestacaoPendente(int idFuncionario) {
 		// "SELECT * FROM PRESTACAO WHERE IDFUNCIONARIO = " + idFuncionario + "AND
 		// DATAFIM IS NULL";
