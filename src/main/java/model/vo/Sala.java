@@ -41,6 +41,6 @@ public class Sala {
 
 	@Override
 	public String toString() {
-		return "Sala{" + "id=" + id + ", numero='" + numero + '\'' + ", disponivel=" + disponivel + '}';
+		return "nº " + numero;
 	}
 }
