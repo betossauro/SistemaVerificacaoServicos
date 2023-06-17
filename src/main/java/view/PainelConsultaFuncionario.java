@@ -11,10 +11,12 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import controller.FuncionarioController;
 import controller.PrestacaoController;
+import controller.SalaController;
 import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
 import model.vo.Funcionario;
 import model.vo.Prestacao;
+import model.vo.Sala;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
@@ -33,6 +35,7 @@ import javax.swing.table.DefaultTableModel;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class PainelConsultaFuncionario extends JPanel {
 	private JTable tblConsultaGerencia;
@@ -47,6 +50,11 @@ public class PainelConsultaFuncionario extends JPanel {
 	private DatePickerSettings dateSettings;
 	private JButton btnPegarData;
 
+	// Atributos para a PAGINAÇÃO
+	private final int TAMANHO_PAGINA = 5;
+	private int paginaAtual = 1;
+	private int totalPaginas = 0;
+
 	private ArrayList<PrestacaoDTO> prestacoes;
 	private String[] nomesColunas = { "Sala", "Data", "Serviço Realizado" };
 	private JButton btnEditar;
@@ -56,8 +64,9 @@ public class PainelConsultaFuncionario extends JPanel {
 	private JLabel lblDataFinal;
 	private DateTimePicker dataFinal;
 	private JLabel lblSala;
-	private JTextField txtSala;
 	private FuncionarioController controller;
+	private JComboBox cbSala;
+	private ArrayList<Sala> salas;
 
 	private void limparTabelaConsulta() {
 		tblConsultaGerencia.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
@@ -89,7 +98,7 @@ public class PainelConsultaFuncionario extends JPanel {
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(30dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(150dlu;pref)"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(150dlu;pref):grow"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
@@ -146,25 +155,39 @@ public class PainelConsultaFuncionario extends JPanel {
 
 		lblSala = new JLabel("Sala:");
 		lblSala.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblSala, "16, 14, left, default");
-
-		txtSala = new JTextField();
-		txtSala.setColumns(10);
-		add(txtSala, "18, 14, fill, fill");
+		add(lblSala, "16, 14");
 
 		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+
+		SalaController salaController = new SalaController();
+		salas = (ArrayList<Sala>) salaController.consultarTodos();
+
+		cbSala = new JComboBox(salas.toArray());
+		cbSala.setSelectedIndex(-1);
+		add(cbSala, "18, 14, 5, 1, fill, fill");
 		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnFiltrar, "34, 18, default, fill");
 
 		tblConsultaGerencia = new JTable();
+		tblConsultaGerencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		this.limparTabelaConsulta();
 		add(tblConsultaGerencia, "18, 24, 17, 1, fill, fill");
 
 		btnRetroceder = new JButton("<");
+		// TODO
+//		btnRetroceder.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				paginaAtual--;
+//				buscarFuncionariosComFiltros();
+//				lblPagina.setText(paginaAtual + " / " + totalPaginas);
+//				btnRetroceder.setEnabled(paginaAtual > 1);
+//				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+//			}
+//		});
 		add(btnRetroceder, "24, 26");
 
 		lblPagina = new JLabel("1/1");
@@ -173,6 +196,16 @@ public class PainelConsultaFuncionario extends JPanel {
 		add(lblPagina, "26, 26");
 
 		btnAvancar = new JButton(">");
+		// TODO
+//		btnAvancar.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				paginaAtual++;
+//				buscarFuncionariosComFiltros();
+//				lblPagina.setText(paginaAtual + " / " + totalPaginas);
+//				btnRetroceder.setEnabled(paginaAtual > 1);
+//				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+//			}
+//		});
 		add(btnAvancar, "28, 26");
 
 		btnEditar = new JButton("Editar");
@@ -193,4 +226,16 @@ public class PainelConsultaFuncionario extends JPanel {
 
 	}
 
+	// TODO
+//	private void atualizarQuantidadePaginas() {
+//		// Cálculo do total de páginas (poderia ser feito no backend)
+//		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
+//		// QUOCIENTE da divisão inteira
+//		totalPaginas = totalRegistros / TAMANHO_PAGINA;
+//		// RESTO da divisão inteira
+//		if (totalRegistros % TAMANHO_PAGINA > 0) {
+//			totalPaginas++;
+//		}
+//		lblPagina.setText(paginaAtual + " / " + totalPaginas);
+//	}
 }
