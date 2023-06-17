@@ -106,11 +106,13 @@ public class PrestacaoDAO {
 				+ " S.ID as idSala, S.NUMERO as numeroSala,P.DATAINICIO as dataInicio, P.DATAFIM as dataFim,"
 				+ " A.DESCRICAO as servico, O.DESCRICAO as ocorrencia"
 				+ "FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, OCORRENCIA O "
-				+ "WHERE P.idFuncionario = F.id AND TC.id = F.IDTIPOCARGO AND S.id = P.IDSALA;";
+				+ "WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
 
-		// TODO Incluir filtros do seletor
+		// TODO Incluir filtros do PrestacaoSeletor
 		if (seletor.temFiltros()) {
-			// sql += ...
+			if (seletor.getIdSala() != null) {
+				sql += " AND s.ID = " + seletor.getIdSala();
+			}
 		}
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
@@ -155,13 +157,28 @@ public class PrestacaoDAO {
 		return prestacaoBuscada;
 	}
 
-	//TODO
+	// TODO
 	public boolean funcionarioTemPrestacaoPendente(int idFuncionario) {
-		// "SELECT * FROM PRESTACAO WHERE IDFUNCIONARIO = " + idFuncionario + "AND
-		// DATAFIM IS NULL";
-		// CONTAR QUANTAS PRESTAÇÕES TEM PENDENTE DADO O IDFUNCIONARIO (tipo o de
+		// CONTAR SE EXISTEM PRESTAÇÕES PENDENTES DADO O IDFUNCIONARIO (tipo o de
 		// verificar se CPF já foi utilizado)
-		return false;
+		boolean prestacaoPendente = false;
+		Connection conexao = Banco.getConnection();
+		String sql = "SELECT COUNT(*) FROM PRESTACAO WHERE IDFUNCIONARIO = ? AND " + "DATAFIM IS NULL;";
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			query.setInt(1, idFuncionario);
+			ResultSet resultado = query.executeQuery();
+			if (resultado.next()) {
+				prestacaoPendente = resultado.getInt(1) > 0;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao verificar pendencias relacionadas ao funcionário com id: " + idFuncionario
+					+ "\nCausa: " + erro.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return prestacaoPendente;
 	}
 
 }
