@@ -204,6 +204,7 @@ public class PainelConsultaGerencia extends JPanel {
 		add(btnFiltrar, "36, 30, default, fill");
 
 		tblConsultaGerencia = new JTable();
+		this.limparTabelaConsulta();
 		add(tblConsultaGerencia, "20, 34, 17, 1, fill, fill");
 
 		btnRetroceder = new JButton("<");

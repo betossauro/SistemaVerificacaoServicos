@@ -72,7 +72,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		for (PrestacaoDTO p : prestacoes) {
 			Object[] novaLinhaDaTabela = new Object[3];
 			novaLinhaDaTabela[0] = p.getNumeroSala();
-			novaLinhaDaTabela[1] = p.getDataInicio()+ p.getDataFim();
+			novaLinhaDaTabela[1] = p.getDataInicio() + p.getDataFim();
 			novaLinhaDaTabela[2] = p.getServico();
 
 			model.addRow(novaLinhaDaTabela);
@@ -161,6 +161,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		add(btnFiltrar, "34, 18, default, fill");
 
 		tblConsultaGerencia = new JTable();
+		this.limparTabelaConsulta();
 		add(tblConsultaGerencia, "18, 24, 17, 1, fill, fill");
 
 		btnRetroceder = new JButton("<");
