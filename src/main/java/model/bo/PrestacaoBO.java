@@ -13,8 +13,6 @@ import model.vo.Prestacao;
 public class PrestacaoBO {
 	private PrestacaoDAO dao = new PrestacaoDAO();
 
-	// REGRA 2: O serviço só poderá ser registrado quando todos os campos forem
-	// preenchidos com ao menos uma opção.
 	public Prestacao inserir(Prestacao novaPrestacao) throws CampoInvalidoException {
 		validarCamposObrigatorios(novaPrestacao);
 		return dao.inserir(novaPrestacao);
@@ -69,14 +67,12 @@ public class PrestacaoBO {
 		return dao.consultarDTO(seletor);
 	}
 
+	public boolean funcionarioTemPrestacaoPendente(int idFuncionario) {
+		return dao.funcionarioTemPrestacaoPendente(idFuncionario);
+	}
+
 	public String gerarPlanilha(List<PrestacaoDTO> prestacoes, String caminho) {
 		GeradorPlanilhas gerador = new GeradorPlanilhas();
 		return gerador.geradorPlanilhaServicos(prestacoes, caminho);
 	}
-
-	// REGRA 1: Caso o funcionário esqueça de registrar a hora de início, é possível
-	// selecionar manualmente o dia e hora em que o serviço foi realizado.
-
-	// REGRA 3: O funcionário poderá registrar posteriormente o serviço apenas no
-	// intervalo do mesmo dia em que este serviço foi realizado.
 }

@@ -12,9 +12,9 @@ import model.vo.Prestacao;
 public class PrestacaoController {
 	PrestacaoBO bo = new PrestacaoBO();
 
-//	public Prestacao inserir(Prestacao novaPrestacao) {
-//	return bo.inserir(Prestacao novaPrestacao);
-//	}
+	public Prestacao inserir(Prestacao novaPrestacao) throws CampoInvalidoException {
+		return bo.inserir(novaPrestacao);
+	}
 
 	public boolean atualizar(Prestacao servicoAlterado) {
 		return bo.atualizar(servicoAlterado);
@@ -30,6 +30,10 @@ public class PrestacaoController {
 
 	public List<PrestacaoDTO> consultarDTO(PrestacaoSeletor seletor) {
 		return bo.consultarDTO(seletor);
+	}
+
+	public boolean funcionarioTemPrestacaoPendente(int idFuncionario) {
+		return bo.funcionarioTemPrestacaoPendente(idFuncionario);
 	}
 
 	public String gerarPlanilha(List<PrestacaoDTO> prestacoes, String caminho) throws CampoInvalidoException {

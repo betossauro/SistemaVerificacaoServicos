@@ -106,7 +106,7 @@ public class PainelRegistroServico extends JPanel {
 		lblRegistroServico = new JLabel("Registro de Serviço");
 		lblRegistroServico.setFont(new Font("Tahoma", Font.BOLD, 16));
 		add(lblRegistroServico, "16, 6, 5, 1");
-		
+
 		lblNewLabel = new JLabel("Bem vindo, ");
 		add(lblNewLabel, "22, 6");
 
@@ -129,7 +129,7 @@ public class PainelRegistroServico extends JPanel {
 		lblHoraEntrada = new JLabel("HH:mm");
 		lblHoraEntrada.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblHoraEntrada, "24, 14, center, default");
-		
+
 		btnIniciarServico = new JButton("Iniciar Serviço");
 		btnIniciarServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnIniciarServico.addActionListener(new ActionListener() {
@@ -142,7 +142,7 @@ public class PainelRegistroServico extends JPanel {
 		lblHoraFinal = new JLabel("Horário Final:");
 		lblHoraFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblHoraFinal, "16, 18");
-		
+
 		lblHoraSaida = new JLabel("HH:mm");
 		lblHoraSaida.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblHoraSaida, "24, 18, center, default");
@@ -187,12 +187,11 @@ public class PainelRegistroServico extends JPanel {
 		cbOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(cbOcorrencia, "20, 48, 5, 1, fill, fill");
 
-		//TODO
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Prestacao prestacao = new Prestacao();
-				//TODO
+				// TODO
 //				prestacao.setIdFuncionario(usuarioAutenticado.getId());
 				Sala salaSelecionada = (Sala) cbSala.getSelectedItem();
 				prestacao.setIdSala(salaSelecionada.getId());
@@ -207,6 +206,7 @@ public class PainelRegistroServico extends JPanel {
 		btnRegistrarOcorrencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
+			// TODO
 		});
 		btnRegistrarOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnRegistrarOcorrencia, "28, 60, default, fill");
@@ -218,6 +218,7 @@ public class PainelRegistroServico extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				servicosRealizados.add((Atividade) cbServicoRealizado.getSelectedItem());
 			}
+			// TODO
 		});
 		add(btnAdicionarAtividade, "26, 26, fill, fill");
 
