@@ -247,8 +247,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		seletor.setLimite(TAMANHO_PAGINA);
 		seletor.setPagina(paginaAtual);
 		seletor.setNome(txtNome.getText());
-		// seletor.setTipoCargo(txtCargo.getText());
-		// TODO MUDAR TIPO CARGO PARA COMBO BOX
+		seletor.setTipoCargo((TipoCargo) cbCargo.getSelectedItem());
 		if (rdbtnAtivos.isSelected() || rdbtnInativos.isSelected()) {
 			seletor.setAtivo(rdbtnAtivos.isSelected());
 		}
