@@ -130,7 +130,7 @@ public class FuncionarioDAO {
 		return cpfJaUtilizado;
 	}
 
-	// TODO exclusão lógica
+	// Exclusão lógica
 	public boolean excluir(Funcionario funcionario) {
 		boolean excluiu = false;
 		Connection conexao = Banco.getConnection();
@@ -293,18 +293,16 @@ public class FuncionarioDAO {
 			} else {
 				sql += " AND ";
 			}
-			// TODO não sei como fazer com o tipoCargo no banco e aq tbm, olhar no
-			// FuncionarioSeletor
-			sql += " TipoCargo LIKE '%" + seletor.getTipoCargo() + "%'";
+			sql += " TipoCargo = " + seletor.getTipoCargo().getValor();
 			primeiro = false;
 		}
-		if (seletor.getDataDesligamento() != null) {
+		if (seletor.getAtivo() != null) {
 			if (primeiro) {
 				sql += " WHERE ";
 			} else {
 				sql += " AND ";
 			}
-			sql += " DATADESLIGAMENTO LIKE '%" + seletor.getDataDesligamento() + "%' ";
+			sql += " DATADESLIGAMENTO IS " + (seletor.getAtivo() == true ? "" : " NOT ") + " NULL";
 			primeiro = false;
 		}
 

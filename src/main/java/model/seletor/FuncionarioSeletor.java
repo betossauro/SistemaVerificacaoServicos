@@ -1,53 +1,39 @@
 package model.seletor;
 
-import java.time.LocalDate;
+import model.vo.TipoCargo;
 
-public class FuncionarioSeletor extends BaseSeletor{
+public class FuncionarioSeletor extends BaseSeletor {
 
 	private String nome;
-	private String tipoCargo;
-	private LocalDate dataDesligamento;
-	
+	private TipoCargo tipoCargo;
+	private Boolean ativo;
+
 	@Override
 	public boolean temFiltro() {
-		return (this.nome != null && this.nome.trim().length() > 0)
-			|| this.tipoCargo != null
-			|| this.dataDesligamento != null;
+		return (this.nome != null && this.nome.trim().length() > 0) || this.tipoCargo != null || this.ativo == null;
 	}
 
-	
 	public String getNome() {
 		return nome;
 	}
-
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-
-	public String getTipoCargo() {
+	public TipoCargo getTipoCargo() {
 		return tipoCargo;
 	}
 
-
-	public void setTipoCargo(String tipoCargo) {
+	public void setTipoCargo(TipoCargo tipoCargo) {
 		this.tipoCargo = tipoCargo;
 	}
 
-
-	public LocalDate getDataDesligamento() {
-		return dataDesligamento;
+	public Boolean getAtivo() {
+		return ativo;
 	}
 
-
-	public void setDataDesligamento(LocalDate dataDesligamento) {
-		this.dataDesligamento = dataDesligamento;
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
-
-	public boolean temPaginacao() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
 }

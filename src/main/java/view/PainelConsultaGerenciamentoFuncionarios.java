@@ -225,7 +225,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				// TODO
 			}
 		});
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -234,7 +234,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				// TODO
 			}
 		});
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -246,13 +246,11 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		seletor.setLimite(TAMANHO_PAGINA);
 		seletor.setPagina(paginaAtual);
 		seletor.setNome(txtNome.getText());
-		seletor.setTipoCargo(txtCargo.getText());
-		// TODO Não sei como fazer com o filtro de data
-		// Inativos são aquiles que possuemm data de desligamento, se a data de
-		// desligamento é null então o cliente está ativo
-		//
-		// => seletor.setDataDesligamento();
-
+		// seletor.setTipoCargo(txtCargo.getText());
+		// TODO MUDAR TIPO CARGO PARA COMBO BOX
+		if (rdbtnAtivos.isSelected() || rdbtnInativos.isSelected()) {
+			seletor.setAtivo(rdbtnAtivos.isSelected());
+		}
 		funcionarios = (ArrayList<Funcionario>) controller.consultarComFiltros(seletor);
 		atualizarTabelaFuncionarios();
 		atualizarQuantidadePaginas();
