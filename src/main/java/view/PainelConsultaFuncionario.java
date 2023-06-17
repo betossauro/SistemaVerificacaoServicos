@@ -74,8 +74,6 @@ public class PainelConsultaFuncionario extends JPanel {
 
 	private void atualizarTabelaConsulta() {
 		this.limparTabelaConsulta();
-
-		// TODO
 		DefaultTableModel model = (DefaultTableModel) tblConsultaGerencia.getModel();
 
 		for (PrestacaoDTO p : prestacoes) {
@@ -212,6 +210,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
+			// TODO
 		});
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnEditar, "24, 32, 5, 1, default, fill");
@@ -220,6 +219,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
+			// TODO
 		});
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnVoltar, "34, 32, default, fill");

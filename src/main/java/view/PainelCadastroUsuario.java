@@ -134,7 +134,6 @@ public class PainelCadastroUsuario extends JPanel {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 			mascaraCpf.setValueContainsLiteralCharacters(false);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -150,7 +149,6 @@ public class PainelCadastroUsuario extends JPanel {
 			mascaraTelefone = new MaskFormatter("(##)####-####");
 			mascaraTelefone.setValueContainsLiteralCharacters(false);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -173,7 +171,6 @@ public class PainelCadastroUsuario extends JPanel {
 			mascaraCtps = new MaskFormatter("####### ####");
 			mascaraCtps.setValueContainsLiteralCharacters(false);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -215,7 +212,6 @@ public class PainelCadastroUsuario extends JPanel {
 			mascaraMatricula = new MaskFormatter("######");
 			mascaraMatricula.setValueContainsLiteralCharacters(false);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -231,7 +227,6 @@ public class PainelCadastroUsuario extends JPanel {
 			mascaraSenha = new MaskFormatter("########");
 			mascaraSenha.setValueContainsLiteralCharacters(false);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

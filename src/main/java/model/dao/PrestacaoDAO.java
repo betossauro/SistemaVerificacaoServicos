@@ -108,10 +108,14 @@ public class PrestacaoDAO {
 				+ "FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, OCORRENCIA O "
 				+ "WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
 
-		// TODO Incluir filtros do PrestacaoSeletor
 		if (seletor.temFiltros()) {
 			if (seletor.getIdSala() != null) {
+				sql += " AND f.NOME = " + seletor.getNomeFuncionario();
+				sql += " AND tc.DESCRICAO = " + seletor.getTipoCargo().name();
 				sql += " AND s.ID = " + seletor.getIdSala();
+				sql += "AND p.DATAINICIO = " + seletor.getDataInicio();
+				sql += "AND p.DATAFIM = " + seletor.getDataFim();
+				sql += "AND o.DESCRICAO = " + seletor.getOcorrencia();
 			}
 		}
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
@@ -157,10 +161,7 @@ public class PrestacaoDAO {
 		return prestacaoBuscada;
 	}
 
-	// TODO
 	public boolean funcionarioTemPrestacaoPendente(int idFuncionario) {
-		// CONTAR SE EXISTEM PRESTAÇÕES PENDENTES DADO O IDFUNCIONARIO (tipo o de
-		// verificar se CPF já foi utilizado)
 		boolean prestacaoPendente = false;
 		Connection conexao = Banco.getConnection();
 		String sql = "SELECT COUNT(*) FROM PRESTACAO WHERE IDFUNCIONARIO = ? AND " + "DATAFIM IS NULL;";

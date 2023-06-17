@@ -31,7 +31,6 @@ public class FuncionarioBO {
 		return dao.atualizar(funcionarioAlterado);
 	}
 
-	// TODO Perguntar se faz sentido
 	public boolean excluir(Funcionario funcionario) throws CampoInvalidoException {
 		PrestacaoDAO prestacaoDAO = new PrestacaoDAO();
 		if (prestacaoDAO.funcionarioTemPrestacaoPendente(funcionario.getId())) {
@@ -69,5 +68,4 @@ public class FuncionarioBO {
 	public List<Funcionario> consultarComFiltros(FuncionarioSeletor seletor) {
 		return dao.consultarComFiltros(seletor);
 	}
-
 }

@@ -9,8 +9,6 @@ import model.vo.Atividade;
 public class AtividadeBO {
 	AtividadeDAO dao = new AtividadeDAO();
 
-	// REGRA 1: O usuário precisa selecionar pelo menos uma atividade
-	// (relacionado ao PainelRegistroServico)
 	public Atividade inserir(Atividade novaSala) throws CampoInvalidoException {
 		return dao.inserir(novaSala);
 	}
