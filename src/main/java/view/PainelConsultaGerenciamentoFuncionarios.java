@@ -14,6 +14,7 @@ import controller.PrestacaoController;
 import model.exception.CampoInvalidoException;
 import model.seletor.FuncionarioSeletor;
 import model.vo.Funcionario;
+import model.vo.TipoCargo;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
@@ -33,6 +34,7 @@ import javax.swing.table.DefaultTableModel;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 	private JTable tblConsultaGerencia;
@@ -58,10 +60,10 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 	private JLabel lblStatus;
 	private FuncionarioController controller;
 	private JTextField txtNome;
-	private JTextField txtCargo;
 	private JRadioButton rdbtnAtivos;
 	private JRadioButton rdbtnInativos;
 	private ButtonGroup grupoStatus;
+	private JComboBox cbCargo;
 
 	private void limparTabelaConsulta() {
 		tblConsultaGerencia.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
@@ -98,7 +100,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 				ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.MIN_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(150dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(150dlu;default):grow"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
@@ -133,10 +135,9 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		lblCargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblCargo, "34, 10");
 
-		txtCargo = new JTextField();
-		txtCargo.setText("");
-		add(txtCargo, "38, 10, fill, fill");
-		txtCargo.setColumns(10);
+		cbCargo = new JComboBox(TipoCargo.values());
+		cbCargo.setSelectedIndex(-1);
+		add(cbCargo, "38, 10, fill, fill");
 
 		lblStatus = new JLabel("Status:");
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 12));
