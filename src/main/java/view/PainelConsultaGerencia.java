@@ -82,7 +82,6 @@ public class PainelConsultaGerencia extends JPanel {
 		this.limparTabelaConsulta();
 
 		DefaultTableModel model = (DefaultTableModel) tblConsultaGerencia.getModel();
-		// TODO
 		for (PrestacaoDTO p : prestacoes) {
 			Object[] novaLinhaDaTabela = new Object[7];
 
@@ -189,6 +188,7 @@ public class PainelConsultaGerencia extends JPanel {
 		dataInicial.getDatePicker().getComponentToggleCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
+			// TODO É PARA EXISTIR ESSE ACTION LISTENER MSM?
 		});
 		add(dataInicial, "20, 22, 3, 1, fill, fill");
 
@@ -201,6 +201,11 @@ public class PainelConsultaGerencia extends JPanel {
 		dataFinal.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataFinal.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dataFinal.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataFinal.getDatePicker().getComponentToggleCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+			// TODO É PARA EXISTIR ESSE ACTION LISTENER MSM?
+		});
 		add(dataFinal, "34, 22, 3, 1, fill, fill");
 
 		lblOcorrencia = new JLabel("Ocorrência:");
@@ -218,6 +223,7 @@ public class PainelConsultaGerencia extends JPanel {
 		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// TODO
 			}
 		});
 
@@ -285,13 +291,14 @@ public class PainelConsultaGerencia extends JPanel {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
+			// TODO
 		});
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnVoltar, "36, 42, default, fill");
 
 	}
 
-	//TODO
+	// TODO
 //	private void atualizarQuantidadePaginas() {
 //		// Cálculo do total de páginas (poderia ser feito no backend)
 //		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);

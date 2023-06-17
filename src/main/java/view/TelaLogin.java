@@ -128,6 +128,7 @@ public class TelaLogin {
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// TODO
 				// Obter o usuário autenticado dado a matricula e a senha
 				// if usuario != null
 				// TelaPrincipal tela = new TelaPrincipal(usuarioAutenticado);
