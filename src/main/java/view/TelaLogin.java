@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import controller.FuncionarioController;
 import model.exception.CampoInvalidoException;
@@ -36,6 +38,8 @@ public class TelaLogin {
 	private Funcionario usuarioAutenticado;
 	private TelaPrincipal telaPrincipal;
 	private JLabel lblErro;
+	private Timer timerFim;
+	private Timer timerInicio;
 
 	/**
 	 * Launch the application.
@@ -69,78 +73,88 @@ public class TelaLogin {
 		frmLogin.setBounds(100, 100, 1852, 1048);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frmLogin.getContentPane().setLayout(new FormLayout(
-				new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+		frmLogin.getContentPane()
+				.setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
-						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(119dlu;default)"),
-						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(139dlu;default)"),
-						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(139dlu;default)"),
-						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						ColumnSpec.decode("default:grow"), FormSpecs.RELATED_GAP_COLSPEC,
+						ColumnSpec.decode("max(119dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
+						ColumnSpec.decode("max(139dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
+						ColumnSpec.decode("max(139dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
+						ColumnSpec
+								.decode("default:grow"),
 						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, },
-				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(100dlu;default)"),
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(25dlu;default)"), FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(30dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, }));
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, },
+						new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								RowSpec.decode("max(100dlu;default)"), FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								RowSpec.decode("max(25dlu;default)"), FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								RowSpec.decode("max(25dlu;default)"), FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+								RowSpec.decode("max(30dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC, }));
 
 		icon = new JLabel("");
 		icon.setIcon(new ImageIcon(TelaLogin.class.getResource("/view/icons/logo2.png")));
-		frmLogin.getContentPane().add(icon, "24, 19, center, default");
+		frmLogin.getContentPane().add(icon, "22, 19, center, default");
 
 		lblMatricula = new JLabel("Matrícula");
 		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		frmLogin.getContentPane().add(lblMatricula, "22, 32, 5, 1");
+		frmLogin.getContentPane().add(lblMatricula, "20, 32, 5, 1");
 
 		txtMatricula = new JTextField();
 		txtMatricula.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtMatricula.setToolTipText("Insira sua matrícula");
-		frmLogin.getContentPane().add(txtMatricula, "22, 34, 5, 1, fill, fill");
+		frmLogin.getContentPane().add(txtMatricula, "20, 34, 5, 1, fill, fill");
 		txtMatricula.setColumns(10);
 
 		lblSenha = new JLabel("Senha");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		frmLogin.getContentPane().add(lblSenha, "22, 38");
+		frmLogin.getContentPane().add(lblSenha, "20, 38");
 
 		pswSenha = new JPasswordField();
 		pswSenha.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		pswSenha.setToolTipText("Insira sua senha");
-		frmLogin.getContentPane().add(pswSenha, "22, 40, 5, 1, fill, fill");
+		frmLogin.getContentPane().add(pswSenha, "20, 40, 5, 1, fill, fill");
 
 		lblErro = new JLabel("Erro ao validar usuário!");
 		lblErro.setHorizontalAlignment(SwingConstants.CENTER);
 		lblErro.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		frmLogin.getContentPane().add(lblErro, "24, 45");
+		frmLogin.getContentPane().add(lblErro, "22, 45");
 		lblErro.setVisible(false);
 
 		btnEntrar = new JButton("Entrar");
@@ -153,8 +167,10 @@ public class TelaLogin {
 						frmLogin.setVisible(false);
 						frmLogin.dispose();
 					} else {
-						lblErro.setVisible(true);
+						timerErro();
 						limparTela();
+						timerLimpar();
+
 					}
 				} catch (CampoInvalidoException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -163,7 +179,7 @@ public class TelaLogin {
 		});
 
 		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		frmLogin.getContentPane().add(btnEntrar, "24, 52, default, fill");
+		frmLogin.getContentPane().add(btnEntrar, "22, 52, default, fill");
 	}
 
 	@SuppressWarnings("deprecation")
@@ -179,4 +195,27 @@ public class TelaLogin {
 		pswSenha.setText("");
 	}
 
+	public void timerErro() {
+		int delay = 0;
+		int interval = 1000;
+		timerInicio = new Timer();
+		timerInicio.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				lblErro.setVisible(true);
+				cancel();
+			}
+		}, delay, interval);
+	}
+
+	public void timerLimpar() {
+		int delay = 4000;
+		int interval = 1000;
+		timerFim = new Timer();
+		timerFim.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				lblErro.setVisible(false);
+				cancel();
+			}
+		}, delay, interval);
+	}
 }
