@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import model.vo.Funcionario;
+import model.vo.TipoUsuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,6 +25,7 @@ public class TelaPrincipal {
 	private JMenu mnGerenciar;
 	private JMenuItem mntmGerenciarFuncionarios;
 	private Funcionario usuarioAutenticado;
+	private PainelMenuGerencia painelMenuGerencia;
 
 
 	/**
@@ -44,6 +46,12 @@ public class TelaPrincipal {
 		
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
+		painelMenuGerencia = new PainelMenuGerencia();
+		painelMenuGerencia.setVisible(true);
+		
+		if(usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.ADMINISTRADOR.getValor()){
+			frame.setContentPane(painelMenuGerencia);
+		}
 		
 		mnCadastrar = new JMenu("Cadastrar");
 		menuBar.add(mnCadastrar);
@@ -85,6 +93,11 @@ public class TelaPrincipal {
 		
 		//TODO
 		// Mostrar/esconder itens do menu conforme usuário autenticado
+	}
+
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.accessibility.AccessibleContext;
+
 import model.bo.FuncionarioBO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
@@ -74,7 +76,7 @@ public class FuncionarioController {
 	public int contarTotalRegistrosComFiltros(FuncionarioSeletor seletor) {
 		return bo.contarTotalRegistrosComFiltros(seletor);
 	}
-	
+
 	public String gerarPlanilha(List<Funcionario> funcionarios, String caminho) throws CampoInvalidoException {
 
 		if (funcionarios == null || caminho == null || caminho.trim().isEmpty()) {
@@ -88,4 +90,17 @@ public class FuncionarioController {
 	public List<Funcionario> consultarComFiltros(FuncionarioSeletor seletor) {
 		return bo.consultarComFiltros(seletor);
 	}
+
+	public Funcionario consultarPorLoginSenha(String matricula, String senha) throws CampoInvalidoException {
+		Funcionario funcionarioConsultado = null;
+		boolean valido = (matricula != null && !matricula.isEmpty())
+				&& (senha != null && !senha.isEmpty());
+		if (valido) {
+			funcionarioConsultado = bo.consultarPorLoginSenha(matricula, senha);
+		} else {
+			throw new CampoInvalidoException("Login ou senha inválidos!");
+		}
+		return funcionarioConsultado;
+	}
+
 }

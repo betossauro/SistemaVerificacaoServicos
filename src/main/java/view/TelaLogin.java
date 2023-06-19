@@ -6,6 +6,11 @@ import javax.swing.JFrame;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+
+import controller.FuncionarioController;
+import model.exception.CampoInvalidoException;
+import model.vo.Funcionario;
+
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -25,6 +30,8 @@ public class TelaLogin {
 	private JLabel lblMatricula;
 	private JButton btnEntrar;
 	private JLabel icon;
+	private Funcionario usuarioAutenticado;
+	private TelaPrincipal tela;
 
 	/**
 	 * Launch the application.
@@ -54,27 +61,28 @@ public class TelaLogin {
 	 */
 	private void initialize() {
 		frmMenuInicial = new JFrame();
-		frmMenuInicial.setBounds(100, 100, 1200, 1000);
+		frmMenuInicial.setTitle("Login");
+		frmMenuInicial.setBounds(100, 100, 1852, 1048);
 		frmMenuInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMenuInicial.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmMenuInicial.getContentPane().setLayout(new FormLayout(
-				new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(119dlu;default):grow"),
-						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(139dlu;default):grow"),
-						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(139dlu;default):grow"),
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.UNRELATED_GAP_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.UNRELATED_GAP_COLSPEC, },
+				new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
+						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(119dlu;default)"),
+						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(139dlu;default)"),
+						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(139dlu;default)"),
+						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, },
 				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
@@ -127,18 +135,27 @@ public class TelaLogin {
 
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
+				
 				// TODO
 				// Obter o usuário autenticado dado a matricula e a senha
 				// if usuario != null
-				// TelaPrincipal tela = new TelaPrincipal(usuarioAutenticado);
-				// tela.setVisible(true);
+				tela = new TelaPrincipal(usuarioAutenticado);
+				tela.setVisible(true);
 				frmMenuInicial.setVisible(false);
 				frmMenuInicial.dispose();
 			}
 		});
 		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		frmMenuInicial.getContentPane().add(btnEntrar, "24, 50, default, fill");
+	}
+	
+	@SuppressWarnings("deprecation")
+	public Funcionario autenticar() throws CampoInvalidoException {
+		Funcionario usuarioAutenticado = null;
+		usuarioAutenticado = new FuncionarioController().consultarPorLoginSenha(this.txtMatricula.getText(), this.pswSenha.getText());
+		return usuarioAutenticado;
 	}
 
 }
