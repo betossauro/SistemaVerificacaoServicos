@@ -295,4 +295,8 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		lblPagina.setText(paginaAtual + " / " + totalPaginas);
 	}
 
+	public Funcionario getFuncionarioSelecionado() {
+		return funcionarioSelecionado;
+	}
+
 }
