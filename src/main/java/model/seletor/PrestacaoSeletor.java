@@ -4,18 +4,21 @@ import java.time.LocalDate;
 
 import model.vo.TipoCargo;
 
-public class PrestacaoSeletor {
+public class PrestacaoSeletor extends BaseSeletor {
 	private String nomeFuncionario;
 	private TipoCargo tipoCargo;
 	private Integer idSala;
+	private String numeroSala;
 	private LocalDate dataInicio;
 	private LocalDate dataFim;
+	private String servico;
 	private String ocorrencia;
 
-	public boolean temFiltros() {
+	@Override
+	public boolean temFiltro() {
 		return (this.nomeFuncionario != null && this.nomeFuncionario.trim().length() > 0) || this.tipoCargo != null
-				|| this.idSala != null || this.dataInicio != null 
-				|| this.dataFim != null || this.ocorrencia != null;
+				|| this.idSala != null || this.numeroSala != null || this.dataInicio != null || this.dataFim != null || this.servico != null
+				|| this.ocorrencia != null;
 	}
 
 	public String getNomeFuncionario() {
@@ -32,14 +35,6 @@ public class PrestacaoSeletor {
 
 	public void setTipoCargo(TipoCargo tipoCargo) {
 		this.tipoCargo = tipoCargo;
-	}
-
-	public Integer getIdSala() {
-		return idSala;
-	}
-
-	public void setIdSala(Integer idSala) {
-		this.idSala = idSala;
 	}
 
 	public LocalDate getDataInicio() {
@@ -65,4 +60,31 @@ public class PrestacaoSeletor {
 	public void setOcorrencia(String ocorrencia) {
 		this.ocorrencia = ocorrencia;
 	}
+
+	public String getServico() {
+		return servico;
+	}
+
+	public void setServico(String servico) {
+		this.servico = servico;
+	}
+
+	public String getNumeroSala() {
+		return numeroSala;
+	}
+
+	public void setNumeroSala(String numeroSala) {
+		this.numeroSala = numeroSala;
+	}
+
+	public Integer getIdSala() {
+		return idSala;
+	}
+
+	public void setIdSala(Integer idSala) {
+		this.idSala = idSala;
+	}
+
+
+
 }

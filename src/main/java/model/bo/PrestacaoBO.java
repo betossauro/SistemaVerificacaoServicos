@@ -8,6 +8,7 @@ import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
 import model.seletor.PrestacaoSeletor;
+import model.vo.Funcionario;
 import model.vo.Prestacao;
 
 public class PrestacaoBO {
@@ -74,5 +75,13 @@ public class PrestacaoBO {
 	public String gerarPlanilha(List<PrestacaoDTO> prestacoes, String caminho) {
 		GeradorPlanilhas gerador = new GeradorPlanilhas();
 		return gerador.geradorPlanilhaServicos(prestacoes, caminho);
+	}
+
+	public List<PrestacaoDTO> consultarComFiltros(PrestacaoSeletor seletor) {
+		return dao.consultarDTO(seletor);
+	}
+
+	public int contarTotalRegistrosComFiltros(PrestacaoSeletor seletor) {
+		return dao.contarTotalRegistrosDTOComFiltros(seletor);
 	}
 }

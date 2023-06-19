@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.dto.PrestacaoDTO;
+import model.seletor.FuncionarioSeletor;
 import model.seletor.PrestacaoSeletor;
+import model.vo.Funcionario;
 import model.vo.Prestacao;
 
 public class PrestacaoDAO {
@@ -108,16 +111,10 @@ public class PrestacaoDAO {
 				+ "FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, OCORRENCIA O "
 				+ "WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
 
-		if (seletor.temFiltros()) {
-			if (seletor.getIdSala() != null) {
-				sql += " AND f.NOME = " + seletor.getNomeFuncionario();
-				sql += " AND tc.DESCRICAO = " + seletor.getTipoCargo().name();
-				sql += " AND s.ID = " + seletor.getIdSala();
-				sql += "AND p.DATAINICIO = " + seletor.getDataInicio();
-				sql += "AND p.DATAFIM = " + seletor.getDataFim();
-				sql += "AND o.DESCRICAO = " + seletor.getOcorrencia();
-			}
+		if (seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
 		}
+
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			ResultSet resultado = query.executeQuery();
@@ -143,6 +140,38 @@ public class PrestacaoDAO {
 			Banco.closeConnection(conexao);
 		}
 		return prestacoesDTO;
+	}
+
+	private String preencherFiltros(String sql, PrestacaoSeletor seletor) {
+
+		if (seletor.getNomeFuncionario() != null) {
+			sql += " AND f.NOME LIKE '%" + seletor.getNomeFuncionario() + "%'";
+		}
+
+		if (seletor.getTipoCargo() != null) {
+			sql += " AND TC.descricao = " + seletor.getTipoCargo().name();
+		}
+
+		if (seletor.getNumeroSala() != null) {
+			sql += " AND S.NUMERO = " + seletor.getNumeroSala();
+		}
+
+		if (seletor.getDataInicio() != null && seletor.getDataFim() != null) {
+			sql += " AND P.DATAINICIO BETWEEN " + seletor.getDataInicio() + " AND " + seletor.getDataFim();
+		}
+
+		if (seletor.getDataInicio() != null) {
+			sql += " AND P.DATAINICIO AFTER " + seletor.getDataInicio();
+		}
+
+		if (seletor.getDataFim() != null) {
+			sql += " AND P.DATAFIM BEFORE " + seletor.getDataFim();
+		}
+
+		if (seletor.getOcorrencia() != null) {
+			sql += " AND O.DESCRICAO LIKE '%" + seletor.getOcorrencia() + "%'";
+		}
+		return sql;
 	}
 
 	private Prestacao montarPrestacaoComResultadoDoBanco(ResultSet resultado) throws SQLException {
@@ -180,6 +209,34 @@ public class PrestacaoDAO {
 			Banco.closeConnection(conexao);
 		}
 		return prestacaoPendente;
+	}
+
+	public int contarTotalRegistrosDTOComFiltros(PrestacaoSeletor seletor) {
+		int total = 0;
+		Connection conexao = Banco.getConnection();
+		String sql = "SELECT COUNT(p.id)"
+				+ "FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, OCORRENCIA O "
+				+ "WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
+
+		if (seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+
+			if (resultado.next()) {
+				total = resultado.getInt(1);
+			}
+		} catch (Exception e) {
+			System.out.println("Erro contar o total de prestações" + "\n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+
+		return total;
 	}
 
 }
