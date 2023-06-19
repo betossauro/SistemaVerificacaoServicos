@@ -3,6 +3,8 @@ package model.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.accessibility.AccessibleContext;
+
 import model.dao.FuncionarioDAO;
 import model.dao.PrestacaoDAO;
 import model.exception.CampoInvalidoException;
@@ -67,5 +69,10 @@ public class FuncionarioBO {
 
 	public List<Funcionario> consultarComFiltros(FuncionarioSeletor seletor) {
 		return dao.consultarComFiltros(seletor);
+	}
+
+	public Funcionario consultarPorLoginSenha(String matricula, String senha) {
+		Funcionario funcionarioConsultado = dao.consultarPorLoginSenha(matricula, senha);  
+		return funcionarioConsultado;
 	}
 }

@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.accessibility.AccessibleContext;
+
 import model.seletor.FuncionarioSeletor;
 import model.vo.Funcionario;
 import model.vo.TipoCargo;
@@ -307,5 +309,31 @@ public class FuncionarioDAO {
 		}
 
 		return sql;
+	}
+
+	public Funcionario consultarPorLoginSenha(String matricula, String senha) {
+		Funcionario funcionarioConsultado = null;
+		Connection conexao = Banco.getConnection();
+		String sql =  " SELECT * FROM FUNCIONARIO "
+				    + " WHERE MATRICULA = ? AND SENHA = ?";
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		
+		try {
+			query.setString(1, matricula);
+			query.setString(2, senha);
+			ResultSet resultado = query.executeQuery();
+			
+			if(resultado.next()) {
+				funcionarioConsultado = montarFuncionarioComResultadoDoBanco(resultado);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar usuario com login: + " + matricula
+								+ "\n Causa: " + e.getMessage());	
+		}finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		
+		return funcionarioConsultado;
 	}
 }
