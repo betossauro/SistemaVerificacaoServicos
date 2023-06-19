@@ -33,7 +33,7 @@ CREATE TABLE FUNCIONARIO
     TELEFONE      VARCHAR(11),
     DATANASCIMENTO  DATE,
     CTPS          VARCHAR(11) UNIQUE,
-    MATRICULA 	  NUMERIC(6) UNIQUE,
+    MATRICULA 	  VARCHAR(6) UNIQUE,
     SENHA 		  VARCHAR(55),
     DATADESLIGAMENTO DATE,
     IDTIPOCARGO   INT,
@@ -99,6 +99,8 @@ INSERT INTO TIPOCARGO (descricao)
 VALUES ('ZELADORIA');
 INSERT INTO TIPOCARGO (descricao)
 VALUES ('TECNICO TI');
+INSERT INTO TIPOCARGO (descricao)
+VALUES ('GERENCIA');
 
 INSERT INTO SALA (numero, disponivel)
 VALUES (101, TRUE);
@@ -110,3 +112,11 @@ INSERT INTO SALA (numero, disponivel)
 VALUES (201, TRUE);
 INSERT INTO SALA (numero, disponivel)
 VALUES (202, TRUE);
+
+
+INSERT INTO FUNCIONARIO (nome, cpf, telefone, datanascimento, ctps, matricula, senha, datadesligamento, idtipocargo, idtipousuario) VALUES ('Luis Alberto Weber', '10810699966', '48998577999', '1999-05-19','10810699966', '000001', '0000', null, 4, 1);
+INSERT INTO FUNCIONARIO (nome, cpf, telefone, datanascimento, ctps, matricula, senha, datadesligamento, idtipocargo, idtipousuario) VALUES ('Bárbara Luersen', '08721090972', '45999725361', '2000-10-02','08721090972', '000002', '0000', null, 4, 1);
+INSERT INTO FUNCIONARIO (nome, cpf, telefone, datanascimento, ctps, matricula, senha, datadesligamento, idtipocargo, idtipousuario) VALUES ('Renato Pietro Igor da Rocha', '31323060456', '42993001327', '1997-06-08','31323060456', '100001', '1234', null, 3, 2);
+
+SELECT * FROM FUNCIONARIO;
+SELECT * FROM SALA;
