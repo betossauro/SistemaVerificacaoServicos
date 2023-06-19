@@ -165,7 +165,9 @@ public class FuncionarioDAO {
 		funcionarioBuscado.setCtps(resultado.getString("ctps"));
 		funcionarioBuscado.setMatricula(resultado.getString("matricula"));
 		funcionarioBuscado.setSenha(resultado.getString("senha"));
-		funcionarioBuscado.setDataDesligamento(resultado.getDate("datadesligamento").toLocalDate());
+		if (resultado.getDate("datadesligamento") != null) {
+			funcionarioBuscado.setDataDesligamento(resultado.getDate("datadesligamento").toLocalDate());
+		}
 		funcionarioBuscado.setTipoUsuario(TipoUsuario.getTipoUsuarioPorValor(resultado.getInt("idtipousuario")));
 		funcionarioBuscado.setTipoCargo(TipoCargo.getTipoCargoPorValor(resultado.getInt("idtipocargo")));
 		return funcionarioBuscado;
