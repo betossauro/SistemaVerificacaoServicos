@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 
 public class TelaPrincipal {
 
-	private JFrame frame;
+	private JFrame frmBemVindo;
 	private JMenuBar menuBar;
 	private JMenu mnCadastrar;
 	private JMenuItem mntmCadastrarUsuario;
@@ -26,6 +26,7 @@ public class TelaPrincipal {
 	private JMenuItem mntmGerenciarFuncionarios;
 	private Funcionario usuarioAutenticado;
 	private PainelMenuGerencia painelMenuGerencia;
+	private PainelMenuFuncionario painelMenuFuncionario;
 
 
 	/**
@@ -40,17 +41,31 @@ public class TelaPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1200, 1000);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmBemVindo = new JFrame();
+		frmBemVindo.setTitle("Bem vindo");
+		frmBemVindo.setBounds(100, 100, 1200, 1000);
+		frmBemVindo.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frmBemVindo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		frmBemVindo.setJMenuBar(menuBar);
 		painelMenuGerencia = new PainelMenuGerencia();
-		painelMenuGerencia.setVisible(true);
+		painelMenuGerencia.setVisible(false);
+		
+		painelMenuFuncionario = new PainelMenuFuncionario();
+		painelMenuFuncionario.setVisible(false);
 		
 		if(usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.ADMINISTRADOR.getValor()){
-			frame.setContentPane(painelMenuGerencia);
+			frmBemVindo.setTitle("Bem vindo, " + usuarioAutenticado.getNome());
+			painelMenuGerencia.setVisible(true);
+			frmBemVindo.setContentPane(painelMenuGerencia);
+			frmBemVindo.setVisible(true);
+		} else if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.FUNCIONARIO.getValor()) {
+			frmBemVindo.setTitle("Bem vindo, " + usuarioAutenticado.getNome());
+			menuBar.setVisible(false);
+			painelMenuFuncionario.setVisible(true);
+			frmBemVindo.setContentPane(painelMenuFuncionario);
+			frmBemVindo.setVisible(true);
 		}
 		
 		mnCadastrar = new JMenu("Cadastrar");
@@ -94,10 +109,4 @@ public class TelaPrincipal {
 		//TODO
 		// Mostrar/esconder itens do menu conforme usuário autenticado
 	}
-
-	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
