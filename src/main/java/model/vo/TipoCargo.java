@@ -2,7 +2,7 @@ package model.vo;
 
 public enum TipoCargo {
 
-	FAXINA(1), ZELADORIA(2), TECNICO(3);
+	FAXINA(1), ZELADORIA(2), TECNICO(3), GERENCIA(4);
 
 	private int valor;
 
