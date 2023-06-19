@@ -27,7 +27,8 @@ public class TelaPrincipal {
 	private Funcionario usuarioAutenticado;
 	private PainelMenuGerencia painelMenuGerencia;
 	private PainelMenuFuncionario painelMenuFuncionario;
-
+	private PainelConsultaGerenciamentoFuncionarios painelGerenciamentoFuncionarios;
+	private PainelCadastroUsuario painelEdicaoFuncionario;
 
 	/**
 	 * Create the application.
@@ -46,16 +47,16 @@ public class TelaPrincipal {
 		frmBemVindo.setBounds(100, 100, 1200, 1000);
 		frmBemVindo.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmBemVindo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		menuBar = new JMenuBar();
 		frmBemVindo.setJMenuBar(menuBar);
 		painelMenuGerencia = new PainelMenuGerencia();
 		painelMenuGerencia.setVisible(false);
-		
+
 		painelMenuFuncionario = new PainelMenuFuncionario();
 		painelMenuFuncionario.setVisible(false);
-		
-		if(usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.ADMINISTRADOR.getValor()){
+
+		if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.ADMINISTRADOR.getValor()) {
 			frmBemVindo.setTitle("Bem vindo, " + usuarioAutenticado.getNome());
 			painelMenuGerencia.setVisible(true);
 			frmBemVindo.setContentPane(painelMenuGerencia);
@@ -67,46 +68,61 @@ public class TelaPrincipal {
 			frmBemVindo.setContentPane(painelMenuFuncionario);
 			frmBemVindo.setVisible(true);
 		}
-		
+
 		mnCadastrar = new JMenu("Cadastrar");
 		menuBar.add(mnCadastrar);
-		
+
 		mntmCadastrarUsuario = new JMenuItem("Cadastrar Usuário");
 		mntmCadastrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		mnCadastrar.add(mntmCadastrarUsuario);
-		
+
 		mnConsultar = new JMenu("Consultar");
 		menuBar.add(mnConsultar);
-		
+
 		mntmConsultarServico = new JMenuItem("Consultar Serviço");
 		mntmConsultarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		mnConsultar.add(mntmConsultarServico);
-		
+
 		mntmConsultarFuncionario = new JMenuItem("Consultar Funcionário");
 		mntmConsultarFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		mnConsultar.add(mntmConsultarFuncionario);
-		
+
 		mnGerenciar = new JMenu("Gerenciar");
 		menuBar.add(mnGerenciar);
-		// Na hora de criar o painel, chamar o usuarioAutenticado em PainelRegistroServico
+		// Na hora de criar o painel, chamar o usuarioAutenticado em
+		// PainelRegistroServico
 		mntmGerenciarFuncionarios = new JMenuItem("Gerenciar Funcionários");
 		mntmGerenciarFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario();
 			}
 		});
 		mnGerenciar.add(mntmGerenciarFuncionarios);
-		
-		
-		//TODO
+
+		// TODO
 		// Mostrar/esconder itens do menu conforme usuário autenticado
+	}
+
+	protected void registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario() {
+		painelGerenciamentoFuncionarios.getBtnEditar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelEdicaoFuncionario = new PainelCadastroUsuario(
+						painelGerenciamentoFuncionarios.getFuncionarioSelecionado());
+				painelGerenciamentoFuncionarios.setVisible(true);
+
+				// Atualiza a tela principal
+				frmBemVindo.setContentPane(painelGerenciamentoFuncionarios);
+				frmBemVindo.revalidate();
+			}
+		});
 	}
 }
