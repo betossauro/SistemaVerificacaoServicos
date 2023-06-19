@@ -2,8 +2,8 @@ package view;
 
 import javax.swing.JPanel;
 import com.jgoodies.forms.layout.FormLayout;
+import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.github.lgooddatepicker.components.DateTimePicker;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
@@ -12,7 +12,7 @@ import controller.PrestacaoController;
 import controller.SalaController;
 import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
-import model.vo.Funcionario;
+import model.seletor.PrestacaoSeletor;
 import model.vo.Ocorrencia;
 import model.vo.Sala;
 import model.vo.TipoCargo;
@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import com.github.lgooddatepicker.components.TimePickerSettings;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -53,16 +52,21 @@ public class PainelConsultaGerencia extends JPanel {
 	private JButton btnAvancar;
 	private JLabel lblPagina;
 
+	public JButton getBtnVoltar() {
+		return btnVoltar;
+	}
+
 	// FONTE: https://github.com/LGoodDatePicker/LGoodDatePicker
 	private DatePickerSettings dateSettings;
 	private JButton btnPegarData;
-	private DateTimePicker dataInicial;
-	private DateTimePicker dataFinal;
+	private DatePicker dataInicial;
+	private DatePicker dataFinal;
 
 	// Atributos para a PAGINAÇÃO
 	private final int TAMANHO_PAGINA = 5;
 	private int paginaAtual = 1;
 	private int totalPaginas = 0;
+	private PrestacaoSeletor seletor = new PrestacaoSeletor();;
 
 	private ArrayList<PrestacaoDTO> prestacoes;
 	private String[] nomesColunas = { "Nome", "Cargo", "Sala", "Data de Serviço", "Serviço Realizado", "Ocorrência" };
@@ -100,110 +104,42 @@ public class PainelConsultaGerencia extends JPanel {
 	 * Create the panel.
 	 */
 	public PainelConsultaGerencia() {
-		setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(150dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(50dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.MIN_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(150dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
+		setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(150dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.MIN_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(150dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, },
+				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						RowSpec.decode("default:grow"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, }));
 
 		lblFuncionario = new JLabel("Filtrar Funcionário");
 		lblFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -248,32 +184,18 @@ public class PainelConsultaGerencia extends JPanel {
 		lblDataInicial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblDataInicial, "16, 22, left, default");
 
-		dataInicial = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
-		dataInicial.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getDatePicker().getComponentToggleCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-			// TODO É PARA EXISTIR ESSE ACTION LISTENER MSM?
-		});
+		dataInicial = new DatePicker(dateSettings);
+		dataInicial.getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataInicial.getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(dataInicial, "20, 22, 3, 1, fill, fill");
 
 		lblDataFinal = new JLabel("Até:");
 		lblDataFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblDataFinal, "32, 22");
 
-		dataFinal = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
-		dataFinal.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getDatePicker().getComponentToggleCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-			// TODO É PARA EXISTIR ESSE ACTION LISTENER MSM?
-		});
+		dataFinal = new DatePicker();
+		dataFinal.getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataFinal.getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(dataFinal, "34, 22, 3, 1, fill, fill");
 
 		lblOcorrencia = new JLabel("Ocorrência:");
@@ -291,7 +213,8 @@ public class PainelConsultaGerencia extends JPanel {
 		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				buscarPrestacoesComFiltros();
+				atualizarTabelaConsulta();
 			}
 		});
 
@@ -300,38 +223,36 @@ public class PainelConsultaGerencia extends JPanel {
 		this.limparTabelaConsulta();
 		add(tblConsultaGerencia, "20, 34, 17, 1, fill, fill");
 
-		btnRetroceder = new JButton("<");
-		// TODO
-//		btnRetroceder.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				paginaAtual--;
-//				buscarFuncionariosComFiltros();
-//				lblPagina.setText(paginaAtual + " / " + totalPaginas);
-//				btnRetroceder.setEnabled(paginaAtual > 1);
-//				btnAvancar.setEnabled(paginaAtual < totalPaginas);
-//			}
-//		});
-		btnRetroceder.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(btnRetroceder, "26, 36");
-
 		lblPagina = new JLabel("1/1");
 		lblPagina.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblPagina, "28, 36");
 
 		btnAvancar = new JButton(">");
-		// TODO
-//		btnAvancar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				paginaAtual++;
-//				buscarFuncionariosComFiltros();
-//				lblPagina.setText(paginaAtual + " / " + totalPaginas);
-//				btnRetroceder.setEnabled(paginaAtual > 1);
-//				btnAvancar.setEnabled(paginaAtual < totalPaginas);
-//			}
-//		});
+		btnAvancar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				paginaAtual++;
+				buscarPrestacoesComFiltros();
+				lblPagina.setText(paginaAtual + " / " + totalPaginas);
+				btnRetroceder.setEnabled(paginaAtual > 1);
+				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
 		btnAvancar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(btnAvancar, "30, 36");
+
+		btnRetroceder = new JButton("<");
+		btnRetroceder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paginaAtual--;
+				buscarPrestacoesComFiltros();
+				lblPagina.setText(paginaAtual + " / " + totalPaginas);
+				btnRetroceder.setEnabled(paginaAtual > 1);
+				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
+		btnRetroceder.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(btnRetroceder, "26, 36");
 
 		btnExportar = new JButton("Exportar Excel");
 		controller = new PrestacaoController();
@@ -356,27 +277,35 @@ public class PainelConsultaGerencia extends JPanel {
 		add(btnExportar, "20, 42, default, fill");
 
 		btnVoltar = new JButton("Voltar");
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-			// TODO
-		});
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnVoltar, "36, 42, default, fill");
-
 	}
 
-	// TODO
-//	private void atualizarQuantidadePaginas() {
-//		// Cálculo do total de páginas (poderia ser feito no backend)
-//		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
-//		// QUOCIENTE da divisão inteira
-//		totalPaginas = totalRegistros / TAMANHO_PAGINA;
-//		// RESTO da divisão inteira
-//		if (totalRegistros % TAMANHO_PAGINA > 0) {
-//			totalPaginas++;
-//		}
-//		lblPagina.setText(paginaAtual + " / " + totalPaginas);
-//	}
+	protected void buscarPrestacoesComFiltros() {
+		seletor = new PrestacaoSeletor();
+		seletor.setLimite(TAMANHO_PAGINA);
+		seletor.setPagina(paginaAtual);
 
+		seletor.setNomeFuncionario(txtNome.getText());
+		seletor.setTipoCargo((TipoCargo) cbCargo.getSelectedItem());
+		seletor.setNumeroSala((String) cbSala.getSelectedItem());
+		seletor.setDataInicio(dataInicial.getDate());
+		seletor.setDataFim(dataFinal.getDate());
+
+		prestacoes = (ArrayList<PrestacaoDTO>) controller.consultarComFiltros(seletor);
+		atualizarTabelaConsulta();
+		atualizarQuantidadePaginas();
+	}
+
+	private void atualizarQuantidadePaginas() {
+		// Cálculo do total de páginas (poderia ser feito no backend)
+		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
+		// QUOCIENTE da divisão inteira
+		totalPaginas = totalRegistros / TAMANHO_PAGINA;
+		// RESTO da divisão inteira
+		if (totalRegistros % TAMANHO_PAGINA > 0) {
+			totalPaginas++;
+		}
+		lblPagina.setText(paginaAtual + " / " + totalPaginas);
+	}
 }
