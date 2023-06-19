@@ -6,7 +6,9 @@ import model.bo.PrestacaoBO;
 import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
+import model.seletor.FuncionarioSeletor;
 import model.seletor.PrestacaoSeletor;
+import model.vo.Funcionario;
 import model.vo.Prestacao;
 
 public class PrestacaoController {
@@ -44,5 +46,13 @@ public class PrestacaoController {
 
 		GeradorPlanilhas gerador = new GeradorPlanilhas();
 		return gerador.geradorPlanilhaServicos(prestacoes, caminho);
+	}
+	
+	public List<PrestacaoDTO> consultarComFiltros(PrestacaoSeletor seletor) {
+		return bo.consultarComFiltros(seletor);
+	}
+
+	public int contarTotalRegistrosComFiltros(PrestacaoSeletor seletor) {
+		return bo.contarTotalRegistrosComFiltros(seletor);
 	}
 }

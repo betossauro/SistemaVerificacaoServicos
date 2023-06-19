@@ -209,6 +209,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
+			// TODO 
 		});
 
 		grupoStatus = new ButtonGroup();
