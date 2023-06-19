@@ -1,22 +1,20 @@
 package view;
 
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-
 import com.jgoodies.forms.layout.FormLayout;
+import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
-import controller.FuncionarioController;
 import controller.PrestacaoController;
 import controller.SalaController;
 import model.dto.PrestacaoDTO;
-import model.exception.CampoInvalidoException;
-import model.vo.Funcionario;
+import model.seletor.PrestacaoSeletor;
 import model.vo.Prestacao;
 import model.vo.Sala;
+import model.vo.TipoCargo;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
@@ -54,17 +52,18 @@ public class PainelConsultaFuncionario extends JPanel {
 	private final int TAMANHO_PAGINA = 5;
 	private int paginaAtual = 1;
 	private int totalPaginas = 0;
+	private PrestacaoSeletor seletor = new PrestacaoSeletor();
 
 	private ArrayList<PrestacaoDTO> prestacoes;
 	private String[] nomesColunas = { "Sala", "Data", "Serviço Realizado" };
 	private JButton btnEditar;
 	private JLabel lblPeriodoServico;
 	private JLabel lblDataInicial;
-	private DateTimePicker dataInicial;
+	private DatePicker dataInicial;
 	private JLabel lblDataFinal;
-	private DateTimePicker dataFinal;
+	private DatePicker dataFinal;
 	private JLabel lblSala;
-	private FuncionarioController controller;
+	private PrestacaoController controller;
 	private JComboBox cbSala;
 	private ArrayList<Sala> salas;
 
@@ -134,21 +133,17 @@ public class PainelConsultaFuncionario extends JPanel {
 		lblDataInicial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblDataInicial, "16, 10");
 
-		dataInicial = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
-		dataInicial.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataInicial.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataInicial = new DatePicker(dateSettings);
+		dataInicial.getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataInicial.getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(dataInicial, "18, 10, 5, 1, fill, fill");
 		lblDataFinal = new JLabel("Até:");
 		lblDataFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblDataFinal, "30, 10");
 
-		dataFinal = new DateTimePicker((DatePickerSettings) null, (TimePickerSettings) null);
-		dataFinal.getTimePicker().getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getTimePicker().getComponentToggleTimeMenuButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getDatePicker().getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dataFinal.getDatePicker().getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataFinal = new DatePicker();
+		dataFinal.getComponentToggleCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dataFinal.getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(dataFinal, "32, 10, 3, 1, fill, fill");
 
 		lblSala = new JLabel("Sala:");
@@ -167,7 +162,13 @@ public class PainelConsultaFuncionario extends JPanel {
 		cbSala = new JComboBox(salas.toArray());
 		cbSala.setSelectedIndex(-1);
 		add(cbSala, "18, 14, 5, 1, fill, fill");
+
 		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnFiltrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+			// TODO
+		});
 		add(btnFiltrar, "34, 18, default, fill");
 
 		tblConsultaGerencia = new JTable();
@@ -175,36 +176,34 @@ public class PainelConsultaFuncionario extends JPanel {
 		this.limparTabelaConsulta();
 		add(tblConsultaGerencia, "18, 24, 17, 1, fill, fill");
 
+		btnAvancar = new JButton(">");
+		btnAvancar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				paginaAtual++;
+				buscarPrestacoesComFiltros();
+				lblPagina.setText(paginaAtual + " / " + totalPaginas);
+				btnRetroceder.setEnabled(paginaAtual > 1);
+				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
+		add(btnAvancar, "28, 26");
+
 		btnRetroceder = new JButton("<");
-		// TODO
-//		btnRetroceder.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				paginaAtual--;
-//				buscarFuncionariosComFiltros();
-//				lblPagina.setText(paginaAtual + " / " + totalPaginas);
-//				btnRetroceder.setEnabled(paginaAtual > 1);
-//				btnAvancar.setEnabled(paginaAtual < totalPaginas);
-//			}
-//		});
+		btnRetroceder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paginaAtual--;
+				buscarPrestacoesComFiltros();
+				lblPagina.setText(paginaAtual + " / " + totalPaginas);
+				btnRetroceder.setEnabled(paginaAtual > 1);
+				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
 		add(btnRetroceder, "24, 26");
 
-		lblPagina = new JLabel("1/1");
+		lblPagina = new JLabel("1 / " + totalPaginas);
 		lblPagina.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblPagina, "26, 26");
-
-		btnAvancar = new JButton(">");
-		// TODO
-//		btnAvancar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				paginaAtual++;
-//				buscarFuncionariosComFiltros();
-//				lblPagina.setText(paginaAtual + " / " + totalPaginas);
-//				btnRetroceder.setEnabled(paginaAtual > 1);
-//				btnAvancar.setEnabled(paginaAtual < totalPaginas);
-//			}
-//		});
-		add(btnAvancar, "28, 26");
 
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
@@ -226,16 +225,29 @@ public class PainelConsultaFuncionario extends JPanel {
 
 	}
 
-	// TODO
-//	private void atualizarQuantidadePaginas() {
-//		// Cálculo do total de páginas (poderia ser feito no backend)
-//		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
-//		// QUOCIENTE da divisão inteira
-//		totalPaginas = totalRegistros / TAMANHO_PAGINA;
-//		// RESTO da divisão inteira
-//		if (totalRegistros % TAMANHO_PAGINA > 0) {
-//			totalPaginas++;
-//		}
-//		lblPagina.setText(paginaAtual + " / " + totalPaginas);
-//	}
+	protected void buscarPrestacoesComFiltros() {
+		seletor = new PrestacaoSeletor();
+		seletor.setLimite(TAMANHO_PAGINA);
+		seletor.setPagina(paginaAtual);
+
+		seletor.setNumeroSala((String) cbSala.getSelectedItem());
+		seletor.setDataInicio(dataInicial.getDate());
+		seletor.setDataFim(dataFinal.getDate());
+
+		prestacoes = (ArrayList<PrestacaoDTO>) controller.consultarComFiltros(seletor);
+		atualizarTabelaConsulta();
+		atualizarQuantidadePaginas();
+	}
+
+	private void atualizarQuantidadePaginas() {
+		// Cálculo do total de páginas (poderia ser feito no backend)
+		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
+		// QUOCIENTE da divisão inteira
+		totalPaginas = totalRegistros / TAMANHO_PAGINA;
+		// RESTO da divisão inteira
+		if (totalRegistros % TAMANHO_PAGINA > 0) {
+			totalPaginas++;
+		}
+		lblPagina.setText(paginaAtual + " / " + totalPaginas);
+	}
 }
