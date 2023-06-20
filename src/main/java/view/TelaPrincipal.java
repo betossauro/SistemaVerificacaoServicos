@@ -316,6 +316,26 @@ public class TelaPrincipal {
 		});
 	}
 
+	protected void registrarCliqueBotaoVoltarDoPainelConsultaGerencia() {
+		if (painelConsultaGerencia == null) {
+			painelConsultaGerencia = new PainelConsultaGerencia(usuarioAutenticado);
+		}
+
+		// Registrar o evento de clique no voltar do PainelConsultaGerencia
+		painelConsultaGerencia.getBtnVoltar().addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// Lógica do clique no botão Voltar
+				// Mostra menu de gerente
+				painelMenuGerencia = new PainelMenuGerencia();
+				painelMenuGerencia.setVisible(true);
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
+				frmTelaInicial.setContentPane(painelConsultaGerencia);
+				frmTelaInicial.revalidate();
+			}
+		});
+	}
+
 	protected void registrarCliqueBotaoVoltarDoPainelConsultaFuncionario() {
 		if (painelConsultaFuncionario == null) {
 			painelConsultaFuncionario = new PainelConsultaFuncionario(usuarioAutenticado);
