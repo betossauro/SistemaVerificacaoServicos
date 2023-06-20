@@ -62,7 +62,7 @@ public class TelaPrincipal {
 		painelMenuFuncionario.setVisible(false);
 
 		if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.ADMINISTRADOR.getValor()) {
-			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome());
+			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
 			menuBar.setVisible(true);
 			painelMenuGerencia.setVisible(true);
 			frmTelaInicial.setContentPane(painelMenuGerencia);
@@ -71,7 +71,7 @@ public class TelaPrincipal {
 			registrarCliqueBotaoConsultarServicosTelaGerente();
 			registrarCliqueBotaoGerenciarUsuarioTelaGerente();
 		} else if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.FUNCIONARIO.getValor()) {
-			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome());
+			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
 			menuBar.setVisible(false);
 			painelMenuFuncionario.setVisible(true);
 			frmTelaInicial.setContentPane(painelMenuFuncionario);
@@ -83,6 +83,7 @@ public class TelaPrincipal {
 		mnCadastrar = new JMenu("Cadastrar");
 		menuBar.add(mnCadastrar);
 
+		// Item menu bar
 		mntmCadastrarUsuario = new JMenuItem("Cadastrar Usuário");
 		mntmCadastrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -97,6 +98,7 @@ public class TelaPrincipal {
 		mnConsultar = new JMenu("Consultar");
 		menuBar.add(mnConsultar);
 
+		// Item menu bar
 		mntmConsultarServico = new JMenuItem("Consultar Serviço");
 		mntmConsultarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -109,6 +111,7 @@ public class TelaPrincipal {
 		});
 		mnConsultar.add(mntmConsultarServico);
 
+		// Item menu bar
 		mntmConsultarFuncionario = new JMenuItem("Consultar Funcionário");
 		mntmConsultarFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -117,31 +120,29 @@ public class TelaPrincipal {
 				painelGerenciamentoFuncionarios.getBtnEditar().setVisible(false);
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
-				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
 			}
 		});
 		mnConsultar.add(mntmConsultarFuncionario);
 
+		// Item menu bar
 		mnGerenciar = new JMenu("Gerenciar");
 		menuBar.add(mnGerenciar);
 		mntmGerenciarFuncionarios = new JMenuItem("Gerenciar Funcionários");
 		mntmGerenciarFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario();
-				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
 				painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
 				painelGerenciamentoFuncionarios.setVisible(true);
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
+				registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario();
 			}
 		});
 		mnGerenciar.add(mntmGerenciarFuncionarios);
-
-		// TODO
-		// Mostrar/esconder itens do menu conforme usuário autenticado
 	}
 
+	// Item tela menu gerente
 	protected void registrarCliqueBotaoCadastrarUsuarioTelaGerente() {
 		if (painelCadastroUsuario == null) {
 			painelCadastroUsuario = new PainelCadastroUsuario(usuarioAutenticado);
@@ -165,12 +166,12 @@ public class TelaPrincipal {
 				painelCadastroUsuario.setVisible(true);
 				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
-				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 
 	}
 
+	// Item tela menu gerente
 	protected void registrarCliqueBotaoConsultarServicosTelaGerente() {
 		if (painelConsultaGerencia == null) {
 			painelConsultaGerencia = new PainelConsultaGerencia(usuarioAutenticado);
@@ -199,6 +200,7 @@ public class TelaPrincipal {
 		});
 	}
 
+	// Item tela menu gerente
 	protected void registrarCliqueBotaoGerenciarUsuarioTelaGerente() {
 		if (painelGerenciamentoFuncionarios == null) {
 			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
@@ -222,11 +224,12 @@ public class TelaPrincipal {
 				painelGerenciamentoFuncionarios.setVisible(true);
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
-				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
 			}
 		});
 	}
 
+	// Item tela menu funcionário
 	protected void registrarCliqueBotaoRegistrarServicoTelaFuncionario() {
 		if (painelRegistroServico == null) {
 			painelRegistroServico = new PainelRegistroServico(usuarioAutenticado);
@@ -256,6 +259,7 @@ public class TelaPrincipal {
 		});
 	}
 
+	// Item tela menu funcionário
 	protected void registrarCliqueBotaoConsultarServicosTelaFuncionario() {
 		if (painelConsultaFuncionario == null) {
 			painelConsultaFuncionario = new PainelConsultaFuncionario(usuarioAutenticado);
@@ -284,6 +288,8 @@ public class TelaPrincipal {
 		});
 	}
 
+	// Botões
+	
 	protected void registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario() {
 		if (painelGerenciamentoFuncionarios == null) {
 			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
@@ -304,14 +310,8 @@ public class TelaPrincipal {
 		if (painelGerenciamentoFuncionarios == null) {
 			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
 		}
-
-		// Registrar o evento de clique no voltar do
-		// PainelConsultaGerenciamentoFuncionarios
 		painelGerenciamentoFuncionarios.getBtnVoltar().addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-				// Lógica do clique no botão Voltar
-				// Mostra menu de gerente
 				painelMenuGerencia = new PainelMenuGerencia();
 				painelMenuGerencia.setVisible(true);
 				frmTelaInicial.setContentPane(painelMenuGerencia);
@@ -324,13 +324,8 @@ public class TelaPrincipal {
 		if (painelConsultaGerencia == null) {
 			painelConsultaGerencia = new PainelConsultaGerencia(usuarioAutenticado);
 		}
-
-		// Registrar o evento de clique no voltar do PainelConsultaGerencia
 		painelConsultaGerencia.getBtnVoltar().addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-				// Lógica do clique no botão Voltar
-				// Mostra menu de gerente
 				painelMenuGerencia = new PainelMenuGerencia();
 				painelMenuGerencia.setVisible(true);
 				frmTelaInicial.setContentPane(painelMenuGerencia);
@@ -343,14 +338,8 @@ public class TelaPrincipal {
 		if (painelConsultaFuncionario == null) {
 			painelConsultaFuncionario = new PainelConsultaFuncionario(usuarioAutenticado);
 		}
-
-		// Registrar o evento de clique no voltar do
-		// PainelConsultaGerenciamentoFuncionarios
 		painelConsultaFuncionario.getBtnVoltar().addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-				// Lógica do clique no botão Voltar
-				// Mostra menu de funcionario
 				painelMenuFuncionario = new PainelMenuFuncionario();
 				painelMenuFuncionario.setVisible(true);
 				frmTelaInicial.setContentPane(painelMenuFuncionario);
