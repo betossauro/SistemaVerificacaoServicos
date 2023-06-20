@@ -67,17 +67,15 @@ public class TelaPrincipal {
 			painelMenuGerencia.setVisible(true);
 			frmTelaInicial.setContentPane(painelMenuGerencia);
 			frmTelaInicial.setVisible(true);
-			registrarCliqueBotaoCadastrarUsuarioTelaGerente();
-			registrarCliqueBotaoConsultarServicosTelaGerente();
-			registrarCliqueBotaoGerenciarUsuarioTelaGerente();
+			montarMenuGerente();
 		} else if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.FUNCIONARIO.getValor()) {
 			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
 			menuBar.setVisible(false);
 			painelMenuFuncionario.setVisible(true);
 			frmTelaInicial.setContentPane(painelMenuFuncionario);
 			frmTelaInicial.setVisible(true);
-			registrarCliqueBotaoRegistrarServicoTelaFuncionario();
-			registrarCliqueBotaoConsultarServicosTelaFuncionario();
+			montarMenuFuncionario();
+			
 		}
 
 		mnCadastrar = new JMenu("Cadastrar");
@@ -91,6 +89,7 @@ public class TelaPrincipal {
 				painelCadastroUsuario.setVisible(true);
 				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
+				montarMenuGerente();
 			}
 		});
 		mnCadastrar.add(mntmCadastrarUsuario);
@@ -107,6 +106,7 @@ public class TelaPrincipal {
 				frmTelaInicial.setContentPane(painelConsultaGerencia);
 				frmTelaInicial.revalidate();
 				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
+				montarMenuGerente();
 			}
 		});
 		mnConsultar.add(mntmConsultarServico);
@@ -121,6 +121,7 @@ public class TelaPrincipal {
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
 				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
+				montarMenuGerente();
 			}
 		});
 		mnConsultar.add(mntmConsultarFuncionario);
@@ -137,6 +138,7 @@ public class TelaPrincipal {
 				frmTelaInicial.revalidate();
 				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
 				registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario();
+				montarMenuGerente();
 			}
 		});
 		mnGerenciar.add(mntmGerenciarFuncionarios);
@@ -196,6 +198,7 @@ public class TelaPrincipal {
 				frmTelaInicial.setContentPane(painelConsultaGerencia);
 				frmTelaInicial.revalidate();
 				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
+				montarMenuGerente();
 			}
 		});
 	}
@@ -225,6 +228,7 @@ public class TelaPrincipal {
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
 				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
+				montarMenuGerente();
 			}
 		});
 	}
@@ -249,12 +253,12 @@ public class TelaPrincipal {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-
 				painelRegistroServico = new PainelRegistroServico(usuarioAutenticado);
 				painelRegistroServico.setVisible(true);
 				frmTelaInicial.setContentPane(painelRegistroServico);
 				frmTelaInicial.revalidate();
 				registrarCliqueBotaoVoltarDoPainelConsultaFuncionario();
+				montarMenuFuncionario();
 			}
 		});
 	}
@@ -284,6 +288,7 @@ public class TelaPrincipal {
 				frmTelaInicial.setContentPane(painelConsultaFuncionario);
 				frmTelaInicial.revalidate();
 				registrarCliqueBotaoVoltarDoPainelConsultaFuncionario();
+				montarMenuFuncionario();
 			}
 		});
 	}
@@ -302,6 +307,7 @@ public class TelaPrincipal {
 				// Atualiza a tela principal
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
+				montarMenuGerente();
 			}
 		});
 	}
@@ -316,6 +322,7 @@ public class TelaPrincipal {
 				painelMenuGerencia.setVisible(true);
 				frmTelaInicial.setContentPane(painelMenuGerencia);
 				frmTelaInicial.revalidate();
+				montarMenuGerente();
 			}
 		});
 	}
@@ -330,6 +337,7 @@ public class TelaPrincipal {
 				painelMenuGerencia.setVisible(true);
 				frmTelaInicial.setContentPane(painelMenuGerencia);
 				frmTelaInicial.revalidate();
+				montarMenuGerente();
 			}
 		});
 	}
@@ -344,8 +352,20 @@ public class TelaPrincipal {
 				painelMenuFuncionario.setVisible(true);
 				frmTelaInicial.setContentPane(painelMenuFuncionario);
 				frmTelaInicial.revalidate();
+				montarMenuFuncionario();
 			}
 		});
+	}
+	
+	protected void montarMenuGerente() {
+		registrarCliqueBotaoCadastrarUsuarioTelaGerente();
+		registrarCliqueBotaoConsultarServicosTelaGerente();
+		registrarCliqueBotaoGerenciarUsuarioTelaGerente();
+	}
+	
+	protected void montarMenuFuncionario() {
+		registrarCliqueBotaoRegistrarServicoTelaFuncionario();
+		registrarCliqueBotaoConsultarServicosTelaFuncionario();
 	}
 
 }
