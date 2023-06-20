@@ -13,6 +13,7 @@ import controller.SalaController;
 import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
 import model.seletor.PrestacaoSeletor;
+import model.vo.Funcionario;
 import model.vo.Ocorrencia;
 import model.vo.Sala;
 import model.vo.TipoCargo;
@@ -102,8 +103,9 @@ public class PainelConsultaGerencia extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param usuarioAutenticado 
 	 */
-	public PainelConsultaGerencia() {
+	public PainelConsultaGerencia(Funcionario usuarioAutenticado) {
 		setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
@@ -207,23 +209,23 @@ public class PainelConsultaGerencia extends JPanel {
 
 		cbOcorrencias = new JComboBox(ocorrencias.toArray());
 		add(cbOcorrencias, "20, 26, 3, 1, fill, fill");
-		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnFiltrar, "36, 30, default, fill");
-
+		
 		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscarPrestacoesComFiltros();
 				atualizarTabelaConsulta();
 			}
 		});
+		add(btnFiltrar, "36, 30, default, fill");
 
 		tblConsultaGerencia = new JTable();
 		tblConsultaGerencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		this.limparTabelaConsulta();
 		add(tblConsultaGerencia, "20, 34, 17, 1, fill, fill");
 
-		lblPagina = new JLabel("1/1");
+		lblPagina = new JLabel("1 / " + totalPaginas);
 		lblPagina.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblPagina, "28, 36");
