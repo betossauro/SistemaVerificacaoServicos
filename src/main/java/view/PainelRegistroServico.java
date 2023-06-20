@@ -116,19 +116,9 @@ public class PainelRegistroServico extends JPanel {
 				FormSpecs.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -138,7 +128,7 @@ public class PainelRegistroServico extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -154,13 +144,32 @@ public class PainelRegistroServico extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -168,15 +177,25 @@ public class PainelRegistroServico extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(25dlu;default)"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(25dlu;default)"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -204,8 +223,6 @@ public class PainelRegistroServico extends JPanel {
 		lblHoraInicio = new JLabel("Horário Inicial:");
 		lblHoraInicio.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblHoraInicio, "16, 14");
-		add(btnIniciarServico, "20, 14, 3, 1, default, fill");
-
 		btnIniciarServico = new JButton("Iniciar Serviço");
 		btnIniciarServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnIniciarServico.addActionListener(new ActionListener() {
@@ -262,11 +279,11 @@ public class PainelRegistroServico extends JPanel {
 		add(cbServicoRealizado, "20, 30, 5, 1, fill, fill");
 
 		JSeparator separator_1 = new JSeparator();
-		add(separator_1, "16, 48, 13, 1");
+		add(separator_1, "16, 57, 13, 1");
 
 		lblOcorrencia = new JLabel("Ocorrências:");
 		lblOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblOcorrencia, "16, 52");
+		add(lblOcorrencia, "16, 61");
 		// Se uma ocorrência for selecionada, o botão de registrar serviço ficará
 		// indisponível até que a ocorrência seja registrada clicando no botão
 		// "Registrar Ocorrência" (relacionado ao PainelRegistroServico)
@@ -276,7 +293,7 @@ public class PainelRegistroServico extends JPanel {
 
 		cbOcorrencia = new JComboBox(ocorrencias.toArray());
 		cbOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(cbOcorrencia, "20, 52, 5, 1, fill, fill");
+		add(cbOcorrencia, "20, 61, 5, 1, fill, fill");
 
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -300,9 +317,9 @@ public class PainelRegistroServico extends JPanel {
 			// TODO
 		});
 		btnRegistrarOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnRegistrarOcorrencia, "28, 64, default, fill");
+		add(btnRegistrarOcorrencia, "28, 83, default, fill");
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnCadastrar, "28, 70, default, fill");
+		add(btnCadastrar, "28, 89, default, fill");
 
 		btnAdicionarAtividade = new JButton("+");
 		btnAdicionarAtividade.addActionListener(new ActionListener() {
@@ -319,7 +336,7 @@ public class PainelRegistroServico extends JPanel {
 				ocorrenciasSelecionadas.add((Ocorrencia) cbOcorrencia.getSelectedItem());
 			}
 		});
-		add(btnAdicionarOcorrencia, "26, 52, fill, fill");
+		add(btnAdicionarOcorrencia, "26, 61, fill, fill");
 	}
 
 	public LocalDateTime mostrarHora() {

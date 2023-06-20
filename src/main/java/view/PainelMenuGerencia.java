@@ -41,30 +41,100 @@ public class PainelMenuGerencia extends JPanel {
 	 * Create the panel.
 	 */
 	public PainelMenuGerencia() {
-		setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(225px;default)"), FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(225px;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(225px;default)"), FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, },
-				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, }));
+		setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(225px;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(225px;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(225px;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
 
 		lblIconeCadastrar = new JLabel("");
 		lblIconeCadastrar.setIcon(new ImageIcon(PainelMenuGerencia.class.getResource("/view/icons/register.png")));
@@ -79,12 +149,12 @@ public class PainelMenuGerencia extends JPanel {
 		});
 		lblIconeConsultar.setIcon(new ImageIcon(PainelMenuGerencia.class.getResource("/view/icons/consultar 1.png")));
 		lblIconeConsultar.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblIconeConsultar, "20, 28");
+		add(lblIconeConsultar, "32, 28");
 
 		lblIconeGerenciar = new JLabel("");
 		lblIconeGerenciar.setIcon(new ImageIcon(PainelMenuGerencia.class.getResource("/view/icons/gerenciar 1.png")));
 		lblIconeGerenciar.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblIconeGerenciar, "30, 28");
+		add(lblIconeGerenciar, "54, 28");
 
 		lblCadastrar = new JLabel("Cadastrar Usuário");
 		lblCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -94,12 +164,12 @@ public class PainelMenuGerencia extends JPanel {
 		lblConsultar = new JLabel("Consultar Serviços");
 		lblConsultar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblConsultar.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblConsultar, "20, 30");
+		add(lblConsultar, "32, 30");
 
 		lblGerenciar = new JLabel("Gerenciar Usuários");
 		lblGerenciar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGerenciar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(lblGerenciar, "30, 30");
+		add(lblGerenciar, "54, 30");
 
 	}
 
