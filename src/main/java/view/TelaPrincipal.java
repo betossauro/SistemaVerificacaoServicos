@@ -62,7 +62,7 @@ public class TelaPrincipal {
 		painelMenuFuncionario.setVisible(false);
 
 		if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.ADMINISTRADOR.getValor()) {
-			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome());
+			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
 			menuBar.setVisible(true);
 			painelMenuGerencia.setVisible(true);
 			frmTelaInicial.setContentPane(painelMenuGerencia);
@@ -71,7 +71,7 @@ public class TelaPrincipal {
 			registrarCliqueBotaoConsultarServicosTelaGerente();
 			registrarCliqueBotaoGerenciarUsuarioTelaGerente();
 		} else if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.FUNCIONARIO.getValor()) {
-			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome());
+			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
 			menuBar.setVisible(false);
 			painelMenuFuncionario.setVisible(true);
 			frmTelaInicial.setContentPane(painelMenuFuncionario);
