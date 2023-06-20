@@ -34,7 +34,6 @@ public class TelaPrincipal {
 	private PainelConsultaGerencia painelConsultaGerencia;
 	private PainelRegistroServico painelRegistroServico;
 	private PainelCadastroUsuario painelCadastroUsuario;
-	
 
 	/**
 	 * Create the application.
@@ -126,6 +125,9 @@ public class TelaPrincipal {
 		mntmGerenciarFuncionarios = new JMenuItem("Gerenciar Funcionários");
 		mntmGerenciarFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
 				painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
 				painelGerenciamentoFuncionarios.setVisible(true);
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
@@ -153,25 +155,25 @@ public class TelaPrincipal {
 			}
 		});
 	}
-	
+
 	protected void registrarCliqueBotaoCadastrarUsuarioTelaGerente() {
 		if (painelCadastroUsuario == null) {
 			painelCadastroUsuario = new PainelCadastroUsuario(usuarioAutenticado);
 		}
 		painelMenuGerencia.getLblIconeCadastrar().addMouseListener(new MouseListener() {
-			
+
 			public void mouseReleased(MouseEvent e) {
 			}
-			
+
 			public void mousePressed(MouseEvent e) {
 			}
-			
+
 			public void mouseExited(MouseEvent e) {
 			}
-			
+
 			public void mouseEntered(MouseEvent e) {
 			}
-			
+
 			public void mouseClicked(MouseEvent e) {
 				painelCadastroUsuario = new PainelCadastroUsuario(usuarioAutenticado);
 				painelCadastroUsuario.setVisible(true);
@@ -179,27 +181,27 @@ public class TelaPrincipal {
 				frmTelaInicial.revalidate();
 			}
 		});
-		
+
 	}
-	
+
 	protected void registrarCliqueBotaoConsultarServicosTelaGerente() {
 		if (painelConsultaGerencia == null) {
 			painelConsultaGerencia = new PainelConsultaGerencia(usuarioAutenticado);
 		}
 		painelMenuGerencia.getLblIconeConsultar().addMouseListener(new MouseListener() {
-			
+
 			public void mouseReleased(MouseEvent e) {
 			}
-			
+
 			public void mousePressed(MouseEvent e) {
 			}
-			
+
 			public void mouseExited(MouseEvent e) {
 			}
-			
+
 			public void mouseEntered(MouseEvent e) {
 			}
-			
+
 			public void mouseClicked(MouseEvent e) {
 				painelConsultaGerencia = new PainelConsultaGerencia(usuarioAutenticado);
 				painelConsultaGerencia.setVisible(true);
@@ -208,25 +210,25 @@ public class TelaPrincipal {
 			}
 		});
 	}
-	
+
 	protected void registrarCliqueBotaoGerenciarUsuarioTelaGerente() {
 		if (painelGerenciamentoFuncionarios == null) {
 			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
 		}
 		painelMenuGerencia.getLblIconeGerenciar().addMouseListener(new MouseListener() {
-			
+
 			public void mouseReleased(MouseEvent e) {
 			}
-			
+
 			public void mousePressed(MouseEvent e) {
 			}
-			
+
 			public void mouseExited(MouseEvent e) {
 			}
-			
+
 			public void mouseEntered(MouseEvent e) {
 			}
-			
+
 			public void mouseClicked(MouseEvent e) {
 				painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
 				painelGerenciamentoFuncionarios.setVisible(true);
@@ -235,25 +237,25 @@ public class TelaPrincipal {
 			}
 		});
 	}
-	
+
 	protected void registrarCliqueBotaoRegistrarServicoTelaFuncionario() {
 		if (painelRegistroServico == null) {
 			painelRegistroServico = new PainelRegistroServico(usuarioAutenticado);
 		}
 		painelMenuFuncionario.getLblIconeRegistrar().addMouseListener(new MouseListener() {
-			
+
 			public void mouseReleased(MouseEvent e) {
 			}
-			
+
 			public void mousePressed(MouseEvent e) {
 			}
-			
+
 			public void mouseExited(MouseEvent e) {
 			}
-			
+
 			public void mouseEntered(MouseEvent e) {
 			}
-			
+
 			public void mouseClicked(MouseEvent e) {
 				painelRegistroServico = new PainelRegistroServico(usuarioAutenticado);
 				painelRegistroServico.setVisible(true);
@@ -262,25 +264,25 @@ public class TelaPrincipal {
 			}
 		});
 	}
-	
+
 	protected void registrarCliqueBotaoConsultarServicosTelaFuncionario() {
 		if (painelConsultaFuncionario == null) {
 			painelConsultaFuncionario = new PainelConsultaFuncionario(usuarioAutenticado);
 		}
 		painelMenuFuncionario.getLblIconeConsultar().addMouseListener(new MouseListener() {
-			
+
 			public void mouseReleased(MouseEvent e) {
 			}
-			
+
 			public void mousePressed(MouseEvent e) {
 			}
-			
+
 			public void mouseExited(MouseEvent e) {
 			}
-			
+
 			public void mouseEntered(MouseEvent e) {
 			}
-			
+
 			public void mouseClicked(MouseEvent e) {
 				painelConsultaFuncionario = new PainelConsultaFuncionario(usuarioAutenticado);
 				painelConsultaFuncionario.setVisible(true);
@@ -289,4 +291,26 @@ public class TelaPrincipal {
 			}
 		});
 	}
+
+	protected void registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario() {
+		if (painelGerenciamentoFuncionarios == null) {
+			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
+		}
+
+		// Registrar o evento de clique no voltar do
+		// PainelConsultaGerenciamentoFuncionarios
+		painelGerenciamentoFuncionarios.getBtnVoltar().addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// Lógica do clique no botão Voltar
+				// Mostra menu de gerente
+				painelMenuGerencia = new PainelMenuGerencia();
+				painelMenuGerencia.setVisible(true);
+				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
+				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
+				frmTelaInicial.revalidate();
+			}
+		});
+	}
+
 }
