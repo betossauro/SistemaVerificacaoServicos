@@ -104,6 +104,7 @@ public class TelaPrincipal {
 				painelConsultaGerencia.setVisible(true);
 				frmTelaInicial.setContentPane(painelConsultaGerencia);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 		mnConsultar.add(mntmConsultarServico);
@@ -116,6 +117,7 @@ public class TelaPrincipal {
 				painelGerenciamentoFuncionarios.getBtnEditar().setVisible(false);
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 		mnConsultar.add(mntmConsultarFuncionario);
@@ -163,6 +165,7 @@ public class TelaPrincipal {
 				painelCadastroUsuario.setVisible(true);
 				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 
@@ -191,6 +194,7 @@ public class TelaPrincipal {
 				painelConsultaGerencia.setVisible(true);
 				frmTelaInicial.setContentPane(painelConsultaGerencia);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 	}
@@ -218,6 +222,7 @@ public class TelaPrincipal {
 				painelGerenciamentoFuncionarios.setVisible(true);
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 	}
@@ -311,6 +316,26 @@ public class TelaPrincipal {
 				painelMenuGerencia.setVisible(true);
 				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
+				frmTelaInicial.revalidate();
+			}
+		});
+	}
+
+	protected void registrarCliqueBotaoVoltarDoPainelConsultaGerencia() {
+		if (painelConsultaGerencia == null) {
+			painelConsultaGerencia = new PainelConsultaGerencia(usuarioAutenticado);
+		}
+
+		// Registrar o evento de clique no voltar do PainelConsultaGerencia
+		painelConsultaGerencia.getBtnVoltar().addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// Lógica do clique no botão Voltar
+				// Mostra menu de gerente
+				painelMenuGerencia = new PainelMenuGerencia();
+				painelMenuGerencia.setVisible(true);
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
+				frmTelaInicial.setContentPane(painelConsultaGerencia);
 				frmTelaInicial.revalidate();
 			}
 		});
