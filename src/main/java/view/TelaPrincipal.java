@@ -140,22 +140,6 @@ public class TelaPrincipal {
 		// Mostrar/esconder itens do menu conforme usuário autenticado
 	}
 
-	protected void registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario() {
-		if (painelGerenciamentoFuncionarios == null) {
-			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
-		}
-		painelGerenciamentoFuncionarios.getBtnEditar().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				painelCadastroUsuario = new PainelCadastroUsuario(
-						painelGerenciamentoFuncionarios.getFuncionarioSelecionado());
-				painelGerenciamentoFuncionarios.setVisible(true);
-				// Atualiza a tela principal
-				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
-				frmTelaInicial.revalidate();
-			}
-		});
-	}
-
 	protected void registrarCliqueBotaoCadastrarUsuarioTelaGerente() {
 		if (painelCadastroUsuario == null) {
 			painelCadastroUsuario = new PainelCadastroUsuario(usuarioAutenticado);
@@ -257,10 +241,12 @@ public class TelaPrincipal {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+
 				painelRegistroServico = new PainelRegistroServico(usuarioAutenticado);
 				painelRegistroServico.setVisible(true);
 				frmTelaInicial.setContentPane(painelRegistroServico);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaFuncionario();
 			}
 		});
 	}
@@ -288,6 +274,23 @@ public class TelaPrincipal {
 				painelConsultaFuncionario.setVisible(true);
 				frmTelaInicial.setContentPane(painelConsultaFuncionario);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaFuncionario();
+			}
+		});
+	}
+
+	protected void registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario() {
+		if (painelGerenciamentoFuncionarios == null) {
+			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
+		}
+		painelGerenciamentoFuncionarios.getBtnEditar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelCadastroUsuario = new PainelCadastroUsuario(
+						painelGerenciamentoFuncionarios.getFuncionarioSelecionado());
+				painelGerenciamentoFuncionarios.setVisible(true);
+				// Atualiza a tela principal
+				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
+				frmTelaInicial.revalidate();
 			}
 		});
 	}
@@ -308,6 +311,27 @@ public class TelaPrincipal {
 				painelMenuGerencia.setVisible(true);
 				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
+				frmTelaInicial.revalidate();
+			}
+		});
+	}
+
+	protected void registrarCliqueBotaoVoltarDoPainelConsultaFuncionario() {
+		if (painelConsultaFuncionario == null) {
+			painelConsultaFuncionario = new PainelConsultaFuncionario(usuarioAutenticado);
+		}
+
+		// Registrar o evento de clique no voltar do
+		// PainelConsultaGerenciamentoFuncionarios
+		painelConsultaFuncionario.getBtnVoltar().addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// Lógica do clique no botão Voltar
+				// Mostra menu de funcionario
+				painelMenuFuncionario = new PainelMenuFuncionario();
+				painelMenuFuncionario.setVisible(true);
+				registrarCliqueBotaoVoltarDoPainelConsultaFuncionario();
+				frmTelaInicial.setContentPane(painelConsultaFuncionario);
 				frmTelaInicial.revalidate();
 			}
 		});
