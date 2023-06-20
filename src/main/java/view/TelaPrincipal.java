@@ -104,6 +104,7 @@ public class TelaPrincipal {
 		mntmGerenciarFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
 			}
 		});
 		mnGerenciar.add(mntmGerenciarFuncionarios);
@@ -125,4 +126,26 @@ public class TelaPrincipal {
 			}
 		});
 	}
+
+	protected void registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario() {
+		if (painelGerenciamentoFuncionarios == null) {
+			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios();
+		}
+
+		// Registrar o evento de clique no voltar do
+		// PainelConsultaGerenciamentoFuncionarios
+		painelGerenciamentoFuncionarios.getBtnVoltar().addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// Lógica do clique no botão Voltar
+				// Mostra menu de gerente
+				painelMenuGerencia = new PainelMenuGerencia();
+				painelMenuGerencia.setVisible(true);
+				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
+				frmBemVindo.setContentPane(painelGerenciamentoFuncionarios);
+				frmBemVindo.revalidate();
+			}
+		});
+	}
+
 }

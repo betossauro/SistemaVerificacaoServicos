@@ -298,5 +298,6 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 	public Funcionario getFuncionarioSelecionado() {
 		return funcionarioSelecionado;
 	}
-
 }
+
+
