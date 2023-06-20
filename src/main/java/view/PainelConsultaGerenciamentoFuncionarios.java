@@ -98,8 +98,9 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param usuarioAutenticado 
 	 */
-	public PainelConsultaGerenciamentoFuncionarios() {
+	public PainelConsultaGerenciamentoFuncionarios(Funcionario usuarioAutenticado) {
 		setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,

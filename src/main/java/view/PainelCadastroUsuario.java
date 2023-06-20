@@ -38,7 +38,6 @@ import java.awt.event.ActionEvent;
 import com.github.lgooddatepicker.components.DatePicker;
 
 public class PainelCadastroUsuario extends JPanel {
-	private JTextField textField;
 	private JTextField txtNome;
 	private JLabel lblCPF;
 	private JFormattedTextField txtCPF;
@@ -69,7 +68,7 @@ public class PainelCadastroUsuario extends JPanel {
 	private Funcionario funcionario;
 	private ButtonGroup grupoCargo;
 	private DatePicker dataNascimento;
-
+	
 	/**
 	 * Create the panel.
 	 */
@@ -127,10 +126,6 @@ public class PainelCadastroUsuario extends JPanel {
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(txtNome, "20, 10, 5, 1, fill, fill");
 		txtNome.setColumns(10);
-
-		textField = new JTextField();
-		add(textField, "20, 10, 3, 1, fill, default");
-		textField.setColumns(10);
 
 		lblCPF = new JLabel("CPF:");
 		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
