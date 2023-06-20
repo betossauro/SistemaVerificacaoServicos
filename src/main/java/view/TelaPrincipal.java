@@ -314,8 +314,7 @@ public class TelaPrincipal {
 				// Mostra menu de gerente
 				painelMenuGerencia = new PainelMenuGerencia();
 				painelMenuGerencia.setVisible(true);
-				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
-				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
+				frmTelaInicial.setContentPane(painelMenuGerencia);
 				frmTelaInicial.revalidate();
 			}
 		});
@@ -334,8 +333,7 @@ public class TelaPrincipal {
 				// Mostra menu de gerente
 				painelMenuGerencia = new PainelMenuGerencia();
 				painelMenuGerencia.setVisible(true);
-				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
-				frmTelaInicial.setContentPane(painelConsultaGerencia);
+				frmTelaInicial.setContentPane(painelMenuGerencia);
 				frmTelaInicial.revalidate();
 			}
 		});
@@ -355,8 +353,7 @@ public class TelaPrincipal {
 				// Mostra menu de funcionario
 				painelMenuFuncionario = new PainelMenuFuncionario();
 				painelMenuFuncionario.setVisible(true);
-				registrarCliqueBotaoVoltarDoPainelConsultaFuncionario();
-				frmTelaInicial.setContentPane(painelConsultaFuncionario);
+				frmTelaInicial.setContentPane(painelMenuFuncionario);
 				frmTelaInicial.revalidate();
 			}
 		});
