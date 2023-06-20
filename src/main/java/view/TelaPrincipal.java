@@ -104,6 +104,7 @@ public class TelaPrincipal {
 				painelConsultaGerencia.setVisible(true);
 				frmTelaInicial.setContentPane(painelConsultaGerencia);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 		mnConsultar.add(mntmConsultarServico);
@@ -116,6 +117,7 @@ public class TelaPrincipal {
 				painelGerenciamentoFuncionarios.getBtnEditar().setVisible(false);
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 		mnConsultar.add(mntmConsultarFuncionario);
@@ -163,6 +165,7 @@ public class TelaPrincipal {
 				painelCadastroUsuario.setVisible(true);
 				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 
@@ -191,6 +194,7 @@ public class TelaPrincipal {
 				painelConsultaGerencia.setVisible(true);
 				frmTelaInicial.setContentPane(painelConsultaGerencia);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 	}
@@ -218,6 +222,7 @@ public class TelaPrincipal {
 				painelGerenciamentoFuncionarios.setVisible(true);
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelConsultaGerencia();
 			}
 		});
 	}
