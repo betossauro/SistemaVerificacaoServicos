@@ -11,6 +11,7 @@ import controller.PrestacaoController;
 import controller.SalaController;
 import model.dto.PrestacaoDTO;
 import model.seletor.PrestacaoSeletor;
+import model.vo.Funcionario;
 import model.vo.Sala;
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
@@ -83,8 +84,9 @@ public class PainelConsultaFuncionario extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param usuarioAutenticado 
 	 */
-	public PainelConsultaFuncionario() {
+	public PainelConsultaFuncionario(Funcionario usuarioAutenticado) {
 		setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
