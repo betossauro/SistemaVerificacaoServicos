@@ -173,7 +173,9 @@ public class TelaLogin {
 
 					}
 				} catch (CampoInvalidoException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					timerErro();
+					limparTela();
+					timerLimpar();
 				}
 			}
 		});

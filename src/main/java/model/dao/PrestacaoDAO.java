@@ -106,10 +106,10 @@ public class PrestacaoDAO {
 		List<PrestacaoDTO> prestacoesDTO = new ArrayList<PrestacaoDTO>();
 		Connection conexao = Banco.getConnection();
 		String sql = "SELECT F.ID as idFuncionario, F.NOME as nomeFuncionario, TC.descricao as nomeCargo, "
-				+ " S.ID as idSala, S.NUMERO as numeroSala,P.DATAINICIO as dataInicio, P.DATAFIM as dataFim,"
-				+ " A.DESCRICAO as servico, O.DESCRICAO as ocorrencia"
-				+ "FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, OCORRENCIA O "
-				+ "WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
+				+ " S.ID as idSala, S.NUMERO as numeroSala, P.DATAINICIO as dataInicio, P.DATAFIM as dataFim, "
+				+ " A.DESCRICAO as servico, O.DESCRICAO as ocorrencia "
+				+ " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, OCORRENCIA O "
+				+ " WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
 
 		if (seletor.temFiltro()) {
 			sql = preencherFiltros(sql, seletor);

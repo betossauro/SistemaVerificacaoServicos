@@ -89,6 +89,7 @@ public class TelaPrincipal {
 				painelCadastroUsuario.setVisible(true);
 				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelCadastroUsuario();
 				montarMenuGerente();
 			}
 		});
@@ -168,6 +169,7 @@ public class TelaPrincipal {
 				painelCadastroUsuario.setVisible(true);
 				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelCadastroUsuario();
 			}
 		});
 
@@ -257,7 +259,7 @@ public class TelaPrincipal {
 				painelRegistroServico.setVisible(true);
 				frmTelaInicial.setContentPane(painelRegistroServico);
 				frmTelaInicial.revalidate();
-				registrarCliqueBotaoVoltarDoPainelConsultaFuncionario();
+				registrarCliqueBotaoVoltarDoPainelRegistrarServico();
 				montarMenuFuncionario();
 			}
 		});
@@ -347,6 +349,36 @@ public class TelaPrincipal {
 			painelConsultaFuncionario = new PainelConsultaFuncionario(usuarioAutenticado);
 		}
 		painelConsultaFuncionario.getBtnVoltar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelMenuFuncionario = new PainelMenuFuncionario();
+				painelMenuFuncionario.setVisible(true);
+				frmTelaInicial.setContentPane(painelMenuFuncionario);
+				frmTelaInicial.revalidate();
+				montarMenuFuncionario();
+			}
+		});
+	}
+	
+	protected void registrarCliqueBotaoVoltarDoPainelCadastroUsuario() {
+		if (painelCadastroUsuario == null) {
+			painelCadastroUsuario = new PainelCadastroUsuario(usuarioAutenticado);
+		}
+		painelCadastroUsuario.getBtnVoltar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelMenuGerencia = new PainelMenuGerencia();
+				painelMenuGerencia.setVisible(true);
+				frmTelaInicial.setContentPane(painelMenuGerencia);
+				frmTelaInicial.revalidate();
+				montarMenuFuncionario();
+			}
+		});
+	}
+	
+	protected void registrarCliqueBotaoVoltarDoPainelRegistrarServico() {
+		if (painelRegistroServico == null) {
+			painelRegistroServico = new PainelRegistroServico(usuarioAutenticado);
+		}
+		painelRegistroServico.getBtnVoltar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				painelMenuFuncionario = new PainelMenuFuncionario();
 				painelMenuFuncionario.setVisible(true);
