@@ -277,7 +277,7 @@ public class PainelCadastroUsuario extends JPanel {
 					String ctpsSemMascara = (String) mascaraCtps.stringToValue(txtCTPS.getText());
 					funcionario.setCtps(ctpsSemMascara);
 				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro",
+					JOptionPane.showMessageDialog(null, "Erro ao converter o CTPs", "Erro",
 							JOptionPane.ERROR_MESSAGE);
 				}
 				if (rdbtnGerencia.isSelected()) {
@@ -290,7 +290,7 @@ public class PainelCadastroUsuario extends JPanel {
 					String matriculaSemMascara = (String) mascaraMatricula.stringToValue(txtMatricula.getText());
 					funcionario.setMatricula(matriculaSemMascara);
 				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro",
+					JOptionPane.showMessageDialog(null, "Erro ao converter a matricula", "Erro",
 							JOptionPane.ERROR_MESSAGE);
 				}
 				try {
