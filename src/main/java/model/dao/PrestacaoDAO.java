@@ -107,8 +107,7 @@ public class PrestacaoDAO {
 		Connection conexao = Banco.getConnection();
 		String sql = "SELECT F.ID as idFuncionario, F.NOME as nomeFuncionario, TC.descricao as nomeCargo, "
 				+ " S.ID as idSala, S.NUMERO as numeroSala, P.DATAINICIO as dataInicio, P.DATAFIM as dataFim, "
-				+ " A.DESCRICAO as servico, O.DESCRICAO as ocorrencia "
-				+ " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, OCORRENCIA O "
+				+ " A.DESCRICAO as servico " + " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A "
 				+ " WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
 
 		if (seletor.temFiltro()) {
@@ -128,7 +127,6 @@ public class PrestacaoDAO {
 				dto.setDataInicio(resultado.getString("dataInicio"));
 				dto.setDataFim(resultado.getString("dataFim"));
 				dto.setServico(resultado.getString("servico"));
-				dto.setOcorrencia(resultado.getString("ocorrencia"));
 
 				prestacoesDTO.add(dto);
 			}
@@ -168,9 +166,6 @@ public class PrestacaoDAO {
 			sql += " AND P.DATAFIM BEFORE " + seletor.getDataFim();
 		}
 
-		if (seletor.getOcorrencia() != null) {
-			sql += " AND O.DESCRICAO LIKE '%" + seletor.getOcorrencia() + "%'";
-		}
 		return sql;
 	}
 
@@ -211,8 +206,7 @@ public class PrestacaoDAO {
 	public int contarTotalRegistrosDTOComFiltros(PrestacaoSeletor seletor) {
 		int total = 0;
 		Connection conexao = Banco.getConnection();
-		String sql = "SELECT COUNT(p.id)"
-				+ "FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, OCORRENCIA O "
+		String sql = "SELECT COUNT(p.id)" + "FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A "
 				+ "WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
 
 		if (seletor.temFiltro()) {
