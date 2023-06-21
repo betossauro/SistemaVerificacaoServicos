@@ -159,7 +159,7 @@ public class AtividadeDAO {
 	private Atividade montarAtividadeComResultadoDoBanco(ResultSet resultado) throws SQLException {
 		Atividade atividadeConsultada = new Atividade();
 		atividadeConsultada.setId(resultado.getInt("id"));
-		atividadeConsultada.setIdCargo(resultado.getInt("idcargo"));
+		atividadeConsultada.setIdCargo(resultado.getInt("idtipocargo"));
 		atividadeConsultada.setDescricao(resultado.getString("descricao"));
 		return atividadeConsultada;
 	}
