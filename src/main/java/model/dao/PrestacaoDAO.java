@@ -182,9 +182,6 @@ public class PrestacaoDAO {
 		prestacaoBuscada.setDataInicio(resultado.getTimestamp("datainicio").toLocalDateTime());
 		prestacaoBuscada.setDataFim(resultado.getTimestamp("datafim").toLocalDateTime());
 
-		OcorrenciaDAO ocorrenciaDAO = new OcorrenciaDAO();
-		prestacaoBuscada.setListaOcorrencias(ocorrenciaDAO.consultarPorIdPrestacao(prestacaoBuscada.getId()));
-
 		AtividadeDAO atividadeDAO = new AtividadeDAO();
 		prestacaoBuscada.setListaAtividades(atividadeDAO.consultarPorIdPrestacao(prestacaoBuscada.getId()));
 		return prestacaoBuscada;
