@@ -80,6 +80,8 @@ CREATE TABLE PRESTACAO_ATIVIDADE
     FOREIGN KEY (IDPRESTACAO) REFERENCES PRESTACAO (ID)
 );
 
+/* TODO: Classe de ocorrência ficará para a próxima versão do projeto, pois devido ao tempo restante, foi decidido que seria melhor ter a introdução desta classe em um próximo momento.
+
 CREATE TABLE OCORRENCIA
 (
     ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -87,6 +89,7 @@ CREATE TABLE OCORRENCIA
     IDPRESTACAO INT NOT NULL,
     FOREIGN KEY (IDPRESTACAO) REFERENCES PRESTACAO (ID)
 );
+*/
 
 INSERT INTO TIPOUSUARIO (descricao)
 VALUES ('ADMINISTRADOR');
