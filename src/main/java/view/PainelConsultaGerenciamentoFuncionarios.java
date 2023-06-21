@@ -323,12 +323,6 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 			}
 		});
 		btnEditar = new JButton("Editar");
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int linhaSelecionadaNaTabela = tblConsultaGerencia.getSelectedRow();
-				funcionarioSelecionado = funcionarios.get(linhaSelecionadaNaTabela - 1);
-			}
-		});
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnEditar.setEnabled(false);
 		add(btnEditar, "28, 34, 5, 1, default, fill");

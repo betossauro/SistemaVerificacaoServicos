@@ -179,7 +179,7 @@ public class TelaPrincipal {
 		mnCadastrar.setVisible(false);
 		mnConsultar.setVisible(false);
 		mnGerenciar.setVisible(false);
-		
+
 	}
 
 	// Item tela menu gerente
@@ -343,9 +343,9 @@ public class TelaPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				painelCadastroUsuario = new PainelCadastroUsuario(
 						painelGerenciamentoFuncionarios.getFuncionarioSelecionado());
-				painelGerenciamentoFuncionarios.setVisible(true);
+				painelCadastroUsuario.setVisible(true);
 				// Atualiza a tela principal
-				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
+				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
 				montarMenuGerente();
 			}
