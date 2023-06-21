@@ -142,6 +142,7 @@ INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Acompanhamento Visita Te
 INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Acompanhamento Visita Tecnica MOBILIA', 2);
 INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Acompanhamento Visita Tecnica TELEFONIA', 2);
 
+/*
 INSERT INTO OCORRENCIA (descricao) VALUES ('Incidente ELETRICO');
 INSERT INTO OCORRENCIA (descricao) VALUES ('Incidente HIDRAULICO');
 INSERT INTO OCORRENCIA (descricao) VALUES ('Mau funcionamento do AR CONDICIONADO');
@@ -152,6 +153,7 @@ INSERT INTO OCORRENCIA (descricao) VALUES ('Pragas (cupins, formigas e outros)')
 INSERT INTO OCORRENCIA (descricao) VALUES ('Mobilia defeituosa');
 INSERT INTO OCORRENCIA (descricao) VALUES ('Liquido derramado');
 INSERT INTO OCORRENCIA (descricao) VALUES ('Alimento derramado');
+*/
 
 SELECT * FROM FUNCIONARIO;
 SELECT * FROM SALA;
