@@ -11,10 +11,8 @@ public class Prestacao {
 	private LocalDateTime dataInicio;
 	private LocalDateTime dataFim;
 	private List<Atividade> listaAtividades;
-	private List<Ocorrencia> listaOcorrencias;
 
-	public Prestacao(int id, int idFuncionario, int idSala, LocalDateTime dataInicio, LocalDateTime dataFim, List<Atividade> listaAtividades,
-			List<Ocorrencia> listaOcorrencias) {
+	public Prestacao(int id, int idFuncionario, int idSala, LocalDateTime dataInicio, LocalDateTime dataFim, List<Atividade> listaAtividades) {
 		super();
 		this.id = id;
 		this.idFuncionario = idFuncionario;
@@ -22,7 +20,6 @@ public class Prestacao {
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.listaAtividades = listaAtividades;
-		this.listaOcorrencias = listaOcorrencias;
 	}
 
 	public Prestacao() {
@@ -77,18 +74,10 @@ public class Prestacao {
 		this.listaAtividades = listaAtividades;
 	}
 
-	public List<Ocorrencia> getListaOcorrencias() {
-		return listaOcorrencias;
-	}
-
-	public void setListaOcorrencias(List<Ocorrencia> listaOcorrencias) {
-		this.listaOcorrencias = listaOcorrencias;
-	}
 
 	@Override
 	public String toString() {
 		return "Prestacao [id=" + id + ", idFuncionario=" + idFuncionario + ", idSala=" + idSala + ", dataInicio="
-				+ dataInicio + ", dataFim=" + dataFim + ", listaAtividades=" + listaAtividades + ", listaOcorrencias="
-				+ listaOcorrencias + "]";
+				+ dataInicio + ", dataFim=" + dataFim + ", listaAtividades=" + listaAtividades + "]";
 	}
 }

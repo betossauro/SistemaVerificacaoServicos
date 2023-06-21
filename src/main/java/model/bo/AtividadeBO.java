@@ -5,6 +5,7 @@ import java.util.List;
 import model.dao.AtividadeDAO;
 import model.exception.CampoInvalidoException;
 import model.vo.Atividade;
+import model.vo.TipoCargo;
 
 public class AtividadeBO {
 	AtividadeDAO dao = new AtividadeDAO();
@@ -31,5 +32,9 @@ public class AtividadeBO {
 
 	public List<Atividade> consultarPorIdPrestacao(int idPrestacao) {
 		return dao.consultarPorIdPrestacao(idPrestacao);
+	}
+	
+	public List<Atividade> consultarPorIdCargo(TipoCargo idCargo) {
+		return dao.consultarPorIdCargo(idCargo);
 	}
 }
