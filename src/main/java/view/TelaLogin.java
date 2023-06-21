@@ -222,7 +222,6 @@ public class TelaLogin {
 	}
 
 	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-		
+		frmLogin.setVisible(true);
 	}
 }
