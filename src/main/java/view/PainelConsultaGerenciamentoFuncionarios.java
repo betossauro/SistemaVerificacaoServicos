@@ -322,6 +322,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 				}
 			}
 		});
+		// TODO
 		btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnEditar.setEnabled(false);
