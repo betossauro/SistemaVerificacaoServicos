@@ -26,7 +26,6 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import controller.AtividadeController;
-import controller.OcorrenciaController;
 import controller.SalaController;
 import model.vo.Atividade;
 import model.vo.Funcionario;
