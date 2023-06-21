@@ -344,8 +344,11 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		seletor.setPagina(paginaAtual);
 		seletor.setNome(txtNome.getText());
 		seletor.setTipoCargo((TipoCargo) cbCargo.getSelectedItem());
-		if (rdbtnAtivos.isSelected() || rdbtnInativos.isSelected()) {
-			seletor.setAtivo(rdbtnAtivos.isSelected());
+		//TODO
+		if (rdbtnAtivos.isSelected()) {
+			seletor.setAtivo(true);
+		} else if (rdbtnInativos.isSelected()) {
+			seletor.setAtivo(false);
 		}
 		funcionarios = (ArrayList<Funcionario>) controller.consultarComFiltros(seletor);
 		atualizarTabelaFuncionarios();

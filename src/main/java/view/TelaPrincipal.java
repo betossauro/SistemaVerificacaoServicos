@@ -275,6 +275,7 @@ public class TelaPrincipal {
 				painelGerenciamentoFuncionarios.setVisible(true);
 				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario();
 				registrarCliqueBotaoVoltarDoPainelConsultaGerenciamentoFuncionario();
 				montarMenuGerente();
 			}
@@ -343,18 +344,20 @@ public class TelaPrincipal {
 
 	// Botões
 
+	//TODO
 	protected void registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario() {
 		if (painelGerenciamentoFuncionarios == null) {
 			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
 		}
 		painelGerenciamentoFuncionarios.getBtnEditar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TODO usuário selecionado não preenchendo editar
 				painelCadastroUsuario = new PainelCadastroUsuario(
 						painelGerenciamentoFuncionarios.getFuncionarioSelecionado());
-				painelGerenciamentoFuncionarios.setVisible(true);
-				// Atualiza a tela principal
-				frmTelaInicial.setContentPane(painelGerenciamentoFuncionarios);
+				painelCadastroUsuario.setVisible(true);
+				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
+				registrarCliqueBotaoVoltarDoPainelCadastroUsuario();
 				montarMenuGerente();
 			}
 		});
