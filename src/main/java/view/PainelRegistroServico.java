@@ -238,6 +238,7 @@ public class PainelRegistroServico extends JPanel {
 		add(btnRegistrarOcorrencia, "26, 83, default, fill");
 
 		btnVoltar = new JButton("Voltar");
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnVoltar, "20, 89, default, fill");
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnCadastrar, "26, 89, default, fill");

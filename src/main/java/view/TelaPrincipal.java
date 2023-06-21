@@ -14,6 +14,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class TelaPrincipal {
 
@@ -34,6 +39,10 @@ public class TelaPrincipal {
 	private PainelConsultaGerencia painelConsultaGerencia;
 	private PainelRegistroServico painelRegistroServico;
 	private PainelCadastroUsuario painelCadastroUsuario;
+	private JMenu mnNewMenu;
+	private JMenu mnSair;
+	private TelaLogin telaLogin;
+	private JMenuItem mntmDesconectar;
 
 	/**
 	 * Create the application.
@@ -55,6 +64,7 @@ public class TelaPrincipal {
 
 		menuBar = new JMenuBar();
 		frmTelaInicial.setJMenuBar(menuBar);
+
 		painelMenuGerencia = new PainelMenuGerencia();
 		painelMenuGerencia.setVisible(false);
 
@@ -70,12 +80,12 @@ public class TelaPrincipal {
 			montarMenuGerente();
 		} else if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.FUNCIONARIO.getValor()) {
 			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
-			menuBar.setVisible(false);
+			menuBar.setVisible(true);
 			painelMenuFuncionario.setVisible(true);
 			frmTelaInicial.setContentPane(painelMenuFuncionario);
 			frmTelaInicial.setVisible(true);
 			montarMenuFuncionario();
-			
+			esconderItensMenu();
 		}
 
 		mnCadastrar = new JMenu("Cadastrar");
@@ -143,6 +153,33 @@ public class TelaPrincipal {
 			}
 		});
 		mnGerenciar.add(mntmGerenciarFuncionarios);
+
+		mnNewMenu = new JMenu(
+				"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ");
+		menuBar.add(mnNewMenu);
+
+		mnSair = new JMenu("Sair");
+		mnSair.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/view/icons/exit.png")));
+		menuBar.add(mnSair);
+
+		mntmDesconectar = new JMenuItem("Desconectar");
+		mntmDesconectar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaLogin = new TelaLogin();
+				telaLogin.setVisible(true);
+				frmTelaInicial.setVisible(false);
+				frmTelaInicial.dispose();
+			}
+		});
+		mnSair.add(mntmDesconectar);
+
+	}
+
+	private void esconderItensMenu() {
+		mnCadastrar.setVisible(false);
+		mnConsultar.setVisible(false);
+		mnGerenciar.setVisible(false);
+		
 	}
 
 	// Item tela menu gerente
@@ -170,6 +207,7 @@ public class TelaPrincipal {
 				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
 				registrarCliqueBotaoVoltarDoPainelCadastroUsuario();
+				montarMenuGerente();
 			}
 		});
 
@@ -296,7 +334,7 @@ public class TelaPrincipal {
 	}
 
 	// Botões
-	
+
 	protected void registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario() {
 		if (painelGerenciamentoFuncionarios == null) {
 			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
@@ -358,7 +396,7 @@ public class TelaPrincipal {
 			}
 		});
 	}
-	
+
 	protected void registrarCliqueBotaoVoltarDoPainelCadastroUsuario() {
 		if (painelCadastroUsuario == null) {
 			painelCadastroUsuario = new PainelCadastroUsuario(usuarioAutenticado);
@@ -369,11 +407,11 @@ public class TelaPrincipal {
 				painelMenuGerencia.setVisible(true);
 				frmTelaInicial.setContentPane(painelMenuGerencia);
 				frmTelaInicial.revalidate();
-				montarMenuFuncionario();
+				montarMenuGerente();
 			}
 		});
 	}
-	
+
 	protected void registrarCliqueBotaoVoltarDoPainelRegistrarServico() {
 		if (painelRegistroServico == null) {
 			painelRegistroServico = new PainelRegistroServico(usuarioAutenticado);
@@ -388,13 +426,13 @@ public class TelaPrincipal {
 			}
 		});
 	}
-	
+
 	protected void montarMenuGerente() {
 		registrarCliqueBotaoCadastrarUsuarioTelaGerente();
 		registrarCliqueBotaoConsultarServicosTelaGerente();
 		registrarCliqueBotaoGerenciarUsuarioTelaGerente();
 	}
-	
+
 	protected void montarMenuFuncionario() {
 		registrarCliqueBotaoRegistrarServicoTelaFuncionario();
 		registrarCliqueBotaoConsultarServicosTelaFuncionario();
