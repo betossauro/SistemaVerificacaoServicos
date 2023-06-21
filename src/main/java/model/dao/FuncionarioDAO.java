@@ -30,7 +30,9 @@ public class FuncionarioDAO {
 			query.setString(5, novoFuncionario.getCtps());
 			query.setString(6, novoFuncionario.getMatricula());
 			query.setString(7, novoFuncionario.getSenha());
-			query.setDate(8, java.sql.Date.valueOf(novoFuncionario.getDataDesligamento()));
+			if (novoFuncionario.getDataDesligamento() != null) {
+				query.setDate(8, java.sql.Date.valueOf(novoFuncionario.getDataDesligamento()));
+			}
 			query.setInt(9, novoFuncionario.getTipoUsuario().getValor());
 			query.setInt(10, novoFuncionario.getTipoCargo().getValor());
 			query.execute();
@@ -104,7 +106,7 @@ public class FuncionarioDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println("Erro ao buscar todos os clientes. \n Causa:" + e.getMessage());
+			System.out.println("Erro ao buscar todos os funcionários. \n Causa:" + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
@@ -297,7 +299,7 @@ public class FuncionarioDAO {
 			} else {
 				sql += " AND ";
 			}
-			sql += " TipoCargo = " + seletor.getTipoCargo().getValor();
+			sql += " IDTIPOCARGO = " + seletor.getTipoCargo().getValor();
 			primeiro = false;
 		}
 		if (seletor.getAtivo() != null) {

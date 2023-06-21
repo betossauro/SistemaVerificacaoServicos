@@ -39,10 +39,11 @@ public class TelaPrincipal {
 	private PainelConsultaGerencia painelConsultaGerencia;
 	private PainelRegistroServico painelRegistroServico;
 	private PainelCadastroUsuario painelCadastroUsuario;
-	private JMenu mnNewMenu;
+	private JMenu mnEspacoGerente;
 	private JMenu mnSair;
 	private TelaLogin telaLogin;
 	private JMenuItem mntmDesconectar;
+	private JMenu mnEspacoFuncionario;
 
 	/**
 	 * Create the application.
@@ -70,23 +71,6 @@ public class TelaPrincipal {
 
 		painelMenuFuncionario = new PainelMenuFuncionario();
 		painelMenuFuncionario.setVisible(false);
-
-		if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.ADMINISTRADOR.getValor()) {
-			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
-			menuBar.setVisible(true);
-			painelMenuGerencia.setVisible(true);
-			frmTelaInicial.setContentPane(painelMenuGerencia);
-			frmTelaInicial.setVisible(true);
-			montarMenuGerente();
-		} else if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.FUNCIONARIO.getValor()) {
-			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
-			menuBar.setVisible(true);
-			painelMenuFuncionario.setVisible(true);
-			frmTelaInicial.setContentPane(painelMenuFuncionario);
-			frmTelaInicial.setVisible(true);
-			montarMenuFuncionario();
-			esconderItensMenu();
-		}
 
 		mnCadastrar = new JMenu("Cadastrar");
 		menuBar.add(mnCadastrar);
@@ -154,9 +138,13 @@ public class TelaPrincipal {
 		});
 		mnGerenciar.add(mntmGerenciarFuncionarios);
 
-		mnNewMenu = new JMenu(
+		mnEspacoGerente = new JMenu(
 				"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ");
-		menuBar.add(mnNewMenu);
+		menuBar.add(mnEspacoGerente);
+		
+		mnEspacoFuncionario = new JMenu(
+				"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ");
+		menuBar.add(mnEspacoFuncionario);
 
 		mnSair = new JMenu("Sair");
 		mnSair.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/view/icons/exit.png")));
@@ -173,12 +161,32 @@ public class TelaPrincipal {
 		});
 		mnSair.add(mntmDesconectar);
 
+		
+		if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.ADMINISTRADOR.getValor()) {
+			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
+			menuBar.setVisible(true);
+            mnEspacoFuncionario.setVisible(false);
+			painelMenuGerencia.setVisible(true);
+			frmTelaInicial.setContentPane(painelMenuGerencia);
+			frmTelaInicial.setVisible(true);
+			montarMenuGerente();
+		} else if (usuarioAutenticado.getTipoUsuario().getValor() == TipoUsuario.FUNCIONARIO.getValor()) {
+			frmTelaInicial.setTitle("Bem vindo, " + usuarioAutenticado.getNome().split(" ")[0]);
+			menuBar.setVisible(true);
+			painelMenuFuncionario.setVisible(true);
+			frmTelaInicial.setContentPane(painelMenuFuncionario);
+			frmTelaInicial.setVisible(true);
+			montarMenuFuncionario();
+			esconderItensMenu();
+		}
 	}
 
 	private void esconderItensMenu() {
+		mnEspacoFuncionario.setVisible(true);
 		mnCadastrar.setVisible(false);
 		mnConsultar.setVisible(false);
 		mnGerenciar.setVisible(false);
+		mnEspacoGerente.setVisible(false);
 		
 	}
 

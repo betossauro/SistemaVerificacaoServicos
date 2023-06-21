@@ -229,6 +229,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		seletor.setDataInicio(dataInicial.getDate());
 		seletor.setDataFim(dataFinal.getDate());
 
+		//TODO Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException: Cannot invoke "controller.PrestacaoController.consultarComFiltros(model.seletor.PrestacaoSeletor)" because "this.controller" is null
 		prestacoes = (ArrayList<PrestacaoDTO>) controller.consultarComFiltros(seletor);
 		atualizarTabelaConsulta();
 		atualizarQuantidadePaginas();
