@@ -30,15 +30,12 @@ import controller.OcorrenciaController;
 import controller.SalaController;
 import model.vo.Atividade;
 import model.vo.Funcionario;
-import model.vo.Ocorrencia;
 import model.vo.Prestacao;
 import model.vo.Sala;
 
 public class PainelRegistroServico extends JPanel {
 
 	private JButton btnCadastrar;
-	private JComboBox cbOcorrencia;
-	private JLabel lblOcorrencia;
 	private JComboBox cbServicoRealizado;
 	private JLabel lblServicoRealizado;
 	private JLabel lblHoraSaida;
@@ -54,137 +51,65 @@ public class PainelRegistroServico extends JPanel {
 	private LocalDateTime horaInicio;
 	private LocalDateTime horaFim;
 	private ArrayList<Atividade> atividades;
-	private ArrayList<Ocorrencia> ocorrencias;
 	private List<Atividade> servicosRealizados = new ArrayList<Atividade>();
-	private List<Ocorrencia> ocorrenciasSelecionadas = new ArrayList<Ocorrencia>();
 	private JButton btnAdicionarAtividade;
-	private JButton btnAdicionarOcorrencia;
-	private JButton btnRegistrarOcorrencia;
 	protected Funcionario usuarioAutenticado;
 	private LocalDateTime dataHora;
 	private TimePicker horaEntrada;
 	private TimePicker horaSaida;
 	private TimePickerSettings settings;
+	private JButton btnVoltar;
+
+	public JButton getBtnVoltar() {
+		return btnVoltar;
+	}
 
 	/**
 	 * Create the panel.
 	 */
 	public PainelRegistroServico(Funcionario usuarioAutenticado) {
 		this.usuarioAutenticado = usuarioAutenticado;
-		setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(74dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(65dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(107dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(150dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),}));
+		setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(150dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(150dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(150dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, },
+				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"), }));
 
 		lblRegistroServico = new JLabel("Registro de Serviço");
 		lblRegistroServico.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -199,14 +124,15 @@ public class PainelRegistroServico extends JPanel {
 
 		cbSala = new JComboBox(salas.toArray());
 		cbSala.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(cbSala, "20, 10, 7, 1, fill, fill");
+		add(cbSala, "20, 10, 5, 1, fill, fill");
 
-		lblHoraInicio = new JLabel("Horário Inicial:");
+		lblHoraInicio = new JLabel("Registrar Hora Inicial:");
 		lblHoraInicio.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblHoraInicio, "16, 14");
-		add(btnIniciarServico, "20, 14, 3, 1, default, fill");
 
-		btnIniciarServico = new JButton("Iniciar Serviço");
+		horaEntrada = new TimePicker();
+		add(horaEntrada, "20, 14, default, fill");
+		btnIniciarServico = new JButton("Horário atual");
 		btnIniciarServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnIniciarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -214,20 +140,23 @@ public class PainelRegistroServico extends JPanel {
 				lblHoraEntrada.setText(horaInicio.format(DateTimeFormatter.ofPattern("HH:mm")));
 			}
 		});
-		add(btnIniciarServico, "20, 14, 3, 1, default, fill");
+		add(btnIniciarServico, "22, 14, 3, 1, default, fill");
 
-		horaEntrada = new TimePicker();
-		add(horaEntrada, "24, 14, 3, 1, default, fill");
-		
-				lblHoraEntrada = new JLabel("");
-				lblHoraEntrada.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				add(lblHoraEntrada, "28, 14, center, default");
+		lblHoraEntrada = new JLabel("");
+		lblHoraEntrada.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(lblHoraEntrada, "26, 14, center, default");
 
-		lblHoraFinal = new JLabel("Horário Final:");
+		lblHoraFinal = new JLabel("Registrar Hora Final:");
 		lblHoraFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblHoraFinal, "16, 20");
 
-		btnFinalizarServico = new JButton("Finalizar Serviço");
+		settings = new TimePickerSettings();
+		settings.setAllowKeyboardEditing(false);
+
+		horaSaida = new TimePicker(settings);
+		add(horaSaida, "20, 20, default, fill");
+
+		btnFinalizarServico = new JButton("Horário atual");
 		btnFinalizarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				horaFim = LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault());
@@ -235,21 +164,14 @@ public class PainelRegistroServico extends JPanel {
 			}
 		});
 		btnFinalizarServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(btnFinalizarServico, "20, 20, 3, 1, default, fill");
-
-		settings = new TimePickerSettings();
-		settings.setAllowKeyboardEditing(false);
-		
-		horaSaida = new TimePicker(settings);
-		add(horaSaida, "24, 20, 3, 1, default, fill");
-		
+		add(btnFinalizarServico, "22, 20, 3, 1, default, fill");
 
 		lblHoraSaida = new JLabel("");
 		lblHoraSaida.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblHoraSaida, "28, 20, center, default");
+		add(lblHoraSaida, "26, 20, center, default");
 
 		JSeparator separator = new JSeparator();
-		add(separator, "16, 26, 13, 1");
+		add(separator, "16, 26, 11, 1");
 
 		lblServicoRealizado = new JLabel("Serviços Realizados:");
 		lblServicoRealizado.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -259,25 +181,8 @@ public class PainelRegistroServico extends JPanel {
 		atividades = (ArrayList<Atividade>) atividadeController.consultarTodos();
 
 		cbServicoRealizado = new JComboBox(atividades.toArray());
-		add(cbServicoRealizado, "20, 30, 5, 1, fill, fill");
-
-		JSeparator separator_1 = new JSeparator();
-		add(separator_1, "16, 48, 13, 1");
-
-		lblOcorrencia = new JLabel("Ocorrências:");
-		lblOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(lblOcorrencia, "16, 52");
-		// Se uma ocorrência for selecionada, o botão de registrar serviço ficará
-		// indisponível até que a ocorrência seja registrada clicando no botão
-		// "Registrar Ocorrência" (relacionado ao PainelRegistroServico)
-
-		OcorrenciaController ocorrenciaController = new OcorrenciaController();
-		ocorrencias = (ArrayList<Ocorrencia>) ocorrenciaController.consultarTodos();
-
-		cbOcorrencia = new JComboBox(ocorrencias.toArray());
-		cbOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(cbOcorrencia, "20, 52, 5, 1, fill, fill");
-
+		add(cbServicoRealizado, "20, 30, 3, 1, fill, fill");
+		
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -293,16 +198,11 @@ public class PainelRegistroServico extends JPanel {
 			}
 		});
 
-		btnRegistrarOcorrencia = new JButton("Registrar Ocorrência");
-		btnRegistrarOcorrencia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-			// TODO
-		});
-		btnRegistrarOcorrencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnRegistrarOcorrencia, "28, 64, default, fill");
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnVoltar, "20, 77, default, fill");
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnCadastrar, "28, 70, default, fill");
+		add(btnCadastrar, "26, 77, default, fill");
 
 		btnAdicionarAtividade = new JButton("+");
 		btnAdicionarAtividade.addActionListener(new ActionListener() {
@@ -311,15 +211,7 @@ public class PainelRegistroServico extends JPanel {
 			}
 			// TODO
 		});
-		add(btnAdicionarAtividade, "26, 30, fill, fill");
-
-		btnAdicionarOcorrencia = new JButton("+");
-		btnAdicionarOcorrencia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ocorrenciasSelecionadas.add((Ocorrencia) cbOcorrencia.getSelectedItem());
-			}
-		});
-		add(btnAdicionarOcorrencia, "26, 52, fill, fill");
+		add(btnAdicionarAtividade, "24, 30, fill, fill");
 	}
 
 	public LocalDateTime mostrarHora() {

@@ -80,6 +80,8 @@ CREATE TABLE PRESTACAO_ATIVIDADE
     FOREIGN KEY (IDPRESTACAO) REFERENCES PRESTACAO (ID)
 );
 
+/* TODO: Classe de ocorrência ficará para a próxima versão do projeto, pois devido ao tempo restante, foi decidido que seria melhor ter a introdução desta classe em um próximo momento.
+
 CREATE TABLE OCORRENCIA
 (
     ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -87,6 +89,7 @@ CREATE TABLE OCORRENCIA
     IDPRESTACAO INT NOT NULL,
     FOREIGN KEY (IDPRESTACAO) REFERENCES PRESTACAO (ID)
 );
+*/
 
 INSERT INTO TIPOUSUARIO (descricao)
 VALUES ('ADMINISTRADOR');
@@ -98,7 +101,7 @@ VALUES ('FAXINA');
 INSERT INTO TIPOCARGO (descricao)
 VALUES ('ZELADORIA');
 INSERT INTO TIPOCARGO (descricao)
-VALUES ('TECNICO TI');
+VALUES ('TECNICO');
 INSERT INTO TIPOCARGO (descricao)
 VALUES ('GERENCIA');
 
@@ -113,10 +116,42 @@ VALUES (201, TRUE);
 INSERT INTO SALA (numero, disponivel)
 VALUES (202, TRUE);
 
+INSERT INTO FUNCIONARIO (nome, cpf, telefone, datanascimento, ctps, matricula, senha, datadesligamento, idtipocargo, idtipousuario) VALUES ('Luis Alberto Weber', '10810699966', '48998577999', '1999-05-19','10810699966', '000001', '000011', null, 4, 1);
+INSERT INTO FUNCIONARIO (nome, cpf, telefone, datanascimento, ctps, matricula, senha, datadesligamento, idtipocargo, idtipousuario) VALUES ('Bárbara Luersen', '08721090972', '45999725361', '2000-10-02','08721090972', '000002', '000011', null, 4, 1);
+INSERT INTO FUNCIONARIO (nome, cpf, telefone, datanascimento, ctps, matricula, senha, datadesligamento, idtipocargo, idtipousuario) VALUES ('Renato Pietro Igor da Rocha', '31323060456', '42993001327', '1997-06-08','31323060456', '100001', '123456', null, 2, 2);
 
-INSERT INTO FUNCIONARIO (nome, cpf, telefone, datanascimento, ctps, matricula, senha, datadesligamento, idtipocargo, idtipousuario) VALUES ('Luis Alberto Weber', '10810699966', '48998577999', '1999-05-19','10810699966', '000001', '0000', null, 4, 1);
-INSERT INTO FUNCIONARIO (nome, cpf, telefone, datanascimento, ctps, matricula, senha, datadesligamento, idtipocargo, idtipousuario) VALUES ('Bárbara Luersen', '08721090972', '45999725361', '2000-10-02','08721090972', '000002', '0000', null, 4, 1);
-INSERT INTO FUNCIONARIO (nome, cpf, telefone, datanascimento, ctps, matricula, senha, datadesligamento, idtipocargo, idtipousuario) VALUES ('Renato Pietro Igor da Rocha', '31323060456', '42993001327', '1997-06-08','31323060456', '100001', '1234', null, 3, 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Limpeza rotineira', 1);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Abastecimento', 1);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Limpeza pesada CHAO', 1);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Limpeza pesada JANELAS', 1);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Limpeza pesada PAREDES', 1);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Limpeza pesada FORRO', 1);
+
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Manutencao ELETRICA', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Manutencao HIDRAULICA', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Manutencao AR CONDICIONADO', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Manutencao PORTA / JANELA', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Manutencao LAMPADAS', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Manutencao PRAGAS', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Manutencao MOBILIA', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Manutencao TELEFONIA', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Acompanhamento Visita Tecnica ELETRICA', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Acompanhamento Visita Tecnica HIDRAULICA', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Acompanhamento Visita Tecnica AR CONDICIONADO', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Acompanhamento Visita Tecnica PRAGAS', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Acompanhamento Visita Tecnica MOBILIA', 2);
+INSERT INTO ATIVIDADE (descricao, idtipocargo) VALUES ('Acompanhamento Visita Tecnica TELEFONIA', 2);
+
+INSERT INTO OCORRENCIA (descricao) VALUES ('Incidente ELETRICO');
+INSERT INTO OCORRENCIA (descricao) VALUES ('Incidente HIDRAULICO');
+INSERT INTO OCORRENCIA (descricao) VALUES ('Mau funcionamento do AR CONDICIONADO');
+INSERT INTO OCORRENCIA (descricao) VALUES ('Mau funcionamento de PORTA / JANELA');
+INSERT INTO OCORRENCIA (descricao) VALUES ('Mau funcionamento LAMPADAS');
+INSERT INTO OCORRENCIA (descricao) VALUES ('Mau funcionamento TELEFONIA');
+INSERT INTO OCORRENCIA (descricao) VALUES ('Pragas (cupins, formigas e outros)');
+INSERT INTO OCORRENCIA (descricao) VALUES ('Mobilia defeituosa');
+INSERT INTO OCORRENCIA (descricao) VALUES ('Liquido derramado');
+INSERT INTO OCORRENCIA (descricao) VALUES ('Alimento derramado');
 
 SELECT * FROM FUNCIONARIO;
 SELECT * FROM SALA;
