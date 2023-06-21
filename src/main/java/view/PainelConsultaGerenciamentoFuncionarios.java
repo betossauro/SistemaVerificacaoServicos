@@ -127,7 +127,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(75dlu;pref)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(30dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -137,7 +137,7 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(50dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.MIN_COLSPEC,
+				ColumnSpec.decode("max(30dlu;min)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -344,8 +344,11 @@ public class PainelConsultaGerenciamentoFuncionarios extends JPanel {
 		seletor.setPagina(paginaAtual);
 		seletor.setNome(txtNome.getText());
 		seletor.setTipoCargo((TipoCargo) cbCargo.getSelectedItem());
-		if (rdbtnAtivos.isSelected() || rdbtnInativos.isSelected()) {
-			seletor.setAtivo(rdbtnAtivos.isSelected());
+		//TODO
+		if (rdbtnAtivos.isSelected()) {
+			seletor.setAtivo(true);
+		} else if (rdbtnInativos.isSelected()) {
+			seletor.setAtivo(false);
 		}
 		funcionarios = (ArrayList<Funcionario>) controller.consultarComFiltros(seletor);
 		atualizarTabelaFuncionarios();

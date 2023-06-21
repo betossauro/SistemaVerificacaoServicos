@@ -52,9 +52,7 @@ public class PainelCadastroUsuario extends JPanel {
 	private JLabel lblCargo;
 	private JComboBox cbCargo;
 	private JLabel lblMatricula;
-	private JFormattedTextField txtMatricula;
 	private JLabel lblSenha;
-	private JFormattedTextField txtSenha;
 	private JLabel lblAtuacao;
 	private JCheckBox chkInativo;
 	private JButton btnCadastrar;
@@ -69,6 +67,8 @@ public class PainelCadastroUsuario extends JPanel {
 	private ButtonGroup grupoCargo;
 	private DatePicker dataNascimento;
 	private JButton btnVoltar;
+	private JTextField txtMatricula;
+	private JTextField txtSenha;
 
 	public JButton getBtnVoltar() {
 		return btnVoltar;
@@ -158,7 +158,7 @@ public class PainelCadastroUsuario extends JPanel {
 		add(lblTelefone, "16, 18");
 
 		try {
-			mascaraTelefone = new MaskFormatter("(##)####-####");
+			mascaraTelefone = new MaskFormatter("(##)#####-####");
 			mascaraTelefone.setValueContainsLiteralCharacters(false);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -227,9 +227,10 @@ public class PainelCadastroUsuario extends JPanel {
 			e.printStackTrace();
 		}
 
-		txtMatricula = new JFormattedTextField(mascaraMatricula);
+		txtMatricula = new JTextField(6);
 		txtMatricula.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(txtMatricula, "20, 38, 5, 1, fill, fill");
+		txtMatricula.setColumns(10);
 
 		lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -242,9 +243,10 @@ public class PainelCadastroUsuario extends JPanel {
 			e.printStackTrace();
 		}
 
-		txtSenha = new JFormattedTextField(mascaraSenha);
+		txtSenha = new JTextField(6);
 		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(txtSenha, "20, 42, 5, 1, fill, fill");
+		txtSenha.setColumns(10);
 
 		lblAtuacao = new JLabel("Atuação:");
 		lblAtuacao.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -272,36 +274,26 @@ public class PainelCadastroUsuario extends JPanel {
 							JOptionPane.ERROR_MESSAGE);
 				}
 				LocalDate dataSelecionada = dataNascimento.getDate();
-				funcionario.setDataDesligamento(dataSelecionada);
+				funcionario.setDataNascimento(dataSelecionada);
 				try {
 					String ctpsSemMascara = (String) mascaraCtps.stringToValue(txtCTPS.getText());
 					funcionario.setCtps(ctpsSemMascara);
 				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter o CTPs", "Erro",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Erro ao converter o CTPs", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 				if (rdbtnGerencia.isSelected()) {
 					funcionario.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
-				} else {
+				} else if (rdbtnFuncionario.isSelected()) {
 					funcionario.setTipoUsuario(TipoUsuario.FUNCIONARIO);
 				}
 				funcionario.setTipoCargo((TipoCargo) cbCargo.getSelectedItem());
-				try {
-					String matriculaSemMascara = (String) mascaraMatricula.stringToValue(txtMatricula.getText());
-					funcionario.setMatricula(matriculaSemMascara);
-				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter a matricula", "Erro",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				try {
-					String senhaSemMascara = (String) mascaraSenha.stringToValue(txtSenha.getText());
-					funcionario.setSenha(senhaSemMascara);
-				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter a senha", "Erro", JOptionPane.ERROR_MESSAGE);
-				}
 				if (chkInativo.isSelected()) {
 					funcionario.setDataDesligamento(LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault()));
+				} else {
+					funcionario.setDataDesligamento(null);
 				}
+				funcionario.setMatricula(txtMatricula.getText());
+				funcionario.setSenha(txtSenha.getText());
 
 				FuncionarioController controller = new FuncionarioController();
 				try {

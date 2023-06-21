@@ -73,7 +73,7 @@ public class AtividadeDAO {
 	public List<Atividade> consultarPorIdCargo(TipoCargo idCargo) {
 		List<Atividade> atividades = new ArrayList<Atividade>();
 		Connection conexao = Banco.getConnection();
-		String sql = " SELECT * FROM ATIVIDADE " + " WHERE ID = ? ";
+		String sql = " SELECT * FROM ATIVIDADE " + " WHERE IDTIPOCARGO = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			query.setInt(1, idCargo.getValor());
