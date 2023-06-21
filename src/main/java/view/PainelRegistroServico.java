@@ -30,7 +30,6 @@ import controller.OcorrenciaController;
 import controller.SalaController;
 import model.vo.Atividade;
 import model.vo.Funcionario;
-import model.vo.Ocorrencia;
 import model.vo.Prestacao;
 import model.vo.Sala;
 
