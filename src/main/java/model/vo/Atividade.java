@@ -43,6 +43,6 @@ public class Atividade {
 
 	@Override
 	public String toString() {
-		return "Atividade [id=" + id + ", idCargo=" + idCargo + ", descricao=" + descricao + "]";
+		return descricao;
 	}
 }
