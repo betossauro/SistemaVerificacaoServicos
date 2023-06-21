@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.vo.Atividade;
+import model.vo.TipoCargo;
 
 public class AtividadeDAO {
 
@@ -67,6 +68,28 @@ public class AtividadeDAO {
 			Banco.closeConnection(conexao);
 		}
 		return atividadeBuscada;
+	}
+
+	public List<Atividade> consultarPorIdCargo(TipoCargo idCargo) {
+		List<Atividade> atividades = new ArrayList<Atividade>();
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM ATIVIDADE " + " WHERE ID = ? ";
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			query.setInt(1, idCargo.getValor());
+			ResultSet resultado = query.executeQuery();
+			while (resultado.next()) {
+				Atividade atividadeConsultada = montarAtividadeComResultadoDoBanco(resultado);
+				atividades.add(atividadeConsultada);
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao buscar atividades relacionadas ao cargo com id" + idCargo + "\nCausa: "
+					+ erro.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return atividades;
 	}
 
 	public List<Atividade> consultarTodos() {
