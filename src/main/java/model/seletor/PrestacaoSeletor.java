@@ -9,6 +9,15 @@ public class PrestacaoSeletor extends BaseSeletor {
 	private TipoCargo tipoCargo;
 	private Integer idSala;
 	private String numeroSala;
+
+	public String getNumeroSala() {
+		return numeroSala;
+	}
+
+	public void setNumeroSala(String numeroSala) {
+		this.numeroSala = numeroSala;
+	}
+
 	private LocalDate dataInicio;
 	private LocalDate dataFim;
 	private String servico;
@@ -16,7 +25,8 @@ public class PrestacaoSeletor extends BaseSeletor {
 	@Override
 	public boolean temFiltro() {
 		return (this.nomeFuncionario != null && this.nomeFuncionario.trim().length() > 0) || this.tipoCargo != null
-				|| this.idSala != null || this.numeroSala != null || this.dataInicio != null || this.dataFim != null || this.servico != null;
+				|| this.idSala != null || this.numeroSala != null || this.dataInicio != null || this.dataFim != null
+				|| this.servico != null;
 	}
 
 	public String getNomeFuncionario() {
@@ -59,14 +69,6 @@ public class PrestacaoSeletor extends BaseSeletor {
 		this.servico = servico;
 	}
 
-	public String getNumeroSala() {
-		return numeroSala;
-	}
-
-	public void setNumeroSala(String numeroSala) {
-		this.numeroSala = numeroSala;
-	}
-
 	public Integer getIdSala() {
 		return idSala;
 	}
@@ -74,7 +76,4 @@ public class PrestacaoSeletor extends BaseSeletor {
 	public void setIdSala(Integer idSala) {
 		this.idSala = idSala;
 	}
-
-
-
 }

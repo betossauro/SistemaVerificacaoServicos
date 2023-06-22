@@ -386,6 +386,7 @@ public class PainelConsultaGerencia extends JPanel {
 
 		seletor.setNomeFuncionario(txtNome.getText());
 		seletor.setTipoCargo((TipoCargo) cbCargo.getSelectedItem());
+
 		Sala salaSelecionada = (Sala) cbSala.getSelectedItem();
 		if (salaSelecionada != null) {
 			seletor.setNumeroSala(salaSelecionada.getNumero());
