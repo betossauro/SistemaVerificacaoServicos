@@ -17,13 +17,19 @@ import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JButton;
+
+import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
@@ -42,7 +48,7 @@ public class PainelConsultaFuncionario extends JPanel {
 	private JButton btnPegarData;
 
 	// Atributos para a PAGINAÇÃO
-	private final int TAMANHO_PAGINA = 5;
+	private final int TAMANHO_PAGINA = 12;
 	private int paginaAtual = 1;
 	private int totalPaginas = 0;
 	private PrestacaoSeletor seletor = new PrestacaoSeletor();
@@ -56,7 +62,6 @@ public class PainelConsultaFuncionario extends JPanel {
 	private JLabel lblDataFinal;
 	private DatePicker dataFinal;
 	private JLabel lblSala;
-	private PrestacaoController controller;
 	private JComboBox cbSala;
 	private ArrayList<Sala> salas;
 	private PrestacaoDTO prestacaoSelecionada;
@@ -67,7 +72,17 @@ public class PainelConsultaFuncionario extends JPanel {
 	}
 
 	private void limparTabelaConsulta() {
-		tblConsultaFuncionario.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
+		tblConsultaFuncionario.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Sala", "Data", "Servi\u00E7o Realizado"},
+			},
+			new String[] {
+				"Sala", "Data", "Servi\u00E7o Realizado"
+			}
+		));
+		tblConsultaFuncionario.getColumnModel().getColumn(0).setPreferredWidth(15);
+		tblConsultaFuncionario.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tblConsultaFuncionario.getColumnModel().getColumn(2).setPreferredWidth(150);
 	}
 
 	private void atualizarTabelaConsulta() {
@@ -77,7 +92,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		for (PrestacaoDTO p : prestacoes) {
 			Object[] novaLinhaDaTabela = new Object[3];
 			novaLinhaDaTabela[0] = p.getNumeroSala();
-			novaLinhaDaTabela[1] = p.getDataInicio() + p.getDataFim();
+			novaLinhaDaTabela[1] = p.getDataInicio() + "  -  " + p.getDataFim();
 			novaLinhaDaTabela[2] = p.getServico();
 
 			model.addRow(novaLinhaDaTabela);
@@ -90,39 +105,102 @@ public class PainelConsultaFuncionario extends JPanel {
 	 * @param usuarioAutenticado
 	 */
 	public PainelConsultaFuncionario(Funcionario usuarioAutenticado) {
-		setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(30dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(150dlu;pref)"),
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(50dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(50dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.MIN_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(150dlu;default)"), FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"), FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC, },
-				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("default:grow"),
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, }));
+		setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(30dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(150dlu;pref)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(50dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.MIN_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(150dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(150dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
 
 		// Configurações da parte de DATAS do componente
 		dateSettings = new DatePickerSettings();
@@ -178,6 +256,29 @@ public class PainelConsultaFuncionario extends JPanel {
 		add(btnFiltrar, "36, 18, default, fill");
 
 		tblConsultaFuncionario = new JTable();
+		// Ajuste largura de colunas da tabela
+		tblConsultaFuncionario.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		for (int column = 0; column < tblConsultaFuncionario.getColumnCount(); column++) {
+			TableColumn tableColumn = tblConsultaFuncionario.getColumnModel().getColumn(column);
+			int preferredWidth = tableColumn.getMinWidth();
+			int maxWidth = tableColumn.getMaxWidth();
+
+			for (int row = 0; row < tblConsultaFuncionario.getRowCount(); row++) {
+				TableCellRenderer cellRenderer = tblConsultaFuncionario.getCellRenderer(row, column);
+				Component c = tblConsultaFuncionario.prepareRenderer(cellRenderer, row, column);
+				int width = c.getPreferredSize().width + tblConsultaFuncionario.getIntercellSpacing().width;
+				preferredWidth = Math.max(preferredWidth, width);
+
+				// We've exceeded the maximum width, no need to check other rows
+
+				if (preferredWidth >= maxWidth) {
+					preferredWidth = maxWidth;
+					break;
+				}
+			}
+
+			tableColumn.setPreferredWidth(preferredWidth);
+		}
 		tblConsultaFuncionario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		this.limparTabelaConsulta();
 
@@ -195,7 +296,7 @@ public class PainelConsultaFuncionario extends JPanel {
 				btnAvancar.setEnabled(paginaAtual < totalPaginas);
 			}
 		});
-		add(btnAvancar, "30, 28");
+		add(btnAvancar, "30, 30");
 
 		btnRetroceder = new JButton("<");
 		btnRetroceder.addActionListener(new ActionListener() {
@@ -207,16 +308,16 @@ public class PainelConsultaFuncionario extends JPanel {
 				btnAvancar.setEnabled(paginaAtual < totalPaginas);
 			}
 		});
-		add(btnRetroceder, "26, 28");
+		add(btnRetroceder, "26, 30");
 
 		lblPagina = new JLabel("1 / " + totalPaginas);
 		lblPagina.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPagina, "28, 28");
+		add(lblPagina, "28, 30");
 
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnVoltar, "36, 34, default, fill");
+		add(btnVoltar, "36, 36, default, fill");
 
 	}
 
@@ -225,17 +326,26 @@ public class PainelConsultaFuncionario extends JPanel {
 		seletor.setLimite(TAMANHO_PAGINA);
 		seletor.setPagina(paginaAtual);
 
-		seletor.setNumeroSala((String) cbSala.getSelectedItem());
+		Sala salaSelecionada = (Sala) cbSala.getSelectedItem();
+		if (salaSelecionada != null) {
+			seletor.setNumeroSala(salaSelecionada.getNumero());
+		}
 		seletor.setDataInicio(dataInicial.getDate());
 		seletor.setDataFim(dataFinal.getDate());
 
-		//TODO Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException: Cannot invoke "controller.PrestacaoController.consultarComFiltros(model.seletor.PrestacaoSeletor)" because "this.controller" is null
-		prestacoes = (ArrayList<PrestacaoDTO>) controller.consultarComFiltros(seletor);
+		PrestacaoController prestacaoController = new PrestacaoController();
+
+		// TODO Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException:
+		// Cannot invoke
+		// "controller.PrestacaoController.consultarComFiltros(model.seletor.PrestacaoSeletor)"
+		// because "this.controller" is null
+		prestacoes = (ArrayList<PrestacaoDTO>) prestacaoController.consultarComFiltros(seletor);
 		atualizarTabelaConsulta();
 		atualizarQuantidadePaginas();
 	}
 
 	private void atualizarQuantidadePaginas() {
+		PrestacaoController controller = new PrestacaoController();
 		// Cálculo do total de páginas (poderia ser feito no backend)
 		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
 		// QUOCIENTE da divisão inteira

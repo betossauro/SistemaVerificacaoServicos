@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Funcionario {
 
-	private int id;
+	private Integer id;
 	private String nome;
 	private String cpf;
 	private String telefone;
@@ -16,7 +16,7 @@ public class Funcionario {
 	private TipoCargo tipoCargo;
 	private LocalDate dataDesligamento;
 
-	public Funcionario(int id, String nome, String cpf, String telefone, LocalDate dataNascimento, String ctps,
+	public Funcionario(Integer id, String nome, String cpf, String telefone, LocalDate dataNascimento, String ctps,
 			String matricula, String senha, TipoUsuario tipoUsuario, TipoCargo tipoCargo, LocalDate dataDesligamento) {
 		super();
 		this.id = id;
@@ -36,11 +36,11 @@ public class Funcionario {
 		super();
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

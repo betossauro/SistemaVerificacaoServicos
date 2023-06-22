@@ -4,7 +4,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -52,7 +54,6 @@ public class PainelRegistroServico extends JPanel {
 	private JLabel lblHoraInicio;
 	private JLabel lblHoraEntrada;
 	private ArrayList<Sala> salas;
-	private LocalDateTime horaInicio;
 	private LocalDateTime horaFim;
 	private ArrayList<Atividade> atividades;
 	private List<Atividade> servicosRealizados = new ArrayList<Atividade>();
@@ -65,6 +66,7 @@ public class PainelRegistroServico extends JPanel {
 	private JButton btnVoltar;
 	private JTable tblServicos;
 	private String[] nomesColunas = { "Serviço" };
+	private JButton btnRemoverAtividade;
 
 	public JButton getBtnVoltar() {
 		return btnVoltar;
@@ -145,7 +147,7 @@ public class PainelRegistroServico extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(25dlu;default)"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -169,6 +171,8 @@ public class PainelRegistroServico extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(25dlu;default)"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(25dlu;default)"),
 				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.UNRELATED_GAP_ROWSPEC,
@@ -237,12 +241,11 @@ public class PainelRegistroServico extends JPanel {
 
 		horaEntrada = new TimePicker();
 		add(horaEntrada, "20, 14, 5, 1, default, fill");
-		
+
 		btnIniciarServico = new JButton("Horário atual");
 		btnIniciarServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnIniciarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				horaInicio = LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault());
 				horaEntrada.setTimeToNow();
 			}
 		});
@@ -268,7 +271,6 @@ public class PainelRegistroServico extends JPanel {
 		btnFinalizarServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(btnFinalizarServico, "28, 20, default, fill");
 
-
 		JSeparator separator = new JSeparator();
 		add(separator, "16, 26, 13, 1");
 
@@ -290,16 +292,24 @@ public class PainelRegistroServico extends JPanel {
 				prestacao.setIdFuncionario(usuarioAutenticado.getId());
 				Sala salaSelecionada = (Sala) cbSala.getSelectedItem();
 				prestacao.setIdSala(salaSelecionada.getId());
-				prestacao.setDataInicio(horaInicio);
-				prestacao.setDataFim(horaFim);
+				LocalDate dataAtual = LocalDate.now();
+				LocalTime horaInicio = horaEntrada.getTime();
+				LocalDateTime dataHoraInicio = LocalDateTime.of(dataAtual, horaInicio);
+				prestacao.setDataInicio(dataHoraInicio);
+
+				LocalTime horaFinal = horaEntrada.getTime();
+				LocalDateTime dataHoraFinal = LocalDateTime.of(dataAtual, horaFinal);
+				prestacao.setDataFim(dataHoraFinal);
 				prestacao.setListaAtividades(servicosRealizados);
-				
+
 				PrestacaoController controller = new PrestacaoController();
 				try {
 					controller.inserir(prestacao);
-					JOptionPane.showMessageDialog(null, "Serviço registrado com sucesso!", "Registro com sucesso", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Serviço registrado com sucesso!", "Registro com sucesso",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (CampoInvalidoException ex) {
-					JOptionPane.showMessageDialog(null, "Preencha os seguintes campos: \n" + ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Preencha os seguintes campos: \n" + ex.getMessage(), "Erro",
+							JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -315,14 +325,23 @@ public class PainelRegistroServico extends JPanel {
 
 		tblServicos = new JTable();
 		tblServicos.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(tblServicos, "28, 30, 1, 25, fill, fill");
+		add(tblServicos, "28, 30, 1, 27, fill, fill");
 		this.limparTabela();
+
+		btnRemoverAtividade = new JButton("-");
+		btnRemoverAtividade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				servicosRealizados.remove((Atividade) cbServicoRealizado.getSelectedItem());
+				atualizarTabelaServicos();
+			}
+		});
+		add(btnRemoverAtividade, "24, 33, default, fill");
 
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnVoltar, "20, 77, default, fill");
+		add(btnVoltar, "20, 79, default, fill");
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnCadastrar, "28, 77, default, fill");
+		add(btnCadastrar, "28, 79, default, fill");
 	}
 
 	public LocalDateTime mostrarHora() {

@@ -27,7 +27,7 @@ public class FuncionarioBO {
 	public boolean atualizar(Funcionario funcionarioAlterado) throws CampoInvalidoException {
 		Funcionario funcionarioOriginal = dao.consultarPorId(funcionarioAlterado.getId());
 
-		if (funcionarioAlterado.getCpf() != funcionarioOriginal.getCpf()) {
+		if (!funcionarioAlterado.getCpf().equals(funcionarioOriginal.getCpf())) {
 			throw new CampoInvalidoException("CPF não pode ser alterado");
 		}
 		return dao.atualizar(funcionarioAlterado);

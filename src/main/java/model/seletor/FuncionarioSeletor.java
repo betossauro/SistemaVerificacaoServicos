@@ -10,7 +10,9 @@ public class FuncionarioSeletor extends BaseSeletor {
 
 	@Override
 	public boolean temFiltro() {
-		return (this.nome != null && this.nome.trim().length() > 0) || this.tipoCargo != null || this.ativo == null;
+		return (this.nome != null && this.nome.trim().length() > 0) 
+				|| this.tipoCargo != null 
+				|| this.ativo != null;
 	}
 
 	public String getNome() {

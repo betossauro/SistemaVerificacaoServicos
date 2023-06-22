@@ -162,7 +162,7 @@ public class TelaLogin {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					usuarioAutenticado = autenticar();
-					if (usuarioAutenticado != null) {
+					if (usuarioAutenticado != null && usuarioAutenticado.getDataDesligamento() == null) {
 						telaPrincipal = new TelaPrincipal(usuarioAutenticado);
 						frmLogin.setVisible(false);
 						frmLogin.dispose();

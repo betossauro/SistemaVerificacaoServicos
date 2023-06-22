@@ -12,13 +12,11 @@ public class PrestacaoSeletor extends BaseSeletor {
 	private LocalDate dataInicio;
 	private LocalDate dataFim;
 	private String servico;
-	private String ocorrencia;
 
 	@Override
 	public boolean temFiltro() {
 		return (this.nomeFuncionario != null && this.nomeFuncionario.trim().length() > 0) || this.tipoCargo != null
-				|| this.idSala != null || this.numeroSala != null || this.dataInicio != null || this.dataFim != null || this.servico != null
-				|| this.ocorrencia != null;
+				|| this.idSala != null || this.numeroSala != null || this.dataInicio != null || this.dataFim != null || this.servico != null;
 	}
 
 	public String getNomeFuncionario() {
@@ -51,14 +49,6 @@ public class PrestacaoSeletor extends BaseSeletor {
 
 	public void setDataFim(LocalDate dataFim) {
 		this.dataFim = dataFim;
-	}
-
-	public String getOcorrencia() {
-		return ocorrencia;
-	}
-
-	public void setOcorrencia(String ocorrencia) {
-		this.ocorrencia = ocorrencia;
 	}
 
 	public String getServico() {
