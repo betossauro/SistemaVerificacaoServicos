@@ -11,12 +11,13 @@ import java.util.List;
 import model.dto.PrestacaoDTO;
 import model.seletor.FuncionarioSeletor;
 import model.seletor.PrestacaoSeletor;
+import model.vo.Atividade;
 import model.vo.Funcionario;
 import model.vo.Prestacao;
 
 public class PrestacaoDAO {
 
-	public Prestacao inserir(Prestacao novaPrestacao) {
+	public Prestacao inserir(Prestacao novaPrestacao, List<Atividade> atividades, Atividade atividade) {
 		Connection conexao = Banco.getConnection();
 		String sql = " INSERT INTO PRESTACAO (IDFUNCIONARIO, IDSALA, DATAINICIO, DATAFIM) " + " VALUES (?,?,?,?) ";
 		PreparedStatement query = Banco.getPreparedStatementWithPk(conexao, sql);
@@ -29,14 +30,44 @@ public class PrestacaoDAO {
 			ResultSet resultado = query.getGeneratedKeys();
 			if (resultado.next()) {
 				novaPrestacao.setId(resultado.getInt(1));
+				// TODO A ideia ao chamar esse outro método aqui dentro é q toda vez que uma
+				// prestação for inserida no banco uma prestacao_atividade também será
+				inserirPrestacaoAtividade(novaPrestacao, atividades, atividade);
 			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao inserir prestação" + "\nCausa: " + erro.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return novaPrestacao;
+	}
+
+	private Prestacao inserirPrestacaoAtividade(Prestacao novaPrestacaoAtividade, List<Atividade> atividades,
+			Atividade atividade) {
+		Connection conexao = Banco.getConnection();
+		String sql = " INSERT INTO PRESTACAO_ATIVIDADE (IDATIVIDADE, IDPRESTACAO) " + " VALUES (?,?) ";
+		PreparedStatement query = Banco.getPreparedStatementWithPk(conexao, sql);
+		try {
+			// TODO Tem que achar uma maneira de percorrer a lista de atividades e pegar o
+			// id de cada uma, e toda vez que fizer isso colocar denovo o id da prestacao no
+			// banco
+			query.setInt(1, atividade.getId());
+			query.setInt(2, novaPrestacaoAtividade.getId());
+			query.execute();
+			
+			ResultSet resultado = query.getGeneratedKeys();
+			if (resultado.next()) {
+				novaPrestacaoAtividade.setId(resultado.getInt(1));
+			}
+			
 		} catch (SQLException erro) {
 			System.out.println("Erro ao inserir prestação de serviço" + "\nCausa: " + erro.getMessage());
 		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
 		}
-		return novaPrestacao;
+		return novaPrestacaoAtividade;
 	}
 
 	public boolean atualizar(Prestacao prestacaoAlterada) {
