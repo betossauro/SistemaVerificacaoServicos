@@ -306,6 +306,7 @@ public class PainelCadastroUsuario extends JPanel {
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnVoltar, "20, 68, default, fill");
 
+		//TODO está quebrado o cadastro
 		if (funcionarioParaEditar != null) {
 			this.funcionario = funcionarioParaEditar;
 			txtNome.setText(funcionarioParaEditar.getNome());
@@ -314,15 +315,16 @@ public class PainelCadastroUsuario extends JPanel {
 			dataNascimento.setDate(funcionarioParaEditar.getDataNascimento());
 			txtCTPS.setText(funcionarioParaEditar.getCtps());
 			// Setar item selecionado
-//				(funcionarioParaEditar.getTipoUsuario().FUNCIONARIO);
+			rdbtnGerencia.setSelected(funcionarioParaEditar.getTipoUsuario() == TipoUsuario.ADMINISTRADOR);
+			rdbtnFuncionario.setSelected(funcionarioParaEditar.getTipoUsuario() == TipoUsuario.FUNCIONARIO);
 			cbCargo.setSelectedItem(funcionarioParaEditar.getTipoCargo());
-//			chkInativo.setSelected(funcionarioParaEditar.getDataDesligamento());
+			chkInativo.setSelected(funcionarioParaEditar.getDataDesligamento() != null);
 			txtMatricula.setText(funcionarioParaEditar.getMatricula());
 			txtSenha.setText(funcionarioParaEditar.getSenha());
 			
 			txtCPF.setEditable(false);
 			txtCTPS.setEditable(false);
-//			dataNascimento
+			dataNascimento.setEnabled(false);
 			txtMatricula.setEditable(false);
 		} else {
 			this.funcionario = new Funcionario();

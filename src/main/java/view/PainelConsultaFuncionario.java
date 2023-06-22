@@ -24,6 +24,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
@@ -77,7 +79,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		for (PrestacaoDTO p : prestacoes) {
 			Object[] novaLinhaDaTabela = new Object[3];
 			novaLinhaDaTabela[0] = p.getNumeroSala();
-			novaLinhaDaTabela[1] = p.getDataInicio() + p.getDataFim();
+			novaLinhaDaTabela[1] = p.getDataInicio() + p.getDataFim(); 
 			novaLinhaDaTabela[2] = p.getServico();
 
 			model.addRow(novaLinhaDaTabela);

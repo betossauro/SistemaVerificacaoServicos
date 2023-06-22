@@ -194,7 +194,7 @@ public class TelaPrincipal {
 	// Item tela menu gerente
 	protected void registrarCliqueBotaoCadastrarUsuarioTelaGerente() {
 		if (painelCadastroUsuario == null) {
-			painelCadastroUsuario = new PainelCadastroUsuario(usuarioAutenticado);
+			painelCadastroUsuario = new PainelCadastroUsuario(null);
 		}
 		painelMenuGerencia.getLblIconeCadastrar().addMouseListener(new MouseListener() {
 
@@ -211,7 +211,7 @@ public class TelaPrincipal {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				painelCadastroUsuario = new PainelCadastroUsuario(usuarioAutenticado);
+				painelCadastroUsuario = new PainelCadastroUsuario(null);
 				painelCadastroUsuario.setVisible(true);
 				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();

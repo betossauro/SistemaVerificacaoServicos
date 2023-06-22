@@ -31,11 +31,11 @@ public class PrestacaoDAO {
 			if (resultado.next()) {
 				novaPrestacao.setId(resultado.getInt(1));
 			}
-			
-			for(Atividade atividade: novaPrestacao.getListaAtividades()) {
+
+			for (Atividade atividade : novaPrestacao.getListaAtividades()) {
 				inserirPrestacaoAtividade(novaPrestacao.getId(), atividade.getId());
 			}
-			
+
 		} catch (SQLException erro) {
 			System.out.println("Erro ao inserir prestação" + "\nCausa: " + erro.getMessage());
 		} finally {
@@ -129,12 +129,19 @@ public class PrestacaoDAO {
 		Connection conexao = Banco.getConnection();
 		String sql = "SELECT F.ID as idFuncionario, F.NOME as nomeFuncionario, TC.descricao as nomeCargo, "
 				+ " S.ID as idSala, S.NUMERO as numeroSala, P.DATAINICIO as dataInicio, P.DATAFIM as dataFim, "
-				+ " A.DESCRICAO as servico " + " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A "
-				+ " WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
+				+ " A.DESCRICAO as servico "
+				+ " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, PRESTACAO_ATIVIDADE PA "
+				+ " WHERE P.idFuncionario = F.id " + " AND TC.id = F.IDTIPOCARGO " + " AND PA.IDPRESTACAO = P.ID "
+				+ " AND PA.IDATIVIDADE = A.ID " + " AND S.id = P.IDSALA ";
 
 		if (seletor.temFiltro()) {
 			sql = preencherFiltros(sql, seletor);
 		}
+
+//		TODO: Quebrado
+//		if (seletor.temPaginacao()) {
+//			sql = " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+//		}
 
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
@@ -154,7 +161,7 @@ public class PrestacaoDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println("Erro ao buscar todas as prestações. \n Causa:" + e.getMessage());
+			System.out.println("Erro ao buscar todas as prestações DTO. \n Causa:" + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
@@ -169,11 +176,11 @@ public class PrestacaoDAO {
 		}
 
 		if (seletor.getTipoCargo() != null) {
-			sql += " AND TC.descricao = " + seletor.getTipoCargo().name();
+			sql += " AND TC.descricao = '" + seletor.getTipoCargo() + "'";
 		}
 
 		if (seletor.getNumeroSala() != null) {
-			sql += " AND S.NUMERO = " + seletor.getNumeroSala();
+			sql += " AND S.NUMERO = '" + seletor.getNumeroSala() + "'";
 		}
 
 		if (seletor.getDataInicio() != null && seletor.getDataFim() != null) {
@@ -228,8 +235,10 @@ public class PrestacaoDAO {
 	public int contarTotalRegistrosDTOComFiltros(PrestacaoSeletor seletor) {
 		int total = 0;
 		Connection conexao = Banco.getConnection();
-		String sql = "SELECT COUNT(p.id)" + "FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A "
-				+ "WHERE P.idFuncionario = F.id " + "AND TC.id = F.IDTIPOCARGO " + "AND S.id = P.IDSALA ";
+		String sql = " SELECT COUNT(p.id) "
+				+ " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, PRESTACAO_ATIVIDADE PA "
+				+ " WHERE P.idFuncionario = F.id " + " AND TC.id = F.IDTIPOCARGO " + " AND S.id = P.IDSALA "
+				+ " AND PA.IDPRESTACAO = P.ID " + " AND PA.IDATIVIDADE = A.ID ";
 
 		if (seletor.temFiltro()) {
 			sql = preencherFiltros(sql, seletor);

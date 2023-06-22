@@ -281,7 +281,9 @@ public class PainelConsultaGerencia extends JPanel {
 
 		seletor.setNomeFuncionario(txtNome.getText());
 		seletor.setTipoCargo((TipoCargo) cbCargo.getSelectedItem());
-		seletor.setNumeroSala((String) cbSala.getSelectedItem());
+		
+		Sala salaSelecionada = (Sala) cbSala.getSelectedItem();
+		seletor.setNumeroSala(salaSelecionada.getNumero());
 		seletor.setDataInicio(dataInicial.getDate());
 		seletor.setDataFim(dataFinal.getDate());
 
