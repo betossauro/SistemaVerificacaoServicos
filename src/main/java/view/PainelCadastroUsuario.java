@@ -78,11 +78,6 @@ public class PainelCadastroUsuario extends JPanel {
 	 * Create the panel.
 	 */
 	public PainelCadastroUsuario(Funcionario funcionarioParaEditar) {
-		if (funcionarioParaEditar != null) {
-			this.funcionario = funcionarioParaEditar;
-		} else {
-			this.funcionario = new Funcionario();
-		}
 		setLayout(new FormLayout(new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
@@ -289,8 +284,6 @@ public class PainelCadastroUsuario extends JPanel {
 				funcionario.setTipoCargo((TipoCargo) cbCargo.getSelectedItem());
 				if (chkInativo.isSelected()) {
 					funcionario.setDataDesligamento(LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault()));
-				} else {
-					funcionario.setDataDesligamento(null);
 				}
 				funcionario.setMatricula(txtMatricula.getText());
 				funcionario.setSenha(txtSenha.getText());
@@ -313,6 +306,27 @@ public class PainelCadastroUsuario extends JPanel {
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(btnVoltar, "20, 68, default, fill");
 
+		if (funcionarioParaEditar != null) {
+			this.funcionario = funcionarioParaEditar;
+			txtNome.setText(funcionarioParaEditar.getNome());
+			txtCPF.setText(funcionarioParaEditar.getCpf());
+			txtTelefone.setText(funcionarioParaEditar.getTelefone());
+			dataNascimento.setDate(funcionarioParaEditar.getDataNascimento());
+			txtCTPS.setText(funcionarioParaEditar.getCtps());
+			// Setar item selecionado
+//				(funcionarioParaEditar.getTipoUsuario().FUNCIONARIO);
+			cbCargo.setSelectedItem(funcionarioParaEditar.getTipoCargo());
+//			chkInativo.setSelected(funcionarioParaEditar.getDataDesligamento());
+			txtMatricula.setText(funcionarioParaEditar.getMatricula());
+			txtSenha.setText(funcionarioParaEditar.getSenha());
+			
+			txtCPF.setEditable(false);
+			txtCTPS.setEditable(false);
+//			dataNascimento
+			txtMatricula.setEditable(false);
+		} else {
+			this.funcionario = new Funcionario();
+		}
 	}
 
 }

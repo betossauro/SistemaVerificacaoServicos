@@ -32,6 +32,8 @@ public class FuncionarioDAO {
 			query.setString(7, novoFuncionario.getSenha());
 			if (novoFuncionario.getDataDesligamento() != null) {
 				query.setDate(8, java.sql.Date.valueOf(novoFuncionario.getDataDesligamento()));
+			}else{
+				query.setDate(8, null);
 			}
 			query.setInt(9, novoFuncionario.getTipoUsuario().getValor());
 			query.setInt(10, novoFuncionario.getTipoCargo().getValor());

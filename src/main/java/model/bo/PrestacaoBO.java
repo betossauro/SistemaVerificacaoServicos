@@ -8,7 +8,6 @@ import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
 import model.seletor.PrestacaoSeletor;
-import model.vo.Funcionario;
 import model.vo.Prestacao;
 
 public class PrestacaoBO {
