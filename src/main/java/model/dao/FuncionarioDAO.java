@@ -35,8 +35,8 @@ public class FuncionarioDAO {
 			}else{
 				query.setDate(8, null);
 			}
-			query.setInt(9, novoFuncionario.getTipoUsuario().getValor());
-			query.setInt(10, novoFuncionario.getTipoCargo().getValor());
+			query.setInt(9, novoFuncionario.getTipoCargo().getValor());
+			query.setInt(10, novoFuncionario.getTipoUsuario().getValor());
 			query.execute();
 			ResultSet resultado = query.getGeneratedKeys();
 			if (resultado.next()) {
@@ -53,18 +53,27 @@ public class FuncionarioDAO {
 
 	public boolean atualizar(Funcionario funcionarioAlterado) {
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE FUNCIONARIO SET NOME = ?, TELEFONE = ?, SENHA = ?, DATADESLIGAMENTO = ?, IDTIPOUSUARIO = ?, IDTIPOCARGO = ? "
+		String sql = " UPDATE FUNCIONARIO SET NOME = ?, CPF = ?, TELEFONE = ?, DATANASCIMENTO = ?, CTPS = ?, MATRICULA = ?, SENHA = ?, DATADESLIGAMENTO = ?, IDTIPOCARGO = ?, IDTIPOUSUARIO = ? "
 				+ " WHERE ID = ?";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		int registrosAlterados = 0;
 		try {
 			query.setString(1, funcionarioAlterado.getNome());
-			query.setString(2, funcionarioAlterado.getTelefone());
-			query.setString(3, funcionarioAlterado.getSenha());
-			query.setDate(4, java.sql.Date.valueOf(funcionarioAlterado.getDataDesligamento()));
-			query.setInt(5, funcionarioAlterado.getTipoUsuario().getValor());
-			query.setInt(6, funcionarioAlterado.getTipoCargo().getValor());
-			query.setInt(7, funcionarioAlterado.getId());
+			query.setString(2, funcionarioAlterado.getCpf());
+			query.setString(3, funcionarioAlterado.getTelefone());
+			query.setDate(4, java.sql.Date.valueOf(funcionarioAlterado.getDataNascimento()));
+			query.setString(5, funcionarioAlterado.getCtps());
+			query.setString(6, funcionarioAlterado.getMatricula());
+			query.setString(7, funcionarioAlterado.getSenha());
+			if (funcionarioAlterado.getDataDesligamento() != null) {
+				query.setDate(8, java.sql.Date.valueOf(funcionarioAlterado.getDataDesligamento()));
+			}else{
+				query.setDate(8, null);
+			}
+			query.setInt(9, funcionarioAlterado.getTipoCargo().getValor());
+			query.setInt(10, funcionarioAlterado.getTipoUsuario().getValor());
+			query.setInt(11, funcionarioAlterado.getId());
+			
 			registrosAlterados = query.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar funcionário existente.");
@@ -172,8 +181,8 @@ public class FuncionarioDAO {
 		if (resultado.getDate("datadesligamento") != null) {
 			funcionarioBuscado.setDataDesligamento(resultado.getDate("datadesligamento").toLocalDate());
 		}
-		funcionarioBuscado.setTipoUsuario(TipoUsuario.getTipoUsuarioPorValor(resultado.getInt("idtipousuario")));
 		funcionarioBuscado.setTipoCargo(TipoCargo.getTipoCargoPorValor(resultado.getInt("idtipocargo")));
+		funcionarioBuscado.setTipoUsuario(TipoUsuario.getTipoUsuarioPorValor(resultado.getInt("idtipousuario")));
 		return funcionarioBuscado;
 	}
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.dto.PrestacaoDTO;
+import model.gerador.ConversorData;
 import model.seletor.FuncionarioSeletor;
 import model.seletor.PrestacaoSeletor;
 import model.vo.Atividade;
@@ -153,8 +154,8 @@ public class PrestacaoDAO {
 				dto.setNomeCargo(resultado.getString("nomeCargo"));
 				dto.setIdSala(resultado.getString("idSala"));
 				dto.setNumeroSala(resultado.getString("numeroSala"));
-				dto.setDataInicio(resultado.getString("dataInicio"));
-				dto.setDataFim(resultado.getString("dataFim"));
+				dto.setDataInicio(ConversorData.formatarDataPadraoBrasil(resultado.getTimestamp("dataInicio").toLocalDateTime()));
+				dto.setDataFim(ConversorData.formatarDataPadraoBrasil(resultado.getTimestamp("dataFim").toLocalDateTime()));
 				dto.setServico(resultado.getString("servico"));
 
 				prestacoesDTO.add(dto);
@@ -184,15 +185,15 @@ public class PrestacaoDAO {
 		}
 
 		if (seletor.getDataInicio() != null && seletor.getDataFim() != null) {
-			sql += " AND P.DATAINICIO BETWEEN " + seletor.getDataInicio() + " AND " + seletor.getDataFim();
-		}
+			sql += " AND P.DATAINICIO BETWEEN '" + seletor.getDataInicio() + "' AND '" + seletor.getDataFim() + "'";
+		} else {
+			if (seletor.getDataInicio() != null) {
+				sql += " AND P.DATAINICIO >= '" + seletor.getDataInicio() + "'";
+			}
 
-		if (seletor.getDataInicio() != null) {
-			sql += " AND P.DATAINICIO AFTER " + seletor.getDataInicio();
-		}
-
-		if (seletor.getDataFim() != null) {
-			sql += " AND P.DATAFIM BEFORE " + seletor.getDataFim();
+			if (seletor.getDataFim() != null) {
+				sql += " AND P.DATAFIM <= '" + seletor.getDataFim() + "'";
+			}
 		}
 
 		return sql;

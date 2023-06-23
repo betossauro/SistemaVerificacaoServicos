@@ -24,11 +24,14 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -62,7 +65,7 @@ public class PainelConsultaGerencia extends JPanel {
 	private DatePicker dataFinal;
 
 	// Atributos para a PAGINAÇÃO
-	private final int TAMANHO_PAGINA = 5;
+	private final int TAMANHO_PAGINA = 12;
 	private int paginaAtual = 1;
 	private int totalPaginas = 0;
 	private PrestacaoSeletor seletor = new PrestacaoSeletor();;
@@ -77,7 +80,13 @@ public class PainelConsultaGerencia extends JPanel {
 	private JSeparator separator;
 
 	private void limparTabelaConsulta() {
-		tblConsultaGerencia.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
+		tblConsultaGerencia.setModel(new DefaultTableModel(
+				new Object[][] { { "Nome", "Cargo", "Sala", "Data de Servi\u00E7o", "Servi\u00E7o Realizado" }, },
+				new String[] { "Nome", "Cargo", "Sala", "Data de Servi\u00E7o", "Servi\u00E7o Realizado" }));
+		tblConsultaGerencia.getColumnModel().getColumn(1).setPreferredWidth(35);
+		tblConsultaGerencia.getColumnModel().getColumn(2).setPreferredWidth(15);
+		tblConsultaGerencia.getColumnModel().getColumn(3).setPreferredWidth(200);
+		tblConsultaGerencia.getColumnModel().getColumn(4).setPreferredWidth(120);
 	}
 
 	private void atualizarTabelaConsulta() {
@@ -90,7 +99,7 @@ public class PainelConsultaGerencia extends JPanel {
 			novaLinhaDaTabela[0] = p.getNomeFuncionario();
 			novaLinhaDaTabela[1] = p.getNomeCargo();
 			novaLinhaDaTabela[2] = p.getNumeroSala();
-			novaLinhaDaTabela[3] = p.getDataInicio() + p.getDataFim();
+			novaLinhaDaTabela[3] = p.getDataInicio() + "  -  " + p.getDataFim();
 			novaLinhaDaTabela[4] = p.getServico();
 
 			model.addRow(novaLinhaDaTabela);
@@ -123,7 +132,7 @@ public class PainelConsultaGerencia extends JPanel {
 				FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, },
 				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
 						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
@@ -134,7 +143,8 @@ public class PainelConsultaGerencia extends JPanel {
 						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(25dlu;default)"),
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("default:grow"), FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("max(150dlu;default)"),
+						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.UNRELATED_GAP_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						RowSpec.decode("max(25dlu;default)"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
@@ -209,6 +219,29 @@ public class PainelConsultaGerencia extends JPanel {
 		add(btnFiltrar, "36, 30, default, fill");
 
 		tblConsultaGerencia = new JTable();
+		// Ajuste largura de colunas da tabela
+		tblConsultaGerencia.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		for (int column = 0; column < tblConsultaGerencia.getColumnCount(); column++) {
+			TableColumn tableColumn = tblConsultaGerencia.getColumnModel().getColumn(column);
+			int preferredWidth = tableColumn.getMinWidth();
+			int maxWidth = tableColumn.getMaxWidth();
+
+			for (int row = 0; row < tblConsultaGerencia.getRowCount(); row++) {
+				TableCellRenderer cellRenderer = tblConsultaGerencia.getCellRenderer(row, column);
+				Component c = tblConsultaGerencia.prepareRenderer(cellRenderer, row, column);
+				int width = c.getPreferredSize().width + tblConsultaGerencia.getIntercellSpacing().width;
+				preferredWidth = Math.max(preferredWidth, width);
+
+				// We've exceeded the maximum width, no need to check other rows
+
+				if (preferredWidth >= maxWidth) {
+					preferredWidth = maxWidth;
+					break;
+				}
+			}
+
+			tableColumn.setPreferredWidth(preferredWidth);
+		}
 		tblConsultaGerencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		this.limparTabelaConsulta();
 
@@ -219,7 +252,7 @@ public class PainelConsultaGerencia extends JPanel {
 		lblPagina = new JLabel("1 / " + totalPaginas);
 		lblPagina.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPagina, "28, 40");
+		add(lblPagina, "28, 42");
 
 		btnAvancar = new JButton(">");
 		btnAvancar.addActionListener(new ActionListener() {
@@ -232,7 +265,7 @@ public class PainelConsultaGerencia extends JPanel {
 			}
 		});
 		btnAvancar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(btnAvancar, "30, 40");
+		add(btnAvancar, "30, 42");
 
 		btnRetroceder = new JButton("<");
 		btnRetroceder.addActionListener(new ActionListener() {
@@ -245,7 +278,7 @@ public class PainelConsultaGerencia extends JPanel {
 			}
 		});
 		btnRetroceder.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(btnRetroceder, "26, 40");
+		add(btnRetroceder, "26, 42");
 
 		btnExportar = new JButton("Exportar Excel");
 		controller = new PrestacaoController();
@@ -267,11 +300,11 @@ public class PainelConsultaGerencia extends JPanel {
 			}
 		});
 		btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnExportar, "20, 46, default, fill");
+		add(btnExportar, "20, 48, default, fill");
 
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(btnVoltar, "36, 46, default, fill");
+		add(btnVoltar, "36, 48, default, fill");
 	}
 
 	protected void buscarPrestacoesComFiltros() {
@@ -281,7 +314,11 @@ public class PainelConsultaGerencia extends JPanel {
 
 		seletor.setNomeFuncionario(txtNome.getText());
 		seletor.setTipoCargo((TipoCargo) cbCargo.getSelectedItem());
-		seletor.setNumeroSala((String) cbSala.getSelectedItem());
+
+		Sala salaSelecionada = (Sala) cbSala.getSelectedItem();
+		if (salaSelecionada != null) {
+			seletor.setNumeroSala(salaSelecionada.getNumero());
+		}
 		seletor.setDataInicio(dataInicial.getDate());
 		seletor.setDataFim(dataFinal.getDate());
 
