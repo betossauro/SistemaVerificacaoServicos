@@ -8,6 +8,7 @@ import model.dto.PrestacaoDTO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
 import model.seletor.PrestacaoSeletor;
+import model.vo.Atividade;
 import model.vo.Prestacao;
 
 public class PrestacaoBO {
@@ -25,9 +26,20 @@ public class PrestacaoBO {
 		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdSala()), "idsala");
 		mensagemValidacao += validarData(novaPrestacao.getDataInicio(), "datainicio");
 		mensagemValidacao += validarData(novaPrestacao.getDataFim(), "datafim");
+		mensagemValidacao += validarAtividades(novaPrestacao.getListaAtividades(), "atividades");
 
 		if (!mensagemValidacao.isEmpty()) {
 			throw new CampoInvalidoException(mensagemValidacao);
+		}
+	}
+
+	private String validarAtividades(List<Atividade> listaAtividades, String nomeCampo) {
+		boolean valido = (listaAtividades != null);
+
+		if (valido) {
+			return "";
+		} else {
+			return "- " + nomeCampo + "\n";
 		}
 	}
 
