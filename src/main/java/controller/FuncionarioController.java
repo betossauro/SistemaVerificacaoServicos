@@ -33,38 +33,42 @@ public class FuncionarioController {
 	private void validarCamposObrigatorios(Funcionario novoFuncionario) throws CampoInvalidoException {
 		String mensagemValidacao = "";
 
-		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getNome()), "nome");
-		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getCpf()), "CPF");
-		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getTelefone()), "telefone");
-		mensagemValidacao += validarData(novoFuncionario.getDataNascimento(), "data nascimento");
-		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getCtps()), "CTPs");
-		mensagemValidacao += validarTipoUsuario(novoFuncionario.getTipoUsuario(), "tipo usuário");
-		mensagemValidacao += validarTipoCargo(novoFuncionario.getTipoCargo(), "tipo cargo");
-		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getMatricula()), "matricula");
-		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getSenha()), "senha");
+		mensagemValidacao += validarString(novoFuncionario.getNome(), "Nome");
+		mensagemValidacao += validarString(novoFuncionario.getCpf(), "CPF");
+		mensagemValidacao += validarString(novoFuncionario.getTelefone(), "Telefone");
+		mensagemValidacao += validarData(novoFuncionario.getDataNascimento(), "Data de Nascimento");
+		mensagemValidacao += validarString(novoFuncionario.getCtps(), "CTPs");
+		if (novoFuncionario.getTipoUsuario() == null) {
+			mensagemValidacao += validarTipoUsuario(novoFuncionario.getTipoUsuario(), "Tipo de Usuário");
+		}
+		if (novoFuncionario.getTipoCargo() == null) {
+			mensagemValidacao += validarTipoCargo(novoFuncionario.getTipoCargo(), "Cargo do Usuário");
+		}
+		mensagemValidacao += validarString(novoFuncionario.getMatricula(), "Matrícula");
+		mensagemValidacao += validarString(novoFuncionario.getSenha(), "Senha");
 
 		if (!mensagemValidacao.isEmpty()) {
 			throw new CampoInvalidoException(mensagemValidacao);
 		}
 	}
 
-	private String validarTipoCargo(TipoCargo tipoCargo, String string) {
+	private String validarTipoCargo(TipoCargo tipoCargo, String nomeCampo) {
 		boolean valido = (tipoCargo != null);
 
 		if (valido) {
 			return "";
 		} else {
-			return "- " + tipoCargo + "\n";
+			return "- " + nomeCampo + "\n";
 		}
 	}
 
-	private String validarTipoUsuario(TipoUsuario tipoUsuario, String string) {
+	private String validarTipoUsuario(TipoUsuario tipoUsuario, String nomeCampo) {
 		boolean valido = (tipoUsuario != null);
 
 		if (valido) {
 			return "";
 		} else {
-			return "- " + tipoUsuario + "\n";
+			return "- " + nomeCampo + "\n";
 		}
 	}
 
