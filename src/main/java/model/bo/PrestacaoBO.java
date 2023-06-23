@@ -33,6 +33,16 @@ public class PrestacaoBO {
 		}
 	}
 
+	private String validarAtividades(List<Atividade> listaAtividades, String nomeCampo) {
+		boolean valido = (listaAtividades != null);
+
+		if (valido) {
+			return "";
+		} else {
+			return "- " + nomeCampo + "\n";
+		}
+	}
+
 	private String validarData(LocalDateTime data, String nomeCampo) {
 		boolean valido = (data != null);
 

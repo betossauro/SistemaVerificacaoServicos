@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,10 @@ import model.bo.FuncionarioBO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilhas;
 import model.seletor.FuncionarioSeletor;
+import model.vo.Atividade;
 import model.vo.Funcionario;
+import model.vo.Prestacao;
+import model.vo.TipoCargo;
 import model.vo.TipoUsuario;
 
 public class FuncionarioController {
@@ -25,32 +30,62 @@ public class FuncionarioController {
 		return bo.atualizar(funcionarioAlterado);
 	}
 
-	private void validarCamposObrigatorios(Funcionario f) throws CampoInvalidoException {
+	private void validarCamposObrigatorios(Funcionario novoFuncionario) throws CampoInvalidoException {
 		String mensagemValidacao = "";
-		if (f.getNome() == null || f.getNome().trim().length() < 2) {
-			mensagemValidacao += "Nome inválido! \n";
-		}
-		mensagemValidacao += validarCpf(f);
+
+		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getNome()), "nome");
+		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getCpf()), "CPF");
+		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getTelefone()), "telefone");
+		mensagemValidacao += validarData(novoFuncionario.getDataNascimento(), "data nascimento");
+		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getCtps()), "CTPs");
+		mensagemValidacao += validarTipoUsuario(novoFuncionario.getTipoUsuario(), "tipo usuário");
+		mensagemValidacao += validarTipoCargo(novoFuncionario.getTipoCargo(), "tipo cargo");
+		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getMatricula()), "matricula");
+		mensagemValidacao += validarString(String.valueOf(novoFuncionario.getSenha()), "senha");
 
 		if (!mensagemValidacao.isEmpty()) {
 			throw new CampoInvalidoException(mensagemValidacao);
 		}
 	}
 
-	private String validarCpf(Funcionario f) throws CampoInvalidoException {
-		String validacao = "";
+	private String validarTipoCargo(TipoCargo tipoCargo, String string) {
+		boolean valido = (tipoCargo != null);
 
-		if (f.getCpf() == null) {
-			validacao += "Informe um CPF \n";
+		if (valido) {
+			return "";
 		} else {
-			String cpfSemMascara = f.getCpf().replace(".", "");
-			cpfSemMascara = f.getCpf().replace("-", "");
-			f.setCpf(cpfSemMascara);
-			if (f.getCpf().length() != 11) {
-				validacao += "CPF deve possuir 11 dígitos\n";
-			}
+			return "- " + tipoCargo + "\n";
 		}
-		return validacao;
+	}
+
+	private String validarTipoUsuario(TipoUsuario tipoUsuario, String string) {
+		boolean valido = (tipoUsuario != null);
+
+		if (valido) {
+			return "";
+		} else {
+			return "- " + tipoUsuario + "\n";
+		}
+	}
+
+	private String validarString(String texto, String nomeCampo) {
+		boolean valido = (texto != null) && !texto.trim().isEmpty();
+
+		if (valido) {
+			return "";
+		} else {
+			return "- " + nomeCampo + "\n";
+		}
+	}
+
+	private String validarData(LocalDate data, String nomeCampo) {
+		boolean valido = (data != null);
+
+		if (valido) {
+			return "";
+		} else {
+			return "- " + nomeCampo + "\n";
+		}
 	}
 
 	public boolean excluir(Funcionario funcionario) throws CampoInvalidoException {
@@ -93,8 +128,7 @@ public class FuncionarioController {
 
 	public Funcionario consultarPorLoginSenha(String matricula, String senha) throws CampoInvalidoException {
 		Funcionario funcionarioConsultado = null;
-		boolean valido = (matricula != null && !matricula.isEmpty())
-				&& (senha != null && !senha.isEmpty());
+		boolean valido = (matricula != null && !matricula.isEmpty()) && (senha != null && !senha.isEmpty());
 		if (valido) {
 			funcionarioConsultado = bo.consultarPorLoginSenha(matricula, senha);
 		} else {
