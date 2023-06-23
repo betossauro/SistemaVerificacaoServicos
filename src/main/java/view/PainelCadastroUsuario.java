@@ -25,14 +25,10 @@ import model.vo.TipoCargo;
 import model.vo.TipoUsuario;
 
 import java.awt.Font;
-import com.github.lgooddatepicker.components.DateTimePicker;
-import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.github.lgooddatepicker.components.TimePickerSettings;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.awt.event.ActionEvent;
 import com.github.lgooddatepicker.components.DatePicker;

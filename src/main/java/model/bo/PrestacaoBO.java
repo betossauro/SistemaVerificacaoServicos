@@ -22,11 +22,11 @@ public class PrestacaoBO {
 	private void validarCamposObrigatorios(Prestacao novaPrestacao) throws CampoInvalidoException {
 		String mensagemValidacao = "";
 
-		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdFuncionario()), "idfuncionario");
-		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdSala()), "idsala");
-		mensagemValidacao += validarData(novaPrestacao.getDataInicio(), "datainicio");
-		mensagemValidacao += validarData(novaPrestacao.getDataFim(), "datafim");
-		mensagemValidacao += validarAtividades(novaPrestacao.getListaAtividades(), "atividades");
+		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdFuncionario()), "ID Funcionario");
+		mensagemValidacao += validarString(String.valueOf(novaPrestacao.getIdSala()), "ID Sala");
+		mensagemValidacao += validarData(novaPrestacao.getDataInicio(), "Data Início");
+		mensagemValidacao += validarData(novaPrestacao.getDataFim(), "Data Fim");
+		mensagemValidacao += validarAtividades(novaPrestacao.getListaAtividades(), "Atividades");
 
 		if (!mensagemValidacao.isEmpty()) {
 			throw new CampoInvalidoException(mensagemValidacao);
@@ -62,16 +62,6 @@ public class PrestacaoBO {
 			return "- " + nomeCampo + "\n";
 		}
 	}
-	
-	private String validarAtividades(List<Atividade> listaAtividades, String nomeCampo) {
-        boolean valido = (listaAtividades != null);
-
-        if (valido) {
-            return "";
-        } else {
-            return "- " + nomeCampo + "\n";
-        }
-    }
 
 	public boolean atualizar(Prestacao servicoAlterado) {
 		return dao.atualizar(servicoAlterado);
