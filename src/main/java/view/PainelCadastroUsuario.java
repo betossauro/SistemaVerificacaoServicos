@@ -330,14 +330,11 @@ public class PainelCadastroUsuario extends JPanel {
 					String cpfSemMascara = (String) mascaraCpf.stringToValue(txtCPF.getText());
 					funcionario.setCpf(cpfSemMascara);
 				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter o CPF", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 				try {
 					String telefoneSemMascara = (String) mascaraTelefone.stringToValue(txtTelefone.getText());
 					funcionario.setTelefone(telefoneSemMascara);
 				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter o telefone", "Erro",
-							JOptionPane.ERROR_MESSAGE);
 				}
 				LocalDate dataSelecionada = dataNascimento.getDate();
 				funcionario.setDataNascimento(dataSelecionada);
@@ -345,7 +342,6 @@ public class PainelCadastroUsuario extends JPanel {
 					String ctpsSemMascara = (String) mascaraCtps.stringToValue(txtCTPS.getText());
 					funcionario.setCtps(ctpsSemMascara);
 				} catch (ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Erro ao converter o CTPs", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 				if (rdbtnGerencia.isSelected()) {
 					funcionario.setTipoUsuario(TipoUsuario.ADMINISTRADOR);

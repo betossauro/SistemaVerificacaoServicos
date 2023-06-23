@@ -62,6 +62,16 @@ public class PrestacaoBO {
 			return "- " + nomeCampo + "\n";
 		}
 	}
+	
+	private String validarAtividades(List<Atividade> listaAtividades, String nomeCampo) {
+        boolean valido = (listaAtividades != null);
+
+        if (valido) {
+            return "";
+        } else {
+            return "- " + nomeCampo + "\n";
+        }
+    }
 
 	public boolean atualizar(Prestacao servicoAlterado) {
 		return dao.atualizar(servicoAlterado);
