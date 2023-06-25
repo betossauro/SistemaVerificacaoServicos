@@ -65,7 +65,7 @@ public class PainelConsultaGerencia extends JPanel {
 	private DatePicker dataFinal;
 
 	// Atributos para a PAGINAÇÃO
-	private final int TAMANHO_PAGINA = 12;
+	private final int TAMANHO_PAGINA = 14;
 	private int paginaAtual = 1;
 	private int totalPaginas = 0;
 	private PrestacaoSeletor seletor = new PrestacaoSeletor();;
