@@ -168,10 +168,17 @@ public class PainelRegistroServico extends JPanel {
 		btnIniciarServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnIniciarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				horaEntrada.setTimeToNow();
-				exibirComponentesHoraSaida();
+				if (horaEntrada.getTime() == null) {
+					horaEntrada.setTimeToNow();
+					exibirComponentesHoraSaida();
+				} else {
+					horaEntrada.getTime();
+					btnIniciarServico.setText("Horário Selecionado");
+					exibirComponentesHoraSaida();
+				}
 			}
 		});
+
 		add(btnIniciarServico, "28, 14, default, fill");
 
 		lblHoraFinal = new JLabel("Registrar Hora Final:");
@@ -185,13 +192,25 @@ public class PainelRegistroServico extends JPanel {
 		horaSaida = new TimePicker(settings);
 		horaSaida.setVisible(false);
 		add(horaSaida, "20, 20, 5, 1, default, fill");
+		
+		if (horaSaida.getTime() == null) {
+			
+		} else {
+			
+		}
 
 		btnFinalizarServico = new JButton("Horário atual");
 		btnFinalizarServico.setVisible(false);
 		btnFinalizarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				horaSaida.setTimeToNow();
-				exibirComponentesServicos();
+				if (horaSaida.getTime() == null) {
+					horaSaida.setTimeToNow();
+					exibirComponentesServicos();
+				} else {
+					horaSaida.getTime();
+					btnFinalizarServico.setText("Horário Selecionado");
+					exibirComponentesServicos();
+				}
 			}
 		});
 		btnFinalizarServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
