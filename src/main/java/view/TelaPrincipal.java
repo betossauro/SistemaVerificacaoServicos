@@ -345,14 +345,12 @@ public class TelaPrincipal {
 
 	// Botões
 
-	//TODO
 	protected void registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario() {
 		if (painelGerenciamentoFuncionarios == null) {
 			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
 		}
 		painelGerenciamentoFuncionarios.getBtnEditar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO usuário selecionado não preenchendo editar
 				painelCadastroUsuario = new PainelCadastroUsuario(
 						painelGerenciamentoFuncionarios.getFuncionarioSelecionado());
 				painelCadastroUsuario.setVisible(true);
