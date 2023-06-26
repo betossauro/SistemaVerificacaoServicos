@@ -79,7 +79,7 @@ public class TelaPrincipal {
 		mntmCadastrarUsuario = new JMenuItem("Cadastrar Usuário");
 		mntmCadastrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				painelCadastroUsuario = new PainelCadastroUsuario(usuarioAutenticado);
+				painelCadastroUsuario = new PainelCadastroUsuario(null);
 				painelCadastroUsuario.setVisible(true);
 				frmTelaInicial.setContentPane(painelCadastroUsuario);
 				frmTelaInicial.revalidate();
@@ -345,14 +345,12 @@ public class TelaPrincipal {
 
 	// Botões
 
-	//TODO
 	protected void registrarCliqueBotaoEditarDoPainelConsultaGerenciamentoFuncionario() {
 		if (painelGerenciamentoFuncionarios == null) {
 			painelGerenciamentoFuncionarios = new PainelConsultaGerenciamentoFuncionarios(usuarioAutenticado);
 		}
 		painelGerenciamentoFuncionarios.getBtnEditar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO usuário selecionado não preenchendo editar
 				painelCadastroUsuario = new PainelCadastroUsuario(
 						painelGerenciamentoFuncionarios.getFuncionarioSelecionado());
 				painelCadastroUsuario.setVisible(true);

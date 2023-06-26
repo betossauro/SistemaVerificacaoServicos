@@ -139,10 +139,13 @@ public class PrestacaoDAO {
 			sql = preencherFiltros(sql, seletor);
 		}
 
-//		TODO: Quebrado
-//		if (seletor.temPaginacao()) {
-//			sql = " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
-//		}
+//		TODO: Quebrado 
+//		Erro ao buscar todas as prestações DTO. 
+//		Causa:Statement.executeQuery() cannot issue statements that do not produce result sets.
+		if (seletor.temPaginacao()) {
+			sql += " LIMIT " + seletor.getLimite() 
+				+ " OFFSET " + seletor.getOffset();
+		}
 
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {

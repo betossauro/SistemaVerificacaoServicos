@@ -48,7 +48,7 @@ public class PainelConsultaFuncionario extends JPanel {
 	private JButton btnPegarData;
 
 	// Atributos para a PAGINAÇÃO
-	private final int TAMANHO_PAGINA = 12;
+	private final int TAMANHO_PAGINA = 14;
 	private int paginaAtual = 1;
 	private int totalPaginas = 0;
 	private PrestacaoSeletor seletor = new PrestacaoSeletor();
@@ -66,6 +66,8 @@ public class PainelConsultaFuncionario extends JPanel {
 	private ArrayList<Sala> salas;
 	private PrestacaoDTO prestacaoSelecionada;
 	private JSeparator separator;
+	private PrestacaoController controller = new PrestacaoController();
+
 
 	public JButton getBtnVoltar() {
 		return btnVoltar;
@@ -333,19 +335,17 @@ public class PainelConsultaFuncionario extends JPanel {
 		seletor.setDataInicio(dataInicial.getDate());
 		seletor.setDataFim(dataFinal.getDate());
 
-		PrestacaoController prestacaoController = new PrestacaoController();
 
 		// TODO Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException:
 		// Cannot invoke
 		// "controller.PrestacaoController.consultarComFiltros(model.seletor.PrestacaoSeletor)"
 		// because "this.controller" is null
-		prestacoes = (ArrayList<PrestacaoDTO>) prestacaoController.consultarComFiltros(seletor);
+		prestacoes = (ArrayList<PrestacaoDTO>) controller.consultarComFiltros(seletor);
 		atualizarTabelaConsulta();
 		atualizarQuantidadePaginas();
 	}
 
 	private void atualizarQuantidadePaginas() {
-		PrestacaoController controller = new PrestacaoController();
 		// Cálculo do total de páginas (poderia ser feito no backend)
 		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
 		// QUOCIENTE da divisão inteira

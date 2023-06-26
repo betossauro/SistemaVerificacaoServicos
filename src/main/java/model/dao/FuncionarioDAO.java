@@ -144,6 +144,26 @@ public class FuncionarioDAO {
 		}
 		return cpfJaUtilizado;
 	}
+	
+	public boolean matriculaJaUtilizada(String matriculaBuscada) {
+		boolean matriculaJaUtilizada = false;
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT COUNT(*) FROM FUNCIONARIO " + " WHERE MATRICULA = ? ";
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			query.setString(1, matriculaBuscada);
+			ResultSet resultado = query.executeQuery();
+			if (resultado.next()) {
+				matriculaJaUtilizada = resultado.getInt(1) > 0;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao verificar uso da matrícula: " + matriculaBuscada + "\nCausa: " + erro.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return matriculaJaUtilizada;
+	}
 
 	// Exclusão lógica
 	public boolean excluir(Funcionario funcionario) {

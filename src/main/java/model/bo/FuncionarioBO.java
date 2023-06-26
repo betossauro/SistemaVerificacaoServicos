@@ -20,6 +20,9 @@ public class FuncionarioBO {
 		if (dao.cpfJaUtilizado(novoFuncionario.getCpf())) {
 			throw new CampoInvalidoException("CPF informado já foi utilizado");
 		}
+		if (dao.matriculaJaUtilizada(novoFuncionario.getMatricula())) {
+			throw new CampoInvalidoException("Matrícula informada já foi utilizada");
+		}
 		// Caso CPF não utilizado -> salvar e devolver o funcionario
 		return dao.inserir(novoFuncionario);
 	}
