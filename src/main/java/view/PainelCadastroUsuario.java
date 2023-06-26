@@ -9,6 +9,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
@@ -68,7 +69,7 @@ public class PainelCadastroUsuario extends JPanel {
 	private DatePicker dataNascimento;
 	private JButton btnVoltar;
 	private JTextField txtMatricula;
-	private JTextField txtSenha;
+	private JPasswordField txtSenha;
 
 	public JButton getBtnVoltar() {
 		return btnVoltar;
@@ -307,7 +308,7 @@ public class PainelCadastroUsuario extends JPanel {
 			e.printStackTrace();
 		}
 
-		txtSenha = new JTextField(6);
+		txtSenha = new JPasswordField(6);
 		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(txtSenha, "20, 42, 5, 1, fill, fill");
 		txtSenha.setColumns(10);
@@ -371,6 +372,7 @@ public class PainelCadastroUsuario extends JPanel {
 					JOptionPane.showMessageDialog(null, "Preencha os seguintes campos: \n" + ex.getMessage(), "Erro",
 							JOptionPane.WARNING_MESSAGE);
 				}
+				limparTelaCadastro();
 			}
 		});
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -406,6 +408,20 @@ public class PainelCadastroUsuario extends JPanel {
 		} else {
 			this.funcionario = new Funcionario();
 		}
+	}
+	
+	private void limparTelaCadastro() {
+		txtNome.setText(null);
+		txtCPF.setText(null);
+		txtTelefone.setText(null);
+		dataNascimento.setDate(null);
+		txtCTPS.setText(null);
+		rdbtnGerencia.setSelected(false);
+		rdbtnFuncionario.setSelected(false);
+		cbCargo.setSelectedItem(null);
+		chkInativo.setSelected(false);
+		txtMatricula.setText(null);
+		txtSenha.setText(null);
 	}
 
 }
