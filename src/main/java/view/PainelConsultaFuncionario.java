@@ -236,7 +236,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buscarPrestacoesComFiltros();
+				buscarPrestacoesComFiltros(usuarioAutenticado);
 				atualizarTabelaConsulta();
 			}
 		});
@@ -251,7 +251,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buscarPrestacoesComFiltros();
+				buscarPrestacoesComFiltros(usuarioAutenticado);
 				atualizarTabelaConsulta();
 			}
 		});
@@ -292,7 +292,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				paginaAtual++;
-				buscarPrestacoesComFiltros();
+				buscarPrestacoesComFiltros(usuarioAutenticado);
 				lblPagina.setText(paginaAtual + " / " + totalPaginas);
 				btnRetroceder.setEnabled(paginaAtual > 1);
 				btnAvancar.setEnabled(paginaAtual < totalPaginas);
@@ -304,7 +304,7 @@ public class PainelConsultaFuncionario extends JPanel {
 		btnRetroceder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				paginaAtual--;
-				buscarPrestacoesComFiltros();
+				buscarPrestacoesComFiltros(usuarioAutenticado);
 				lblPagina.setText(paginaAtual + " / " + totalPaginas);
 				btnRetroceder.setEnabled(paginaAtual > 1);
 				btnAvancar.setEnabled(paginaAtual < totalPaginas);
@@ -323,11 +323,12 @@ public class PainelConsultaFuncionario extends JPanel {
 
 	}
 
-	protected void buscarPrestacoesComFiltros() {
+	protected void buscarPrestacoesComFiltros(Funcionario usuarioAutenticado) {
 		seletor = new PrestacaoSeletor();
 		seletor.setLimite(TAMANHO_PAGINA);
 		seletor.setPagina(paginaAtual);
-
+		
+		seletor.setNomeFuncionario(usuarioAutenticado.getNome());
 		Sala salaSelecionada = (Sala) cbSala.getSelectedItem();
 		if (salaSelecionada != null) {
 			seletor.setNumeroSala(salaSelecionada.getNumero());
@@ -335,11 +336,6 @@ public class PainelConsultaFuncionario extends JPanel {
 		seletor.setDataInicio(dataInicial.getDate());
 		seletor.setDataFim(dataFinal.getDate());
 
-
-		// TODO Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException:
-		// Cannot invoke
-		// "controller.PrestacaoController.consultarComFiltros(model.seletor.PrestacaoSeletor)"
-		// because "this.controller" is null
 		prestacoes = (ArrayList<PrestacaoDTO>) controller.consultarComFiltros(seletor);
 		atualizarTabelaConsulta();
 		atualizarQuantidadePaginas();

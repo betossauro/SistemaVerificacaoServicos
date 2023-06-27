@@ -133,15 +133,13 @@ public class PrestacaoDAO {
 				+ " A.DESCRICAO as servico "
 				+ " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, PRESTACAO_ATIVIDADE PA "
 				+ " WHERE P.idFuncionario = F.id " + " AND TC.id = F.IDTIPOCARGO " + " AND PA.IDPRESTACAO = P.ID "
-				+ " AND PA.IDATIVIDADE = A.ID " + " AND S.id = P.IDSALA ";
+				+ " AND PA.IDATIVIDADE = A.ID " + " AND S.id = P.IDSALA "
+				+ " ORDER BY P.DATAINICIO ";
 
 		if (seletor.temFiltro()) {
 			sql = preencherFiltros(sql, seletor);
 		}
 
-//		TODO: Quebrado 
-//		Erro ao buscar todas as prestações DTO. 
-//		Causa:Statement.executeQuery() cannot issue statements that do not produce result sets.
 		if (seletor.temPaginacao()) {
 			sql += " LIMIT " + seletor.getLimite() 
 				+ " OFFSET " + seletor.getOffset();
@@ -188,14 +186,14 @@ public class PrestacaoDAO {
 		}
 
 		if (seletor.getDataInicio() != null && seletor.getDataFim() != null) {
-			sql += " AND P.DATAINICIO BETWEEN '" + seletor.getDataInicio() + "' AND '" + seletor.getDataFim() + "'";
+			sql += " AND P.DATAINICIO BETWEEN '" + seletor.getDataInicio() + "' AND '" + seletor.getDataFim().atTime(23, 59) + "'";
 		} else {
 			if (seletor.getDataInicio() != null) {
 				sql += " AND P.DATAINICIO >= '" + seletor.getDataInicio() + "'";
 			}
 
 			if (seletor.getDataFim() != null) {
-				sql += " AND P.DATAFIM <= '" + seletor.getDataFim() + "'";
+				sql += " AND P.DATAFIM <= '" + seletor.getDataFim().atTime(23, 59) + "'";
 			}
 		}
 
