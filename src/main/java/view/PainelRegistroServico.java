@@ -72,7 +72,11 @@ public class PainelRegistroServico extends JPanel {
 	public JButton getBtnVoltar() {
 		return btnVoltar;
 	}
-
+	
+	public JButton getBtnCadastrar() {
+		return btnCadastrar;
+	}
+	
 	// Métodos usados no JTable
 	private void limparTabela() {
 		tblServicos.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));

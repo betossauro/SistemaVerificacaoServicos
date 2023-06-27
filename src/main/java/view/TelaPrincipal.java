@@ -308,6 +308,7 @@ public class TelaPrincipal {
 				frmTelaInicial.setContentPane(painelRegistroServico);
 				frmTelaInicial.revalidate();
 				registrarCliqueBotaoVoltarDoPainelRegistrarServico();
+				registrarCliqueBotaoRegistrarDoPainelRegistrarServico();
 				montarMenuFuncionario();
 			}
 		});
@@ -428,6 +429,21 @@ public class TelaPrincipal {
 			painelRegistroServico = new PainelRegistroServico(usuarioAutenticado);
 		}
 		painelRegistroServico.getBtnVoltar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelMenuFuncionario = new PainelMenuFuncionario();
+				painelMenuFuncionario.setVisible(true);
+				frmTelaInicial.setContentPane(painelMenuFuncionario);
+				frmTelaInicial.revalidate();
+				montarMenuFuncionario();
+			}
+		});
+	}
+	
+	protected void registrarCliqueBotaoRegistrarDoPainelRegistrarServico() {
+		if (painelRegistroServico == null) {
+			painelRegistroServico = new PainelRegistroServico(usuarioAutenticado);
+		}
+		painelRegistroServico.getBtnCadastrar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				painelMenuFuncionario = new PainelMenuFuncionario();
 				painelMenuFuncionario.setVisible(true);
