@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.accessibility.AccessibleContext;
 
@@ -44,8 +46,8 @@ public class FuncionarioController {
 		if (novoFuncionario.getTipoCargo() == null) {
 			mensagemValidacao += validarTipoCargo(novoFuncionario.getTipoCargo(), "Cargo do Usuário");
 		}
-		mensagemValidacao += validarString(novoFuncionario.getMatricula(), "Matrícula");
-		mensagemValidacao += validarString(novoFuncionario.getSenha(), "Senha");
+		mensagemValidacao += validarMatricula(novoFuncionario.getMatricula());
+		mensagemValidacao += validarSenha(novoFuncionario.getSenha());
 
 		if (!mensagemValidacao.isEmpty()) {
 			throw new CampoInvalidoException(mensagemValidacao);
@@ -79,6 +81,42 @@ public class FuncionarioController {
 			return "";
 		} else {
 			return "- " + nomeCampo + "\n";
+		}
+	}
+	
+	private String validarMatricula(String texto) {
+		boolean valido = false;
+	    if (texto != null && texto.length() > 0) {
+	        String expression = "^[0-9]{6,6}$";
+	        Pattern pattern = Pattern.compile(expression);
+	        Matcher matcher = pattern.matcher(texto);
+	        if (matcher.matches()) {
+	        	valido = true;
+	        }
+	    }
+	    
+	    if (valido) {
+			return "";
+		} else {
+			return "- Matrícula deve conter apenas 6 dígitos numéricos\n";
+		}
+	}
+	
+	private String validarSenha(String texto) {
+		boolean valido = false;
+	    if (texto != null && texto.length() > 0) {
+	        String expression = "^[0-9]{6,6}$";
+	        Pattern pattern = Pattern.compile(expression);
+	        Matcher matcher = pattern.matcher(texto);
+	        if (matcher.matches()) {
+	        	valido = true;
+	        }
+	    }
+	    
+	    if (valido) {
+			return "";
+		} else {
+			return "- Senha deve conter apenas 6 dígitos numéricos\n";
 		}
 	}
 
