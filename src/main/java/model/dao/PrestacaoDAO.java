@@ -133,13 +133,14 @@ public class PrestacaoDAO {
 				+ " A.DESCRICAO as servico "
 				+ " FROM PRESTACAO P, FUNCIONARIO F, TIPOCARGO TC, SALA S, ATIVIDADE A, PRESTACAO_ATIVIDADE PA "
 				+ " WHERE P.idFuncionario = F.id " + " AND TC.id = F.IDTIPOCARGO " + " AND PA.IDPRESTACAO = P.ID "
-				+ " AND PA.IDATIVIDADE = A.ID " + " AND S.id = P.IDSALA "
-				+ " ORDER BY P.DATAINICIO ";
+				+ " AND PA.IDATIVIDADE = A.ID " + " AND S.id = P.IDSALA ";
 
 		if (seletor.temFiltro()) {
 			sql = preencherFiltros(sql, seletor);
 		}
 
+		sql += " ORDER BY P.DATAINICIO ";
+		
 		if (seletor.temPaginacao()) {
 			sql += " LIMIT " + seletor.getLimite() 
 				+ " OFFSET " + seletor.getOffset();

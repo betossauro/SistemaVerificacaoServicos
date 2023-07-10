@@ -358,6 +358,7 @@ public class PainelCadastroUsuario extends JPanel {
 						controller.inserir(funcionario);
 						JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!", 
 								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						limparTelaCadastro();
 					} else {
 						controller.atualizar(funcionario);
 						JOptionPane.showMessageDialog(null, "Funcionário atualizado com sucesso!", 
@@ -368,7 +369,6 @@ public class PainelCadastroUsuario extends JPanel {
 					JOptionPane.showMessageDialog(null, "Preencha os seguintes campos: \n" + ex.getMessage(), "Erro",
 							JOptionPane.WARNING_MESSAGE);
 				}
-				limparTelaCadastro();
 			}
 		});
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
