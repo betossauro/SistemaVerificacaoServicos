@@ -214,7 +214,7 @@ public class PainelCadastroUsuario extends JPanel {
 		txtCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(txtCPF, "20, 14, 5, 1, fill, fill");
 
-		lblTelefone = new JLabel("Telefone:");
+		lblTelefone = new JLabel("Celular:");
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblTelefone, "16, 18");
 
