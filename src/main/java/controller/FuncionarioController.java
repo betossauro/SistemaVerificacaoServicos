@@ -37,7 +37,7 @@ public class FuncionarioController {
 
 		mensagemValidacao += validarString(novoFuncionario.getNome(), "Nome");
 		mensagemValidacao += validarString(novoFuncionario.getCpf(), "CPF");
-		mensagemValidacao += validarString(novoFuncionario.getTelefone(), "Telefone");
+		mensagemValidacao += validarTelefone(novoFuncionario.getTelefone());
 		mensagemValidacao += validarData(novoFuncionario.getDataNascimento(), "Data de Nascimento");
 		mensagemValidacao += validarString(novoFuncionario.getCtps(), "CTPs");
 		if (novoFuncionario.getTipoUsuario() == null) {
@@ -102,6 +102,27 @@ public class FuncionarioController {
 		}
 	}
 	
+	private String validarTelefone(String telefone) {
+        boolean valido = false;
+        if (telefone != null && telefone.length() > 0) {
+            String expression = "^[1-9]{2}+9([0-9]{8})";
+            Pattern pattern = Pattern.compile(expression);
+            Matcher matcher = pattern.matcher(telefone);
+            if (matcher.matches()) {
+                valido = true;
+            }
+        } else {
+        	return "- Celular\n";
+        }
+
+        if (valido) {
+            return "";
+        } else {
+            return "- O terceiro dígito do telefone é obrigatóriamente 9\n";
+        }
+    } 
+
+	
 	private String validarSenha(String texto) {
 		boolean valido = false;
 	    if (texto != null && texto.length() > 0) {
@@ -121,14 +142,14 @@ public class FuncionarioController {
 	}
 
 	private String validarData(LocalDate data, String nomeCampo) {
-		boolean valido = ((data != null && data.getYear() > 1940) && (data.getYear() <= (data.getYear() - 18)));
+        boolean valido = ((data != null && data.getYear() > 1940) && (data.getYear() <= (LocalDate.now().getYear() - 18)));
 
-		if (valido) {
-			return "";
-		} else {
-			return "- " + nomeCampo + "\n";
-		}
-	}
+        if (valido) {
+            return "";
+        } else {
+            return "- " + nomeCampo + "\n";
+        }
+    }
 
 	public boolean excluir(Funcionario funcionario) throws CampoInvalidoException {
 		return bo.excluir(funcionario);
@@ -178,5 +199,7 @@ public class FuncionarioController {
 		}
 		return funcionarioConsultado;
 	}
+	
+	
 
 }
