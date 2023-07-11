@@ -288,6 +288,8 @@ public class FuncionarioDAO {
 			sql = preencherFiltros(sql, seletor);
 		}
 
+		sql += " ORDER BY NOME, IDTIPOUSUARIO, IDTIPOCARGO ASC ";
+		
 		if (seletor.temPaginacao()) {
 			sql += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
 		}
@@ -333,7 +335,6 @@ public class FuncionarioDAO {
 			sql += " IDTIPOCARGO = " + seletor.getTipoCargo().getValor();
 			primeiro = false;
 		}
-		//TODO
 		if (seletor.getAtivo() != null) {
 			if (primeiro) {
 				sql += " WHERE ";

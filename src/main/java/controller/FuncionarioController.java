@@ -121,7 +121,7 @@ public class FuncionarioController {
 	}
 
 	private String validarData(LocalDate data, String nomeCampo) {
-		boolean valido = (data != null);
+		boolean valido = ((data != null && data.getYear() > 1940) && (data.getYear() <= (data.getYear() - 18)));
 
 		if (valido) {
 			return "";
