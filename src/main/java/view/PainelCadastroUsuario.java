@@ -288,7 +288,7 @@ public class PainelCadastroUsuario extends JPanel {
 			e.printStackTrace();
 		}
 
-		txtMatricula = new JTextField(6);
+		txtMatricula = new JFormattedTextField(mascaraMatricula);
 		txtMatricula.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(txtMatricula, "20, 38, 5, 1, fill, fill");
 		txtMatricula.setColumns(10);
