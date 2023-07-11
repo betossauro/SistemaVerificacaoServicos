@@ -151,10 +151,10 @@ public class TelaLogin {
 		pswSenha.setToolTipText("Insira sua senha");
 		frmLogin.getContentPane().add(pswSenha, "20, 40, 5, 1, fill, fill");
 
-		lblErro = new JLabel("Erro ao validar usuário!");
+		lblErro = new JLabel("Erro ao validar usuário, verifique se a matrícula e senha possuem 6 dígitos numéricos!");
 		lblErro.setHorizontalAlignment(SwingConstants.CENTER);
 		lblErro.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		frmLogin.getContentPane().add(lblErro, "22, 45");
+		frmLogin.getContentPane().add(lblErro, "20, 45, 5, 1");
 		lblErro.setVisible(false);
 
 		btnEntrar = new JButton("Entrar");
